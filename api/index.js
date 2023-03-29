@@ -28,7 +28,7 @@
    async function initApp(app_config, db_config){
      try {
       await connectDb(db_config)
-      server.listen(app_config.port, () => console.log(`Server listen on port:  ${app_config.port}`)); // eslint-disable-line no-console
+      server.listen(app_config.uri, () => console.log(`Server listen on port:  ${app_config.port}`)); // eslint-disable-line no-console
      } catch (e) {
       console.error(e)
       process.exit(0) // si hay un error al pasarle 0 corta el proceso de node
