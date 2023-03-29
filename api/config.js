@@ -5,7 +5,7 @@ const config = {
     },
 
     dbConfig : {
-        port : process.env.DB_PORT,
+        uri : process.env.URI,
         host : process.env.DB_HOST,
         dbName : process.env.DB_NAME
     }
