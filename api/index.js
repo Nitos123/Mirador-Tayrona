@@ -18,6 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
    require('dotenv').config() // permite usar las variables de entorno
    server = require('./src/app.js');
    const connectDb = require('./src/db')
@@ -34,4 +35,5 @@
   }
 
   initApp(appConfig,dbConfig)
+
 
