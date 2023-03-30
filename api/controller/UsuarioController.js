@@ -2,7 +2,7 @@ const Usuario = require("../src/models/Usuario");
 
 async function addUsuario(req, res) {
   try {
-    const { fullName, userName, password, email, phone, status, type } =
+    const { fullName, userName, password, email, phone, status, type, coments } =
       req.body;
     console.log(req.body);
 
@@ -14,14 +14,15 @@ async function addUsuario(req, res) {
       phone,
       status,
       type,
+      coments
     });
     const usuarioStored = await usuario.save();
     res.status(201).send({ usuarioStored });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
-}
 
+}
 module.exports = {
   addUsuario,
 };

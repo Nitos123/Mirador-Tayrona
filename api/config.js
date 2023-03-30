@@ -6,6 +6,7 @@ const config = {
 
     dbConfig : {
         uri : process.env.URI,
+        dbPort : process.env.DB_PORT,
         host : process.env.DB_HOST,
         dbName : process.env.DB_NAME
     }
