@@ -16,9 +16,7 @@ const NavBar = (props) => {
         <button>Rooms & Services</button>
       </Link>
 
-      <Link to="/about">
-        <button>About</button>
-      </Link>
+      <a href="/home#About">About</a>
 
       <Link to="/contact">
         <button>Contact</button>
