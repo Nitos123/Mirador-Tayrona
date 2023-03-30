@@ -21,7 +21,7 @@ async function addAlmuerzo(req, res) {
 const getAllAlmuerzo =  async (req, res)=>{
   try {
     const response = await Almuerzo.find()
-    res.send(response)
+    return response
   } catch (error) {
     console.log(error)
   }

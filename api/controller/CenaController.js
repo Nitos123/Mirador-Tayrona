@@ -20,7 +20,7 @@ async function addCena(req, res) {
 const getAllCena =  async (req, res)=>{
   try {
     const response = await Cena.find()
-    res.send(response)
+    return response
   } catch (error) {
     console.log(error)
   }

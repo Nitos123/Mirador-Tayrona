@@ -20,7 +20,7 @@ async function addDesayuno(req, res) {
 const getAllDesayuno =  async (req, res)=>{
   try {
     const response = await Desayuno.find()
-    res.send(response)
+    return response
   } catch (error) {
     console.log(error)
   }
