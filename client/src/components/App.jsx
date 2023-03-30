@@ -4,6 +4,8 @@ import NavBar from "./NavBar";
 import rooms from "../views/Rooms";
 import About from "./About";
 import Contact from "./Contact";
+import Detail from "../views/Detail";
+import Footer from "./Footer";
 import "../styles/App.css";
 
 function App() {
@@ -14,11 +16,13 @@ function App() {
       <Routes>
         <Route exact path="/" Component={Home} />
         <Route exact path="/home" Component={Home} />
-        <Route exact path="/services" Component={Home} />
+        <Route exact path="/detail" Component={Detail} />
         <Route exact path="/rooms" Component={rooms} />
         <Route exact path="/about" Component={About} />
         <Route exact path="/contact" Component={Contact} />
       </Routes>
+
+      <Footer />
     </div>
   );
 }
