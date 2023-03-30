@@ -16,6 +16,17 @@ async function addCena(req, res) {
     res.status(500).send({ message: error.message });
   }
 }
+
+const getAllCena =  async (req, res)=>{
+  try {
+    const response = await Cena.find()
+    res.send(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   addCena,
+  getAllCena
 };

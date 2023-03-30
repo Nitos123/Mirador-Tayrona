@@ -16,6 +16,22 @@ async function addDesayuno(req, res) {
     res.status(500).send({ message: error.message });
   }
 }
+
+const getAllDesayuno =  async (req, res)=>{
+  try {
+    const response = await Desayuno.find()
+    res.send(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 module.exports = {
   addDesayuno,
+  getAllDesayuno
 };
+
+
+

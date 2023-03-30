@@ -1,8 +1,9 @@
 const express = require("express");
-const { addAlmuerzo } = require("../../controller/AlmuerzoController");
+const { addAlmuerzo, getAllAlmuerzo} = require("../../controller/AlmuerzoController");
 
 const api = express.Router();
 
 api.post("/almuerzo", addAlmuerzo);
+api.get("/almuerzo", getAllAlmuerzo)
 
 module.exports = api;
