@@ -6,7 +6,7 @@ export default function CardReview() {
       <div>
         <div>
           <img
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffree-png-vectors%2Fuser-avatar&psig=AOvVaw0sHRdC6wbm5y8z4Dcb1or4&ust=1680226532397000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKDZzN7Bgv4CFQAAAAAdAAAAABAd"
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
             alt="image review"
           />
         </div>
