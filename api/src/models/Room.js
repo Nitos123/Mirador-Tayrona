@@ -15,4 +15,3 @@ const RoomSchema = Schema(
 );
 
 module.exports = mongoose.model("Room", RoomSchema);
-

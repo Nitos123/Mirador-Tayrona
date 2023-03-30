@@ -3,15 +3,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const DesayunoSchema = Schema(
-
-  { 
-type: String,
-name: String,
-description: String,
-price: Number,
-
-},
-  { timestamps: true }
+  {
+    type: Number,
+    name: String,
+    description: String,
+    price: Number,
+  }
 );
 
 module.exports = mongoose.model("Desayuno", DesayunoSchema);
