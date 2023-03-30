@@ -10,6 +10,7 @@ const CardRoom = (props) => {
           alt="image review"
         />
       </div>
+
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum nulla
         voluptatem facilis facere, saepe voluptates eum perspiciatis aspernatur

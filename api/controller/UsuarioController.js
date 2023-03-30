@@ -23,6 +23,17 @@ async function addUsuario(req, res) {
   }
 
 }
+
+const getAllUsers =  async (req, res)=>{
+  try {
+    const search = await Usuario.find()
+    res.send(search)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   addUsuario,
+  getAllUsers
 };

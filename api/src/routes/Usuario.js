@@ -1,11 +1,12 @@
-const express = require('express')
-const {addUsuario} = require('../../controller/UsuarioController')
+const express = require("express");
+const {
+  addUsuario,
+  getAllUsers,
+} = require("../../controller/UsuarioController");
 
-const api = express.Router()
+const api = express.Router();
 
+api.post("/usuarios", addUsuario);
+api.get("/usuarios", getAllUsers);
 
-
-api.post('/usuarios', addUsuario)
-
-
-module.exports = api
+module.exports = api;
