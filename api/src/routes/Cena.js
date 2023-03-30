@@ -1,11 +1,9 @@
-const express = require('express')
-const {addCena} = require('../../controller/CenaController')
+const express = require("express");
+const { addCena, getAllCena} = require("../../controller/CenaController");
 
-const api = express.Router()
+const api = express.Router();
 
+api.post("/cena", addCena);
+api.get("/cena",getAllCena )
 
-
-api.post('/cena', addCena)
-
-
-module.exports = api   
+module.exports = api;

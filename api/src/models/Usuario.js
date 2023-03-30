@@ -8,12 +8,11 @@ const ComentSchema = Schema(
     rating: Number,
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "Usuario"
-    }
+      ref: "Usuario",
+    },
   },
   { timestamps: true }
 );
-
 
 const UsuarioSchema = Schema(
   {
