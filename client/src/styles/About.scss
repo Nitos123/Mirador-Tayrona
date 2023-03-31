@@ -1,0 +1,10 @@
+@import "./settings.scss";
+
+.sectionAbout {
+  max-width: $maxWidthContainer;
+  margin: auto;
+}
+
+.aboutContainer {
+  display: flex;
+}

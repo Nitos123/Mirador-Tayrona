@@ -1,3 +1,13 @@
-.test {
-  background-color: aqua;
+@import "./settings.scss";
+
+.footer {
+  background-color: $secundary;
+  width: 100%;
+  padding: 3rem 0;
+  margin-top: 5rem;
+
+  .footerSection {
+    max-width: $maxWidthContainer;
+    margin: auto;
+  }
 }

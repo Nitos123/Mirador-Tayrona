@@ -1,9 +1,10 @@
 import React from "react";
+import '../styles/CardReview.scss';
 
 export default function CardReview() {
   return (
-    <div>
-      <div>
+    <div className="card-review">
+      <div className="card-header">
         <div>
           <img
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
