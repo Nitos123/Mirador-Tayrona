@@ -21,7 +21,7 @@
 
   .logo {
     a {
-      color: white;
+      color: $light;
       font-weight: bold;
       display: flex;
       text-align: left;
@@ -36,7 +36,7 @@
 
     a {
       margin-left: 2.5rem;
-      color: white;
+      color: $light;
     }
   }
 }
