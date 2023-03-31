@@ -13,7 +13,7 @@ export default function CardReview() {
         </div>
         <div>⭐⭐⭐⭐⭐</div>
       </div>
-      <div>
+      <div className="card-content">
         <h3>Floyd Miles</h3>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure enim,
