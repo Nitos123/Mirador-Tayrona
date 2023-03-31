@@ -11,10 +11,10 @@ const CardServicesContainer = (props) => {
     <div>
       <h1>Take a Look At Our Services</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-        suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
-        veritatis voluptate dolores possimus vel omnis dicta perferendis? Ut,
-        minus cum.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione
+        consequatur veniam quo blanditiis impedit. Sint tempore officiis sed
+        assumenda ea, quasi sapiente debitis tempora libero commodi repellendus
+        praesentium ipsam quis.
       </p>
       <swiper-container slides-per-view="1" speed="500" loop="true">
         {services?.map((room, index) => {

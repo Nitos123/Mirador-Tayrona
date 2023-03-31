@@ -8,8 +8,7 @@ import "../styles/Home.scss";
 const Home = () => {
   return (
     <div className="home">
-      <div className="mainImage">
-      </div>
+      <div className="mainImage"></div>
 
       <section className="section">
         <div className="txtUnderMainImage">
