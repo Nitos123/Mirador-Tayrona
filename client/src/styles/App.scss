@@ -1,13 +1,9 @@
+@import './settings';
+
 #root {
   width: 100%;
   margin: 0 auto;
   text-align: center;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  background-color: $bg-color;
+  color: $font-color;
 }
