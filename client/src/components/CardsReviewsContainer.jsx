@@ -19,7 +19,7 @@ export default function CardsReviewsContainer() {
           <h3>Don’t take our word for it. Trust our customers</h3>
           <div className="carousel-slider">
             <swiper-container
-              slides-per-view="3"
+              slides-per-view="4"
               speed="500"
               loop="true"
               space-between="32"

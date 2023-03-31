@@ -14,12 +14,53 @@
   background-position: center center;
 }
 
-.stayHere {
+.home-row-icons-hotels {
   display: flex;
+  justify-content: center;
+  margin: 2rem 0;
 
-  img {
-    height: 700px;
-    width: 720px;
-    object-fit: cover;
+  .fa-icons {
+    margin: 1rem 2rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin: 2rem;
+      height: 2rem;
+      color: $primary;
+    }
+  }
+}
+
+.two-columns {
+  .stayHereTxt,
+  .stayHereImg {
+    width: 50%;
+  }
+
+  .stayHereTxt {
+    text-align: left;
+    
+    .row-stay-here {
+      width: 80%;
+      margin: 3rem 0;
+      
+      h3 {
+        margin: 1rem 0;
+      }
+
+      .number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: $light;
+        background-color: $primary;
+        border-radius: 50px;
+      }
+    }
   }
 }
