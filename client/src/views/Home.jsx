@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <div className="home">
       <div className="mainImage">
-        <h1>Estoy en el home</h1>
       </div>
 
       <div className="txtUnderMainImage">
