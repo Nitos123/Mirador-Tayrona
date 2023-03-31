@@ -6,7 +6,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Detail from "../views/Detail";
 import Footer from "./Footer";
-import "../styles/App.css";
+import "../styles/App.scss";
 
 function App() {
   return (
