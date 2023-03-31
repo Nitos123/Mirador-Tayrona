@@ -8,7 +8,8 @@ import "../styles/Home.scss";
 const Home = () => {
   return (
     <div className="home">
-      <div className="mainImage"></div>
+      <div className="mainImageHome">
+      </div>
 
       <section className="section">
         <div className="txtUnderMainImage">
@@ -133,9 +134,9 @@ const Home = () => {
         </div>
       </div>
 
-      <div>
+      <section className="section">
         <CardsReviewsContainer />
-      </div>
+      </section>
     </div>
   );
 };

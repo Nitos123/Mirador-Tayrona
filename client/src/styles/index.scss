@@ -64,3 +64,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.section {
+  max-width: $maxWidthContainer;
+  margin: auto;
+}
