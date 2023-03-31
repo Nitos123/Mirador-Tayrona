@@ -42,7 +42,28 @@ const getAllRooms = async (req, res) => {
   }
 };
 
+const getRoomId = async (req,res)=>{
+  try {
+    const {id} = req.params
+    const response = await Room.findById(id)
+    res.send(response)
+  } catch (error) {
+    
+  }
+}
+
+
+async function getRoomType(req, res) {
+
+  const {type}= req.query
+  const result = await Room.findOne({ type });
+  res.send(result)
+}
+
+
 module.exports = {
   addRoom,
   getAllRooms,
+  getRoomId,
+  getRoomType,
 };
