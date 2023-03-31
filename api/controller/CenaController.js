@@ -2,13 +2,14 @@ const Cena = require("../src/models/Cena");
 
 async function addCena(req, res) {
   try {
-    const { type, name, description, price } = req.body;
+    const { type, name, description, price, image } = req.body;
 
     const cena = Cena({
       type,
       name,
       description,
       price,
+      image,
     });
     const cenaStored = await cena.save();
     res.status(201).send({ cenaStored });
