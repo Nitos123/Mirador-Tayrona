@@ -19,37 +19,45 @@ const Home = () => {
         <p>Free Wifi</p>
       </div>
 
-      <h1>Why you should stay here</h1>
+      <h1>Why You Should Stay Here</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam alias
+        suscipit saepe officia sed labore enim doloribus molestiae! Magni
+        facilis possimus unde fuga, in expedita quibusdam sunt quae veritatis
+        harum!
+      </p>
 
       <div className="stayHere">
         <div className="stayHereTxt">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis vel
-            sequi accusamus cumque, totam adipisci maxime magni error voluptatem
-            quas consequuntur ullam maiores quaerat iste repellendus explicabo
-            in tenetur vitae. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Nobis vel sequi accusamus cumque, totam adipisci maxime magni
-            error voluptatem quas consequuntur ullam maiores quaerat iste
-            repellendus explicabo in tenetur vitae.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis vel
-            sequi accusamus cumque, totam adipisci maxime magni error voluptatem
-            quas consequuntur ullam maiores quaerat iste repellendus explicabo
-            in tenetur vitae. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Nobis vel sequi accusamus cumque, totam adipisci maxime magni
-            error voluptatem quas consequuntur ullam maiores quaerat iste
-            repellendus explicabo in tenetur vitae.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis vel
-            sequi accusamus cumque, totam adipisci maxime magni error voluptatem
-            quas consequuntur ullam maiores quaerat iste repellendus explicabo
-            in tenetur vitae. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Nobis vel sequi accusamus cumque, totam adipisci maxime magni
-            error voluptatem quas consequuntur ullam maiores quaerat iste
-            repellendus explicabo in tenetur vitae.
-          </p>
+          <div>
+            <p>Provide the best choice of Room.</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              neque in dicta ipsa maiores. Adipisci dolore veritatis numquam
+              officiis incidunt esse corrupti eaque soluta, eos vitae omnis
+              sint? Doloremque, iste.
+            </p>
+          </div>
+
+          <div>
+            <p>Low price with Best Quality</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              neque in dicta ipsa maiores. Adipisci dolore veritatis numquam
+              officiis incidunt esse corrupti eaque soluta, eos vitae omnis
+              sint? Doloremque, iste.
+            </p>
+          </div>
+
+          <div>
+            <p>Restaurant Service</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              neque in dicta ipsa maiores. Adipisci dolore veritatis numquam
+              officiis incidunt esse corrupti eaque soluta, eos vitae omnis
+              sint? Doloremque, iste.
+            </p>
+          </div>
         </div>
         <div className="stayHereImg">
           <img
@@ -60,18 +68,50 @@ const Home = () => {
       </div>
 
       <h1>Take a look At our Rooms</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+        suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
+        veritatis voluptate dolores possimus vel omnis dicta perferendis? Ut,
+        minus cum.
+      </p>
+
       <div>
         <CardRoomContainer />
       </div>
+
       <section id="About">
         <About />
       </section>
 
       <div className="txtUnderMainImage">
-        <p>Restorant</p>
-        <p>Garage</p>
-        <p>Resort</p>
-        <p>Free Wifi</p>
+        <h2>Restorant</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+          odit ex, qui quo recusandae hic quasi ratione explicabo consequatur.
+          Nobis dolor temporibus aperiam facilis totam obcaecati distinctio
+          mollitia! Id, ducimus?
+        </p>
+        <h2>Garage</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+          odit ex, qui quo recusandae hic quasi ratione explicabo consequatur.
+          Nobis dolor temporibus aperiam facilis totam obcaecati distinctio
+          mollitia! Id, ducimus?
+        </p>
+        <h2>Resort</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+          odit ex, qui quo recusandae hic quasi ratione explicabo consequatur.
+          Nobis dolor temporibus aperiam facilis totam obcaecati distinctio
+          mollitia! Id, ducimus?
+        </p>
+        <h2>Free Wifi</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+          odit ex, qui quo recusandae hic quasi ratione explicabo consequatur.
+          Nobis dolor temporibus aperiam facilis totam obcaecati distinctio
+          mollitia! Id, ducimus?
+        </p>
       </div>
 
       <div>
