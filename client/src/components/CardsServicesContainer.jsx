@@ -9,12 +9,18 @@ const CardServicesContainer = (props) => {
 
   return (
     <div>
-      <h1>Estoy en CardServicesContainer y tengo a CardServices</h1>
+      <h1>Take a Look At Our Services</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+        suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
+        veritatis voluptate dolores possimus vel omnis dicta perferendis? Ut,
+        minus cum.
+      </p>
       <swiper-container slides-per-view="1" speed="500" loop="true">
         {services?.map((room, index) => {
           return (
             <swiper-slide key={index}>
-              <CardServices />;
+              <CardServices />
             </swiper-slide>
           );
         })}

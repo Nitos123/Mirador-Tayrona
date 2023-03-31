@@ -5,13 +5,14 @@ import CardServicesContainer from "../components/CardsServicesContainer";
 const rooms = (props) => {
   return (
     <div>
-      <h1>Estoy en room and services </h1>
+      <h1>Room and Services </h1>
 
+      <h1>Take a Look At Our Rooms</h1>
       <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum enim
-        dolorem quo eveniet exercitationem mollitia asperiores iusto voluptate.
-        Iure exercitationem ab doloremque rerum, officiis ullam pariatur laborum
-        mollitia cum eius.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+        suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
+        veritatis voluptate dolores possimus vel omnis dicta perferendis? Ut,
+        minus cum.
       </p>
       <select>
         <option>Price</option>

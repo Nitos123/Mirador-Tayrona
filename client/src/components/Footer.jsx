@@ -5,8 +5,6 @@ import "../styles/Footer.scss";
 const Footer = (props) => {
   return (
     <div>
-      <h1>Esto es el footer</h1>
-
       <div className="test">
         <h3>Quick Link</h3>
 
