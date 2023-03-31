@@ -1,26 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../styles/NavBar.scss';
 
 const NavBar = (props) => {
   return (
-    <div>
-      <Link to="/home">
-        <button>Mirador Tayrona Park</button>
-      </Link>
+    <div className="navbar">
+      <div className="container-navbar">
+        <div className="logo">
+          <Link to="/home">Mirador <br /> Tayrona Park</Link>
+        </div>
+        <div className="items-menu">
+          <Link to="/home">Home</Link>
 
-      <Link to="/home">
-        <button>Home</button>
-      </Link>
+          <Link to="/rooms">Rooms & Services</Link>
 
-      <Link to="/rooms">
-        <button>Rooms & Services</button>
-      </Link>
+          <a href="/home#About">About</a>
 
-      <a href="/home#About">About</a>
-
-      <Link to="/contact">
-        <button>Contact</button>
-      </Link>
+          <Link to="/contact">Contact</Link>
+        </div>
+      </div>
     </div>
   );
 };
