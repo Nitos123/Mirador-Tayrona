@@ -22,5 +22,3 @@ try {
 })
 
 module.exports = api
-
-

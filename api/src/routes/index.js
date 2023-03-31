@@ -8,6 +8,8 @@ const cenaRoutes = require("./Cena");
 const almuerzoRoutes = require("./almuerzo");
 const desayunoRoutes = require("./Desayuno");
 const comidasRoutes = require("./comidas")
+const transporteRoutes = require("./Transporte")
+const carritoRoutes = require("./carrito")
 
 
 // Configurar los routers
@@ -18,5 +20,9 @@ router.use(almuerzoRoutes);
 router.use(desayunoRoutes);
 router.use(comidasRoutes);
 router.use(roomRoutes);
+router.use(transporteRoutes)
+router.use(carritoRoutes)
+
+
 
 module.exports = router;
