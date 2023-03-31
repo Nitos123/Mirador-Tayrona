@@ -1,5 +1,6 @@
 import CardReview from "./CardReview";
 import { register } from "swiper/element/bundle"; //import swiper slider - Con esto podemos hacer el carousel
+import "../styles/CardsReviewsContainer.scss";
 
 import React from "react";
 
@@ -9,22 +10,29 @@ export default function CardsReviewsContainer() {
   register();
 
   return (
-    <div>
+    <div className="container-reviews">
       {reviews?.length === 0 ? (
         ""
       ) : (
         <div>
           <h1>Our Customer Feedback</h1>
           <h3>Don’t take our word for it. Trust our customers</h3>
-          <swiper-container slides-per-view="3" speed="500" loop="true">
-            {reviews?.map((review, index) => {
-              return (
-                <swiper-slide key={index}>
-                  <CardReview />
-                </swiper-slide>
-              );
-            })}
-          </swiper-container>
+          <div className="carousel-slider">
+            <swiper-container
+              slides-per-view="3"
+              speed="500"
+              loop="true"
+              space-between="32"
+            >
+              {reviews?.map((review, index) => {
+                return (
+                  <swiper-slide key={index}>
+                    <CardReview />
+                  </swiper-slide>
+                );
+              })}
+            </swiper-container>
+          </div>
         </div>
       )}
     </div>
