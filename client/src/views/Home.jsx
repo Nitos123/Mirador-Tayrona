@@ -3,24 +3,37 @@ import CardRoomContainer from "../components/CardsRoomContainer";
 import CardsReviewsContainer from "../components/CardsReviewsContainer";
 import About from "../components/About";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils, faWarehouse, faHotel, faWifi } from '@fortawesome/free-solid-svg-icons';
 import "../styles/Home.scss";
 
 const Home = () => {
   return (
     <div className="home">
-      <div className="mainImageHome">
-      </div>
+      <div className="mainImageHome"></div>
 
       <section className="section">
-        <div className="txtUnderMainImage">
-          <p>Restorant</p>
-          <p>Garage</p>
-          <p>Resort</p>
-          <p>Free Wifi</p>
+        <div className="home-row-icons-hotels">
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faUtensils} />
+            <p>Restorant</p>
+          </div>
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faWarehouse} />
+            <p>Garage</p>
+          </div>
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faHotel} />
+            <p>Resort</p>
+          </div>
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faWifi} />
+            <p>Free Wifi</p>
+          </div>
         </div>
 
-        <div>
-          <h1>Why You Should Stay Here</h1>
+        <div className="header-section stayHere">
+          <h2>Why You Should <span>Stay Here</span></h2>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam
             alias suscipit saepe officia sed labore enim doloribus molestiae!
@@ -29,52 +42,47 @@ const Home = () => {
           </p>
         </div>
 
-        <div>
-          <div className="stayHere">
-            <div className="stayHereTxt">
-              <div>
-                <p>Provide the best choice of Room.</p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempore neque in dicta ipsa maiores. Adipisci dolore veritatis
-                  numquam officiis incidunt esse corrupti eaque soluta, eos
-                  vitae omnis sint? Doloremque, iste.
-                </p>
-              </div>
-
-              <div>
-                <p>Low price with Best Quality</p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempore neque in dicta ipsa maiores. Adipisci dolore veritatis
-                  numquam officiis incidunt esse corrupti eaque soluta, eos
-                  vitae omnis sint? Doloremque, iste.
-                </p>
-              </div>
-
-              <div>
-                <p>Restaurant Service</p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempore neque in dicta ipsa maiores. Adipisci dolore veritatis
-                  numquam officiis incidunt esse corrupti eaque soluta, eos
-                  vitae omnis sint? Doloremque, iste.
-                </p>
-              </div>
+        <div className="two-columns">
+          <div className="stayHereTxt">
+            <div className="row-stay-here">
+              <div className="number">1</div>
+              <h3>Provide the best choice of Room.</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Tempore neque in dicta ipsa maiores. 
+              </p>
             </div>
 
-            <div className="stayHereImg">
-              <img
-                src="https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true"
-                alt="image review"
-              />
+            <div className="row-stay-here">
+              <div className="number">2</div>
+              <h3>Low price with Best Quality</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Tempore neque in dicta ipsa maiores. 
+              </p>
             </div>
+
+            <div className="row-stay-here">
+              <div className="number">3</div>
+              <h3>Restaurant Service</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Tempore neque in dicta ipsa maiores. 
+              </p>
+            </div>
+          </div>
+
+          <div className="stayHereImg">
+            <img
+              src="https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true"
+              alt="image review"
+            />
           </div>
         </div>
       </section>
 
       <div className="section">
-        <h1>Take a look At our Rooms</h1>
+        <h2>Take a look At our Rooms</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
           suscipit, animi officia quo, culpa minus sequi voluptas ad vitae

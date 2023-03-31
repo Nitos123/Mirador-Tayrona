@@ -3,6 +3,7 @@ $primary: #80D3BB;
 $secundary: #3E6157;
 $light: #FFFFFF;
 $dark: #242424;
+$color-text: #8e8e8e;
 
 // Sombras
 $shadow: 0px 0px 10px 5px #00000015;
@@ -13,5 +14,6 @@ $maxWidthContainer: 1240px;
 
 //Theme
 $bg-color: $light;
-$font-color: $dark;
+$font-color: $color-text;
+$header-color: $dark;
 $font-color-secundary: $primary;
