@@ -2,13 +2,14 @@ const Almuerzo = require("../src/models/Almuerzo");
 
 async function addAlmuerzo(req, res) {
   try {
-    const { type, name, description, price } = req.body;
+    const { type, name, description, price, image } = req.body;
 
     const almuerzo = Almuerzo({
       type,
       name,
       description,
       price,
+      image,
     });
     const almuerzoStored = await almuerzo.save();
     res.status(201).send({ almuerzoStored });

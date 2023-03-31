@@ -2,13 +2,14 @@ const Desayuno = require("../src/models/Desayuno");
 
 async function addDesayuno(req, res) {
   try {
-    const { type, name, description, price } = req.body;
+    const { type, name, description, price, image } = req.body;
 
     const desayuno = Desayuno({
       type,
       name,
       description,
       price,
+      image,
     });
     const desayunoStored = await desayuno.save();
     res.status(201).send({ desayunoStored });
