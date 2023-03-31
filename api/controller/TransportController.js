@@ -1,11 +1,13 @@
 const Transporte = require("../src/models/Transport");
 
 const addTransporte = async (req, res) => {
-  const { asientos, precio, numero } = req.body;
+  const { asientos, price, numero, description, image } = req.body;
   const transporte = Transporte({
     asientos,
-    precio,
+    price,
     numero,
+    description,
+    image
   });
 
   await transporte.save();

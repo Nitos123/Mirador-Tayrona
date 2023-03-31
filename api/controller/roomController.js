@@ -53,8 +53,18 @@ const getRoomId = async (req,res)=>{
   }
 }
 
+
+async function getRoomType(req, res) {
+
+  const {type}= req.query
+  const result = await Room.findOne({ type });
+  res.send(result)
+}
+
+
 module.exports = {
   addRoom,
   getAllRooms,
-  getRoomId 
+  getRoomId,
+  getRoomType
 };
