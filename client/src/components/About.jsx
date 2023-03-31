@@ -16,6 +16,12 @@ const About = () => {
         dolore quos in accusantium, similique incidunt rem neque sapiente eum.
         Quibusdam laborum obcaecati error provident fugit.
       </h3>
+      <div>
+        <img
+          src="     https://blog.advesa.com/wp-content/uploads/2019/11/about-us-page.png"
+          alt="image review"
+        />
+      </div>
     </div>
   );
 };
