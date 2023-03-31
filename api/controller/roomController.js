@@ -33,6 +33,17 @@ const addRoom = async (req, res) => {
   }
 };
 
+const getAllRooms = async (req, res)=>{
+try {
+  const response = await Room.find()
+  res.send(response)
+} catch (error) {
+  console.log(error)
+  
+}
+}
+
 module.exports = {
   addRoom,
+  getAllRooms
 };
