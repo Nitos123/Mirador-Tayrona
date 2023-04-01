@@ -16,11 +16,7 @@ const Footer = (props) => {
           <Link to="/rooms">
             <p>Rooms & Services</p>
           </Link>
-
-          <Link to="/about">
-            <p>About</p>
-          </Link>
-
+          
           <Link to="/contact">
             <p>Contact</p>
           </Link>
