@@ -136,44 +136,48 @@ const Home = () => {
       </section>
 
       <div className="section">
-        <div className="txtUnderMainImage">
-          <div>
-            <h2>Restorant</h2>
+        <div className="home-grid-icons-hotels">
+          <div className="fa-icons">
+            <div className="box-icon">
+              <FontAwesomeIcon icon={faUtensils} />
+            </div>
+            <h4>The Best Rooms</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
 
-          <div>
-            <h2>Garage</h2>
+          <div className="fa-icons">
+            <div className="box-icon">
+              <FontAwesomeIcon icon={faUtensils} />
+            </div>
+            <h4>Restorant</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
 
-          <div>
-            <h2>Resort</h2>
+          <div className="fa-icons">
+            <div className="box-icon">
+              <FontAwesomeIcon icon={faUtensils} />
+            </div>
+            <h4>Lounge Bar</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
 
-          <div>
-            <h2>Free Wifi</h2>
+          <div className="fa-icons">
+            <div className="box-icon">
+              <FontAwesomeIcon icon={faUtensils} />
+            </div>
+            <h4>Touristic Park</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
         </div>
