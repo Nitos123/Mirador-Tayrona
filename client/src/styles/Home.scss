@@ -63,3 +63,51 @@
     }
   }
 }
+
+.rooms {
+  .header-section {
+    h2, h3 {
+      margin: auto;
+    }
+  }
+}
+
+.about {
+  background-color: $secundary;
+  color: $light;
+
+  .aboutContainer {
+    display: flex;
+    align-items: center;
+    max-width: 1240px;
+    margin: auto;
+
+    .about-content, .about-img {
+      width: 50%;
+    }
+
+    .about-content {
+      text-align: left;
+      
+      h2, p {
+        width: 80%;
+        color: $light;
+      }
+
+      h2 {
+        border-bottom: solid;
+        border-color: $primary;
+        width: fit-content;
+      }
+    }
+
+    .about-img {
+      display: flex;
+      
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}

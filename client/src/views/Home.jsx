@@ -1,7 +1,6 @@
 import React from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
 import CardsReviewsContainer from "../components/CardsReviewsContainer";
-import About from "../components/About";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -88,9 +87,12 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section rooms">
         <div className="header-section">
-          <h2>Take a look At our Rooms</h2>
+          <h3>Take a look</h3>
+          <h2>
+            At our <span>rooms</span>
+          </h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
             suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
@@ -103,8 +105,34 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="About">
-        <About />
+      <section id="About" className="about">
+        <div className="aboutContainer">
+          <div className="about-content">
+            <h2>About us</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis
+              quasi id molestiae cumque labore dolore quos in accusantium,
+              similique incidunt rem neque sapiente eum. Quibusdam laborum
+              obcaecati error provident fugit.Lorem ipsum dolor sit amet
+              consectetur, adipisicing elit. Officiis quasi id molestiae cumque
+              labore dolore quos in accusantium, similique incidunt rem neque
+              sapiente eum.
+            </p>
+            <p>
+              Quibusdam laborum obcaecati error provident fugit.Lorem ipsum
+              dolor sit amet consectetur, adipisicing elit. Officiis quasi id
+              molestiae cumque labore dolore quos in accusantium, similique
+              incidunt rem neque sapiente eum. Quibusdam laborum obcaecati error
+              provident fugit.
+            </p>
+          </div>
+          <div className="about-img">
+            <img
+              src="https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true"
+              alt="image review"
+            />
+          </div>
+        </div>
       </section>
 
       <div className="section">
