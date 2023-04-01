@@ -8,6 +8,9 @@ import {
   faWarehouse,
   faHotel,
   faWifi,
+  faBed,
+  faMartiniGlassCitrus,
+  faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Home.scss";
 
@@ -51,7 +54,7 @@ const Home = () => {
         <div className="two-columns">
           <div className="stayHereTxt">
             <div className="row-stay-here">
-              <div className="number">1</div>
+              <div className="circle-icon">1</div>
               <h3>Provide the best choice of Room.</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
@@ -60,7 +63,7 @@ const Home = () => {
             </div>
 
             <div className="row-stay-here">
-              <div className="number">2</div>
+              <div className="circle-icon">2</div>
               <h3>Low price with Best Quality</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
@@ -69,7 +72,7 @@ const Home = () => {
             </div>
 
             <div className="row-stay-here">
-              <div className="number">3</div>
+              <div className="circle-icon">3</div>
               <h3>Restaurant Service</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
@@ -138,8 +141,8 @@ const Home = () => {
       <div className="section">
         <div className="home-grid-icons-hotels">
           <div className="fa-icons">
-            <div className="box-icon">
-              <FontAwesomeIcon icon={faUtensils} />
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faBed} />
             </div>
             <h4>The Best Rooms</h4>
             <p>
@@ -149,8 +152,8 @@ const Home = () => {
           </div>
 
           <div className="fa-icons">
-            <div className="box-icon">
-              <FontAwesomeIcon icon={faUtensils} />
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faMartiniGlassCitrus} />
             </div>
             <h4>Restorant</h4>
             <p>
@@ -160,7 +163,7 @@ const Home = () => {
           </div>
 
           <div className="fa-icons">
-            <div className="box-icon">
+            <div className="circle-icon">
               <FontAwesomeIcon icon={faUtensils} />
             </div>
             <h4>Lounge Bar</h4>
@@ -171,8 +174,8 @@ const Home = () => {
           </div>
 
           <div className="fa-icons">
-            <div className="box-icon">
-              <FontAwesomeIcon icon={faUtensils} />
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faMapLocationDot} />
             </div>
             <h4>Touristic Park</h4>
             <p>

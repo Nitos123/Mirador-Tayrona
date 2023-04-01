@@ -47,19 +47,6 @@
       h3 {
         margin: 1rem 0;
       }
-
-      .number {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.3rem;
-        font-weight: bold;
-        color: $light;
-        background-color: $primary;
-        border-radius: 50px;
-      }
     }
   }
 }
@@ -117,6 +104,14 @@
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  gap: 2rem;
+
+  .fa-icons {
+    width: 275px;
+    text-align: left;
+    padding: 2rem;
+    box-shadow: $shadow;
+    border-radius: 1rem;
+  }
 }
