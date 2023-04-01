@@ -4,7 +4,7 @@ const { addRoom, getAllRooms, getRoomId, getRoomType  } = require("../../control
 
 const api = Router()
 
-api.get("/room", getRoomType)
+api.get("/room/type", getRoomType)
 api.get("/room", getAllRooms)
 api.post("/room", addRoom)
 api.get("/room/:id", getRoomId )
