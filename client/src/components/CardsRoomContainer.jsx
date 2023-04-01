@@ -9,6 +9,7 @@ const CardRoomContainer = (props) => {
   const dispatch = useDispatch();
 
   const rooms = useSelector((state) => state.rooms);
+  console.log('ROOMS--------->',rooms);
 
   useEffect(() => {
     dispatch(getAllRooms());
@@ -17,7 +18,7 @@ const CardRoomContainer = (props) => {
   return (
     <div>
       <div className="container">
-        {rooms.map((room) => {
+        {rooms?.map((room) => {
           return <CardRoom />;
         })}
       </div>

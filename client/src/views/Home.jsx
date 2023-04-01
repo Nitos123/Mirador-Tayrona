@@ -4,7 +4,12 @@ import CardsReviewsContainer from "../components/CardsReviewsContainer";
 import About from "../components/About";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils, faWarehouse, faHotel, faWifi } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUtensils,
+  faWarehouse,
+  faHotel,
+  faWifi,
+} from "@fortawesome/free-solid-svg-icons";
 import "../styles/Home.scss";
 
 const Home = () => {
@@ -33,7 +38,9 @@ const Home = () => {
         </div>
 
         <div className="header-section stayHere">
-          <h2>Why You Should <span>Stay Here</span></h2>
+          <h2>
+            Why You Should <span>Stay Here</span>
+          </h2>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam
             alias suscipit saepe officia sed labore enim doloribus molestiae!
@@ -48,8 +55,8 @@ const Home = () => {
               <div className="number">1</div>
               <h3>Provide the best choice of Room.</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Tempore neque in dicta ipsa maiores. 
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+                neque in dicta ipsa maiores.
               </p>
             </div>
 
@@ -57,8 +64,8 @@ const Home = () => {
               <div className="number">2</div>
               <h3>Low price with Best Quality</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Tempore neque in dicta ipsa maiores. 
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+                neque in dicta ipsa maiores.
               </p>
             </div>
 
@@ -66,8 +73,8 @@ const Home = () => {
               <div className="number">3</div>
               <h3>Restaurant Service</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Tempore neque in dicta ipsa maiores. 
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+                neque in dicta ipsa maiores.
               </p>
             </div>
           </div>
@@ -81,18 +88,20 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="section">
-        <h2>Take a look At our Rooms</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-          suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
-          veritatis voluptate dolores possimus vel omnis dicta perferendis? Ut,
-          minus cum.
-        </p>
+      <section className="section">
+        <div className="header-section">
+          <h2>Take a look At our Rooms</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
+            suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
+            veritatis voluptate dolores possimus vel omnis dicta perferendis?
+            Ut, minus cum.
+          </p>
+        </div>
         <div>
           <CardRoomContainer />
         </div>
-      </div>
+      </section>
 
       <section id="About">
         <About />
