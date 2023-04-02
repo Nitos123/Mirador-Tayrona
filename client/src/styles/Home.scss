@@ -47,19 +47,70 @@
       h3 {
         margin: 1rem 0;
       }
+    }
+  }
+}
 
-      .number {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.3rem;
-        font-weight: bold;
+.rooms {
+  .header-section {
+    h2, h3 {
+      margin: auto;
+    }
+  }
+}
+
+.about {
+  background-color: $secundary;
+  color: $light;
+
+  .aboutContainer {
+    display: flex;
+    align-items: center;
+    max-width: 1240px;
+    margin: auto;
+
+    .about-content, .about-img {
+      width: 50%;
+    }
+
+    .about-content {
+      text-align: left;
+      
+      h2, p {
+        width: 80%;
         color: $light;
-        background-color: $primary;
-        border-radius: 50px;
+      }
+
+      h2 {
+        border-bottom: solid;
+        border-color: $primary;
+        width: fit-content;
       }
     }
+
+    .about-img {
+      display: flex;
+      
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+
+.home-grid-icons-hotels {
+  max-width: 720px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+
+  .fa-icons {
+    width: 275px;
+    text-align: left;
+    padding: 2rem;
+    border-radius: 1rem;
   }
 }

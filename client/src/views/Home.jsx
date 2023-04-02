@@ -1,7 +1,6 @@
 import React from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
 import CardsReviewsContainer from "../components/CardsReviewsContainer";
-import About from "../components/About";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,6 +8,9 @@ import {
   faWarehouse,
   faHotel,
   faWifi,
+  faBed,
+  faMartiniGlassCitrus,
+  faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Home.scss";
 
@@ -52,7 +54,7 @@ const Home = () => {
         <div className="two-columns">
           <div className="stayHereTxt">
             <div className="row-stay-here">
-              <div className="number">1</div>
+              <div className="circle-icon">1</div>
               <h3>Provide the best choice of Room.</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
@@ -61,7 +63,7 @@ const Home = () => {
             </div>
 
             <div className="row-stay-here">
-              <div className="number">2</div>
+              <div className="circle-icon">2</div>
               <h3>Low price with Best Quality</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
@@ -70,7 +72,7 @@ const Home = () => {
             </div>
 
             <div className="row-stay-here">
-              <div className="number">3</div>
+              <div className="circle-icon">3</div>
               <h3>Restaurant Service</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
@@ -88,9 +90,12 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section rooms">
         <div className="header-section">
-          <h2>Take a look At our Rooms</h2>
+          <h3>Take a look</h3>
+          <h2>
+            At our <span>rooms</span>
+          </h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
             suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
@@ -103,49 +108,79 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="About">
-        <About />
+      <section id="About" className="about">
+        <div className="aboutContainer">
+          <div className="about-content">
+            <h2>About us</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis
+              quasi id molestiae cumque labore dolore quos in accusantium,
+              similique incidunt rem neque sapiente eum. Quibusdam laborum
+              obcaecati error provident fugit.Lorem ipsum dolor sit amet
+              consectetur, adipisicing elit. Officiis quasi id molestiae cumque
+              labore dolore quos in accusantium, similique incidunt rem neque
+              sapiente eum.
+            </p>
+            <p>
+              Quibusdam laborum obcaecati error provident fugit.Lorem ipsum
+              dolor sit amet consectetur, adipisicing elit. Officiis quasi id
+              molestiae cumque labore dolore quos in accusantium, similique
+              incidunt rem neque sapiente eum. Quibusdam laborum obcaecati error
+              provident fugit.
+            </p>
+          </div>
+          <div className="about-img">
+            <img
+              src="https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true"
+              alt="image review"
+            />
+          </div>
+        </div>
       </section>
 
       <div className="section">
-        <div className="txtUnderMainImage">
-          <div>
-            <h2>Restorant</h2>
+        <div className="home-grid-icons-hotels">
+          <div className="fa-icons box-shadow-hover">
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faBed} />
+            </div>
+            <h4>The Best Rooms</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
 
-          <div>
-            <h2>Garage</h2>
+          <div className="fa-icons box-shadow-hover">
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faMartiniGlassCitrus} />
+            </div>
+            <h4>Restorant</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
 
-          <div>
-            <h2>Resort</h2>
+          <div className="fa-icons box-shadow-hover">
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faUtensils} />
+            </div>
+            <h4>Lounge Bar</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
 
-          <div>
-            <h2>Free Wifi</h2>
+          <div className="fa-icons box-shadow-hover">
+            <div className="circle-icon">
+              <FontAwesomeIcon icon={faMapLocationDot} />
+            </div>
+            <h4>Touristic Park</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi ratione explicabo
-              consequatur. Nobis dolor temporibus aperiam facilis totam
-              obcaecati distinctio mollitia! Id, ducimus?
+              odit ex, qui quo recusandae hic quasi
             </p>
           </div>
         </div>

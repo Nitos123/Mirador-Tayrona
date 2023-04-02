@@ -102,3 +102,26 @@ button:focus-visible {
     align-items: center;
   }
 }
+
+
+.circle-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: $light;
+  background-color: $primary;
+  border-radius: 50px;
+}
+
+.box-shadow-hover {
+  box-shadow: $shadow;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: $shadowHover;
+  }
+}

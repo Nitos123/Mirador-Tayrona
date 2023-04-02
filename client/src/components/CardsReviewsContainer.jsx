@@ -15,8 +15,10 @@ export default function CardsReviewsContainer() {
         ""
       ) : (
         <div>
-          <h1>Our Customer Feedback</h1>
-          <h3>Don’t take our word for it. Trust our customers</h3>
+          <div className="header-section">
+            <h2>Our Customer Feedback</h2>
+            <h3>Don’t take our word for it. Trust our customers</h3>
+          </div>
           <div className="carousel-slider">
             <swiper-container
               slides-per-view="4"
