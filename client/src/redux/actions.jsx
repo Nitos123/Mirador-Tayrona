@@ -5,9 +5,10 @@ export const GET_TRANSPORTE = "GET_TRANSPORTE";
 export const GET_DESAYUNO = "GET_DESAYUNO";
 export const GET_COMIDAS = "GET_COMIDAS";
 export const GET_ROOM_DETAIL = "GET_ROOM_DETAIL";
-export const GET_TYPE = "GET_TYPE"
-export const GET_MAX_PRICE= "GET_MAX_PRICE"
-export const GET_MIN_PRICE = "GET_MIN_PRICE"
+export const GET_TYPE = "GET_TYPE";
+export const GET_MAX_PRICE= "GET_MAX_PRICE";
+export const GET_MIN_PRICE = "GET_MIN_PRICE";
+export const RESET = "RESET";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -64,3 +65,8 @@ export const getType = (type) => {
   }
 }
 
+export function reset() {
+  return {
+      type: RESET,
+  }
+}

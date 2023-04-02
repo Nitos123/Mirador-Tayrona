@@ -1,28 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
 import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
 import { useDispatch } from "react-redux";
-import { getMaxPrice, getMinPrice, getType } from "../redux/actions";
+import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
 
 const rooms = (props) => {
   const dispatch = useDispatch();
   const handlermaxType = (e) => {
     const type = e.target.value;
+    paged(1);
     dispatch(getType(type));
   };
 
   const handlerMaxPrce = (e) => {
-    const price = e.target.value
-    if (price ==="maxPrice") {
+    const price = e.target.value;
+    paged(1);
+    if (price === "maxPrice") {
       dispatch(getMaxPrice());
-    }if (price==="minPrice") {
+    }
+    if (price === "minPrice") {
       dispatch(getMinPrice());
     }
-
   };
 
+  //Control del paginado
+  const [currentPage, setCurentPage] = useState(1);
+  const roomsPerPage = 4;
+  const indexOfLastRoom = currentPage * roomsPerPage;
+  const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
 
+  const paged = (pageNumber) => {
+    setCurentPage(pageNumber);
+  };
 
   return (
     <div>
@@ -42,7 +52,8 @@ const rooms = (props) => {
 
         <section className="roomsFilters">
           <div>
-            <select onChange={(e)=>handlerMaxPrce(e)}>
+            <select defaultValue={"Price"} onChange={(e) => handlerMaxPrce(e)}>
+              <option disabled value="Price">Price</option>
               <option value="maxPrice">Price maximo</option>
               <option value="minPrice">Price minimo</option>
             </select>
@@ -55,13 +66,19 @@ const rooms = (props) => {
               <option value="individual">Individual</option>
               <option value="familiar">Familiar</option>
             </select>
-            <select>
+            <button onClick={() => dispatch(reset())}>Reset</button>
+            {/* <select>
               <option>Date</option>
-            </select>
+            </select> */}
           </div>
         </section>
 
-        <CardRoomContainer />
+        <CardRoomContainer
+          indexOfFirstRoom={indexOfFirstRoom}
+          indexOfLastRoom={indexOfLastRoom}
+          paged={paged}
+          roomsPerPage={roomsPerPage}
+        />
         <CardServicesContainer />
       </section>
     </div>
@@ -69,15 +86,3 @@ const rooms = (props) => {
 };
 
 export default rooms;
-
-// const filteredProducts = products.filter((product) => {
-//   const price = parseFloat(product.price);
-//   if (minPrice && maxPrice) {
-//     return price >= parseFloat(minPrice) && price <= parseFloat(maxPrice);
-//   } else if (minPrice) {
-//     return price >= parseFloat(minPrice);
-//   } else if (maxPrice) {
-//     return price <= parseFloat(maxPrice);
-//   }
-//   return true;
-// })
