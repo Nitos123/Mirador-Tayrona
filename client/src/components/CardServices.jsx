@@ -30,4 +30,3 @@ const CardServices = (props) => {
 };
 
 export default CardServices;
-
