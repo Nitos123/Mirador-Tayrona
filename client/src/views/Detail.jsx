@@ -11,7 +11,6 @@ const Detail = (props) => {
 
   useEffect(() => {
     dispatch(getRoomDetail(id));
-    console.log(id);
   }, [dispatch, id]);
 
   console.log(detail);
@@ -41,5 +40,6 @@ const Detail = (props) => {
   </div>
 );
 };
+//hola mundo
 
 export default Detail;
