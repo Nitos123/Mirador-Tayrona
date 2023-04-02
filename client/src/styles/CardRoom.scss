@@ -1,6 +1,7 @@
 .room img {
   height: 300px;
-  min-width: 500px;
+  width: 500px;
+  object-fit: cover;
 }
 
 .txt {
@@ -8,6 +9,3 @@
   text-align: center;
   justify-content: space-between;
 }
-
-// .roomContainer {
-// }
