@@ -2,8 +2,19 @@ import React from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
 import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
+import { useDispatch } from "react-redux";
+import { getType } from "../redux/actions";
 
 const rooms = (props) => {
+const dispatch = useDispatch()
+const handlermaxTypeM = (e)=>{
+  const type = e.target.value
+  dispatch(getType(type))
+}
+
+
+
+
   return (
     <div>
       <div className="mainImageRooms"></div>
@@ -22,11 +33,16 @@ const rooms = (props) => {
 
         <section className="roomsFilters">
           <div>
-            <select>
-              <option>Price</option>
+            <select defaultValue="precio" >
+              <option>Price maximo</option>
+              <option>Price minimo</option>
             </select>
-            <select>
-              <option>Type</option>
+            <select onChange={handlermaxTypeM}>
+              <option value="">Type</option>
+              <option value="matrimonial">Matrimonial</option>
+              <option value="individual">Individual</option>
+              <option value="familiar">Familiar</option>
+              
             </select>
             <select>
               <option>Date</option>
@@ -42,3 +58,15 @@ const rooms = (props) => {
 };
 
 export default rooms;
+
+// const filteredProducts = products.filter((product) => {
+//   const price = parseFloat(product.price);
+//   if (minPrice && maxPrice) {
+//     return price >= parseFloat(minPrice) && price <= parseFloat(maxPrice);
+//   } else if (minPrice) {
+//     return price >= parseFloat(minPrice);
+//   } else if (maxPrice) {
+//     return price <= parseFloat(maxPrice);
+//   }
+//   return true;
+// })
