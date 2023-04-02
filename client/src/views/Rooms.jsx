@@ -3,15 +3,24 @@ import CardRoomContainer from "../components/CardsRoomContainer";
 import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
 import { useDispatch } from "react-redux";
-import { getType } from "../redux/actions";
+import { getMaxPrice, getMinPrice, getType } from "../redux/actions";
 
 const rooms = (props) => {
-const dispatch = useDispatch()
-const handlermaxTypeM = (e)=>{
-  const type = e.target.value
-  dispatch(getType(type))
-}
+  const dispatch = useDispatch();
+  const handlermaxType = (e) => {
+    const type = e.target.value;
+    dispatch(getType(type));
+  };
 
+  const handlerMaxPrce = (e) => {
+    const price = e.target.value
+    if (price ==="maxPrice") {
+      dispatch(getMaxPrice());
+    }if (price==="minPrice") {
+      dispatch(getMinPrice());
+    }
+
+  };
 
 
 
@@ -33,16 +42,18 @@ const handlermaxTypeM = (e)=>{
 
         <section className="roomsFilters">
           <div>
-            <select defaultValue="precio" >
-              <option>Price maximo</option>
-              <option>Price minimo</option>
+            <select onChange={(e)=>handlerMaxPrce(e)}>
+              <option value="maxPrice">Price maximo</option>
+              <option value="minPrice">Price minimo</option>
             </select>
-            <select onChange={handlermaxTypeM}>
-              <option value="">Type</option>
+
+            <select defaultValue={"Type"} onChange={handlermaxType}>
+              <option disabled value="Type">
+                Types
+              </option>
               <option value="matrimonial">Matrimonial</option>
               <option value="individual">Individual</option>
               <option value="familiar">Familiar</option>
-              
             </select>
             <select>
               <option>Date</option>
