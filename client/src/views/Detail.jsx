@@ -1,27 +1,31 @@
-import React from "react";
+import { React, useEffect } from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getRoomDetail } from "../redux/actions";
 
 const Detail = (props) => {
+  const detail = useSelector((state) => state.detail);
+  const dispatch = useDispatch();
+  const id = useParams();
+
+  useEffect(() => {
+    dispatch(getRoomDetail(id));
+    console.log(getRoomDetail(id));
+  }, [dispatch, id]);
+
+  console.log(detail);
+
   return (
     <div>
       <div className="mainImageRooms"></div>
       <div className="section">
         <h1>Estoy en Detail</h1>
         <div>
-          <p>
-            Description: Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Iusto, laudantium repudiandae ratione, ipsum quos quisquam
-            modi a culpa aut esse sapiente facilis magnam, itaque sequi dolorum?
-            Tenetur maiores recusandae reiciendis? Lorem ipsum dolor sit, amet
-            consectetur adipisicing elit. Nobis consequatur delectus ullam
-            dolorem nesciunt blanditiis officia minus nostrum, veritatis sequi
-            obcaecati saepe minima doloremque. Vitae eos delectus blanditiis
-            debitis omnis!
-          </p>
-          <img
-            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/85/70/8c/hostel-g.jpg?w=1200&h=-1&s=1"
-            alt="image review"
-          />
+          <p>{detail.desctiption}</p>
+
+          <img src={detail.image} alt="image review" />
+
           <button>Book this room!</button>
 
           <h1>More rooms</h1>

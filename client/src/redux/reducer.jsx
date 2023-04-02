@@ -3,6 +3,7 @@ import {
   GET_TRANSPORTE,
   GET_DESAYUNO,
   GET_COMIDAS,
+  GET_ROOM_DETAIL,
 } from "./actions";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   transporte: [],
   desayuno: [],
   comidas: [],
+  detail: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -36,6 +38,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         desayuno: action.payload,
+      };
+
+    case GET_ROOM_DETAIL:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     default:
