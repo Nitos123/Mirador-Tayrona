@@ -48,6 +48,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
+
     case GET_TYPE:
       const selectedType = action.payload;
       const filteredRooms = state.rooms.filter(
