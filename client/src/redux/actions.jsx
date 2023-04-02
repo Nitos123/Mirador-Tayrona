@@ -5,6 +5,7 @@ export const GET_TRANSPORTE = "GET_TRANSPORTE";
 export const GET_DESAYUNO = "GET_DESAYUNO";
 export const GET_COMIDAS = "GET_COMIDAS";
 export const GET_ROOM_DETAIL = "GET_ROOM_DETAIL";
+export const GET_TYPE = "GET_TYPE"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -40,4 +41,20 @@ export const getRoomDetail = (id) => {
 
     dispatch({ type: GET_ROOM_DETAIL, payload: roomDetail.data });
   };
+};
+
+export const getMaxPrice = () => {
+  return async function (dispatch) {
+    const roomDetail = await axios.get(`http://localhost:8080/room`);
+
+    dispatch({ type: GET_ROOM_DETAIL, payload: roomDetail.data });
+  };
+};
+
+export const getType = (type) => {
+  return {
+    type: 'GET_TYPE',
+    payload: type
+
+  }
 };

@@ -4,10 +4,12 @@ import {
   GET_DESAYUNO,
   GET_COMIDAS,
   GET_ROOM_DETAIL,
+  GET_TYPE
 } from "./actions";
 
 const initialState = {
   rooms: [],
+  roomsCopy: [],
   transporte: [],
   desayuno: [],
   comidas: [],
@@ -20,6 +22,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         rooms: action.payload,
+        roomsCopy: action.payload
       };
 
     case GET_TRANSPORTE:
@@ -45,6 +48,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
+      case GET_TYPE:
+  const selectedType = action.payload;
+  const filteredRooms = state.rooms.filter(room => room.type === selectedType);
+  return {
+    ...state,
+    filteredRooms: filteredRooms
+  }
+
 
     default:
       return { ...state };
