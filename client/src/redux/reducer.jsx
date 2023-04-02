@@ -85,7 +85,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MAX_PRICE:
-      const sortedRoomsDescending = [...state.roomsCopy].sort(
+      const sortedRoomsDescending = [...state.rooms].sort(
         (a, b) => b.price - a.price
       );
       return {
@@ -95,7 +95,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MIN_PRICE:
-      const sortedRoomsAscending = [...state.roomsCopy].sort(
+      const sortedRoomsAscending = [...state.rooms].sort(
         (a, b) => a.price - b.price
       );
       return {
