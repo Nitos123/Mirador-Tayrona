@@ -44,10 +44,10 @@ const Home = () => {
             Why You Should <span>Stay Here</span>
           </h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam
-            alias suscipit saepe officia sed labore enim doloribus molestiae!
-            Magni facilis possimus unde fuga, in expedita quibusdam sunt quae
-            veritatis harum!
+            Discover a unique experience in nature and local culture. We offer
+            comfortable accommodation, exciting activities, and tours to learn
+            about the ancestral culture of the Sierra Nevada. Book now and live
+            an unforgettable stay!
           </p>
         </div>
 
@@ -57,8 +57,10 @@ const Home = () => {
               <div className="circle-icon">1</div>
               <h3>Provide the best choice of Room.</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-                neque in dicta ipsa maiores.
+                Find your perfect room with us! Private or shared, sea or
+                mountain view, we have all the amenities you need for a
+                comfortable stay in Tayrona National Natural Park. Book now and
+                enjoy!
               </p>
             </div>
 
@@ -66,8 +68,9 @@ const Home = () => {
               <div className="circle-icon">2</div>
               <h3>Low price with Best Quality</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-                neque in dicta ipsa maiores.
+                Enjoy the best quality at the lowest price in Tayrona National
+                Natural Park. Book now and experience a unique stay without
+                compromising your budget!
               </p>
             </div>
 
@@ -75,8 +78,11 @@ const Home = () => {
               <div className="circle-icon">3</div>
               <h3>Restaurant Service</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-                neque in dicta ipsa maiores.
+                Enjoy delicious local and international dishes prepared with
+                fresh and quality ingredients at our restaurant in Tayrona
+                National Natural Park. Whether it's for breakfast or dinner
+                under the stars, our restaurant is the perfect place to satisfy
+                your cravings! Come and try our delicious food.
               </p>
             </div>
           </div>
@@ -97,10 +103,12 @@ const Home = () => {
             At our <span>rooms</span>
           </h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            suscipit, animi officia quo, culpa minus sequi voluptas ad vitae
-            veritatis voluptate dolores possimus vel omnis dicta perferendis?
-            Ut, minus cum.
+            We have a variety of options to suit your needs, all equipped with
+            the amenities you need for a comfortable and relaxing stay in
+            Tayrona National Natural Park. From private rooms with sea views to
+            shared dormitories, we have something for everyone's taste and
+            budget. Don't wait any longer, book now and come enjoy our amazing
+            rooms!
           </p>
         </div>
         <div>
@@ -113,20 +121,18 @@ const Home = () => {
           <div className="about-content">
             <h2>About us</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis
-              quasi id molestiae cumque labore dolore quos in accusantium,
-              similique incidunt rem neque sapiente eum. Quibusdam laborum
-              obcaecati error provident fugit.Lorem ipsum dolor sit amet
-              consectetur, adipisicing elit. Officiis quasi id molestiae cumque
-              labore dolore quos in accusantium, similique incidunt rem neque
-              sapiente eum.
+              Welcome to our website! We are a hostel located in the heart of
+              the beautiful Tayrona National Natural Park, surrounded by
+              stunning landscapes and exotic flora and fauna. We strive to
+              provide our guests with the best possible experience during their
+              stay,
             </p>
             <p>
-              Quibusdam laborum obcaecati error provident fugit.Lorem ipsum
-              dolor sit amet consectetur, adipisicing elit. Officiis quasi id
-              molestiae cumque labore dolore quos in accusantium, similique
-              incidunt rem neque sapiente eum. Quibusdam laborum obcaecati error
-              provident fugit.
+              offering comfortable and cozy rooms, delicious food, and
+              exceptional service. Our team is made up of friendly and
+              passionate individuals who will ensure you feel right at home
+              during your time here. We look forward to seeing you soon at our
+              hostel in Tayrona National Natural Park!
             </p>
           </div>
           <div className="about-img">
@@ -146,8 +152,8 @@ const Home = () => {
             </div>
             <h4>The Best Rooms</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi
+              We have options for all tastes and budgets. Book now and enjoy a
+              comfortable and relaxing stay!
             </p>
           </div>
 
@@ -157,8 +163,9 @@ const Home = () => {
             </div>
             <h4>Restorant</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi
+              Enjoy a delicious culinary experience with stunning views! We
+              offer a variety of local and international dishes for you to
+              savor. Come and try us out now!
             </p>
           </div>
 
@@ -168,8 +175,8 @@ const Home = () => {
             </div>
             <h4>Lounge Bar</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi
+              Enjoy a drink while taking in the park. We offer a wide selection
+              of drinks and snacks. Join us now!
             </p>
           </div>
 
@@ -179,8 +186,8 @@ const Home = () => {
             </div>
             <h4>Touristic Park</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              odit ex, qui quo recusandae hic quasi
+              Immerse yourself in the lush tropical jungle and enjoy the dreamy
+              beaches. Visit us now and live an unforgettable experience!
             </p>
           </div>
         </div>

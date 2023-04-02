@@ -13,10 +13,9 @@ const rooms = (props) => {
             <h1>Room and Services </h1>
             <h1>Take a Look At Our Rooms</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusamus suscipit, animi officia quo, culpa minus sequi voluptas
-              ad vitae veritatis voluptate dolores possimus vel omnis dicta
-              perferendis? Ut, minus cum.
+              We offer a unique lodging experience with all the amenities you
+              need to enjoy an unforgettable stay. Book now and live a unique
+              experience!
             </p>
           </div>
         </section>

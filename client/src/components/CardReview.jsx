@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/CardReview.scss';
+import "../styles/CardReview.scss";
 
 export default function CardReview() {
   return (
@@ -16,10 +16,12 @@ export default function CardReview() {
       <div className="card-content">
         <h3>Floyd Miles</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure enim,
-          obcaecati reprehenderit exercitationem animi modi consectetur vitae
-          esse quam ab nisi adipisci impedit explicabo repudiandae, autem ipsam,
-          tempore suscipit. Inventore!
+          I had an incredible stay at this hostel surrounded by breathtaking
+          forest views. The staff was friendly and attentive, making sure I had
+          everything I needed to feel comfortable during my visit. The rooms
+          were cozy and clean, and the common areas were perfect for relaxing
+          after a long day of exploring the forest. Highly recommend this hostel
+          for anyone looking for a peaceful and rejuvenating getaway in nature!
         </p>
       </div>
     </div>
