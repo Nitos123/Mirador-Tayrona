@@ -7,22 +7,22 @@ import { getMaxPrice, getMinPrice, getType } from "../redux/actions";
 
 const rooms = (props) => {
   const dispatch = useDispatch();
+
   const handlermaxType = (e) => {
     const type = e.target.value;
     dispatch(getType(type));
   };
 
   const handlerMaxPrce = (e) => {
-    const price = e.target.value
-    if (price ==="maxPrice") {
+    const price = e.target.value;
+    if (price === "maxPrice") {
       dispatch(getMaxPrice());
-    }if (price==="minPrice") {
-      dispatch(getMinPrice());
     }
 
+    if (price === "minPrice") {
+      dispatch(getMinPrice());
+    }
   };
-
-
 
   return (
     <div>
@@ -42,7 +42,7 @@ const rooms = (props) => {
 
         <section className="roomsFilters">
           <div>
-            <select onChange={(e)=>handlerMaxPrce(e)}>
+            <select onChange={(e) => handlerMaxPrce(e)}>
               <option value="maxPrice">Price maximo</option>
               <option value="minPrice">Price minimo</option>
             </select>

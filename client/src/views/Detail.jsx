@@ -27,7 +27,10 @@ const Detail = (props) => {
     <div className="detail">
       {detail ? (
         <>
-          <div className="mainImageRoom" style={{backgroundImage: `url(${detail.image})`}}>
+          <div
+            className="mainImageRoom"
+            style={{ backgroundImage: `url(${detail.image})` }}
+          >
             {/* <h1>Estoy en Detail</h1> */}
           </div>
           <div className="section">
