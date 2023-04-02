@@ -3,6 +3,7 @@ import CardRoomContainerDetail from "../components/CardRoomContainerDetail";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getRoomDetail } from "../redux/actions";
+import "../styles/Detail.scss";
 
 const Detail = (props) => {
   const detail = useSelector((state) => state.detail);
@@ -23,25 +24,33 @@ const Detail = (props) => {
   };
 
   return (
-    <div>
-      <div className="mainImageRooms"></div>
-      <div className="section">
-        <h1>Estoy en Detail</h1>
-        {detail ? (
-          <div>
-            <p>{detail.desctiption}</p>
-            <img style={style} src={detail.image} alt="image review" />
-            <button>Book this room!</button>
-            <h1>More rooms</h1>
-            <CardRoomContainerDetail />
+    <div className="detail">
+      {detail ? (
+        <>
+          <div className="mainImageRoom" style={{backgroundImage: `url(${detail.image})`}}>
+            {/* <h1>Estoy en Detail</h1> */}
           </div>
-        ) : (
-          <p>Cargando información...</p>
-        )}
-      </div>
+          <div className="section">
+            <div>
+              <p>{detail.desctiption}</p>
+              <img style={style} src={detail.image} alt="image review" />
+              <button>Book this room!</button>
+              <h1>More rooms</h1>
+              <CardRoomContainerDetail />
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="mainImageRooms">
+            <div className="section">
+              <p>Cargando información...</p>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
-//hola mundo
 
 export default Detail;

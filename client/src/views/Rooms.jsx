@@ -27,18 +27,18 @@ const rooms = (props) => {
   return (
     <div>
       <div className="mainImageRooms"></div>
-      <div className="section">
-        <section>
-          <div>
-            <h1>Room and Services </h1>
-            <h1>Take a Look At Our Rooms</h1>
-            <p>
-              We offer a unique lodging experience with all the amenities you
-              need to enjoy an unforgettable stay. Book now and live a unique
-              experience!
-            </p>
-          </div>
-        </section>
+      <section className="section rooms">
+        <div className="header-section">
+          <h3>Take a look</h3>
+          <h2>
+            At our <span>services</span>
+          </h2>
+          <p>
+            We offer a unique lodging experience with all the amenities you need
+            to enjoy an unforgettable stay. Book now and live a unique
+            experience!
+          </p>
+        </div>
 
         <section className="roomsFilters">
           <div>
@@ -63,7 +63,7 @@ const rooms = (props) => {
 
         <CardRoomContainer />
         <CardServicesContainer />
-      </div>
+      </section>
     </div>
   );
 };

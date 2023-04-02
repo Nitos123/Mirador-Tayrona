@@ -1,9 +1,19 @@
-.servicesContainer {
-  width: fit-content;
-  height: 50vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+@import '../styles/settings';
 
-  background-image: url("https://cdn.corporatefinanceinstitute.com/assets/products-and-services-1024x1024.jpeg");
+.servicesContainer {
+  width: 100%;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: $light;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+
+  p {
+    width: 80%;
+    margin: auto;
+    line-height: 2rem;
+  }
 }
