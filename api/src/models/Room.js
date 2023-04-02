@@ -6,6 +6,7 @@ const { Schema } = require("mongoose");
 const RoomSchema = Schema(
   {
     type: { type: String, required: true },
+    id: {type: Number, unique: true},
     status: Boolean,
     guests: Number,
     name: String,

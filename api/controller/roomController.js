@@ -10,6 +10,7 @@ const addRoom = async (req, res) => {
       desctiption,
       image,
       price,
+      id,
       bookedDates,
     } = req.body;
     console.log(req.body);
@@ -22,6 +23,7 @@ const addRoom = async (req, res) => {
       desctiption,
       image,
       price,
+      id,
       bookedDates,
     });
 
