@@ -4,9 +4,10 @@ import {
   GET_DESAYUNO,
   GET_COMIDAS,
   GET_ROOM_DETAIL,
+  GET_MAX_PRICE,
+  GET_MIN_PRICE,
   GET_TYPE,
 } from "./actions";
-
 const initialState = {
   rooms: [],
   roomsCopy: [],
@@ -14,6 +15,7 @@ const initialState = {
   desayuno: [],
   comidas: [],
   detail: [],
+  order: "DESCENDING", // por defecto ordena de mayor a menor
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -50,13 +52,56 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_TYPE:
-      const selectedType = action.payload;
-      const filteredRooms = state.rooms.filter(
-        (room) => room.type === selectedType
+      let filteredRooms = [];
+      if (action.payload.includes("matrimonial")) {
+        filteredRooms = [
+          ...state.roomsCopy.filter((room) => room.type === "matrimonial"),
+        ];
+      }
+      if (action.payload.includes("individual")) {
+        filteredRooms = [
+          ...filteredRooms,
+          ...state.roomsCopy.filter((room) => room.type === "individual"),
+        ];
+      }
+      if (action.payload.includes("familiar")) {
+        filteredRooms = [
+          ...filteredRooms,
+          ...state.roomsCopy.filter((room) => room.type === "familiar"),
+        ];
+      }
+
+      // ordenar según la variable order
+      let sortedRooms = filteredRooms;
+      if (state.order === "DESCENDING") {
+        sortedRooms = [...filteredRooms].sort((a, b) => b.price - a.price);
+      } else if (state.order === "ASCENDING") {
+        sortedRooms = [...filteredRooms].sort((a, b) => a.price - b.price);
+      }
+
+      return {
+        ...state,
+        rooms: sortedRooms,
+      };
+
+    case GET_MAX_PRICE:
+      const sortedRoomsDescending = [...state.roomsCopy].sort(
+        (a, b) => b.price - a.price
       );
       return {
         ...state,
-        filteredRooms: filteredRooms,
+        rooms: sortedRoomsDescending,
+        order: "DESCENDING",
+      };
+
+    case GET_MIN_PRICE:
+      const sortedRoomsAscending = [...state.roomsCopy].sort(
+        (a, b) => a.price - b.price
+      );
+      return {
+        ...state,
+        rooms: sortedRoomsAscending,
+        order: "ASCENDING",
       };
 
     default:

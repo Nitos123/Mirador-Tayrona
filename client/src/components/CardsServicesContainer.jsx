@@ -12,35 +12,40 @@ const CardServicesContainer = (props) => {
     {
       image: image1,
       description:
-        "En nuestro hotel, nos enorgullecemos de ofrecer un servicio de habitaciones excepcional para nuestros huéspedes. Nuestro servicio de habitaciones está disponible las 24 horas del día, para que puedas disfrutar de comidas y bebidas en la privacidad de tu habitación en cualquier momento que desees. Ofrecemos un menú completo que incluye opciones de comida local y platos internacionales, y nuestro personal está siempre dispuesto a ayudarte a elegir la opción perfecta para satisfacer tus antojos. Además, nuestro servicio de habitaciones se realiza con rapidez y eficiencia, para que puedas disfrutar de tu comida caliente y recién preparada en la comodidad de tu habitación. ¡Relájate y disfruta de una experiencia culinaria sin esfuerzo en nuestro hotel en el Parque Tayrona!",
+        "At our hotel, we pride ourselves on providing exceptional room service for our guests. Our room service is available 24 hours a day, so you can enjoy food and drinks in the privacy of your room anytime you want. We offer a full menu that includes local food options as well as international dishes, and our staff is always ready to help you choose the perfect option to satisfy your cravings. Plus, our room service is done quickly and efficiently, so you can enjoy your hot, freshly prepared meal in the comfort of your own. Relax and enjoy an effortless culinary experience at our hotel in Tayrona Park!",
     },
     {
       image: image2,
       description:
-        "En nuestro hotel, ofrecemos un servicio de transporte exclusivo para nuestros clientes, diseñado para hacer que tu experiencia de viaje sea lo más cómoda y sin problemas posible. Nuestro servicio de transporte incluye traslados desde y hacia el aeropuerto, así como también viajes a lugares turísticos cercanos como el Parque Tayrona. Nuestros conductores son profesionales y conocedores de la zona, lo que garantiza una experiencia de viaje segura y agradable. Además, nuestro servicio de transporte se realiza en vehículos modernos y cómodos que se adaptan a tus necesidades, ya sea que viajes solo o en grupo. ¡No te preocupes por el transporte durante tus vacaciones, deja que nosotros nos encarguemos de ello y disfruta de tu estancia en el Parque Tayrona!",
+        "At our hotel, we offer an exclusive transportation service for our clients, designed to make your travel experience as comfortable and hassle-free as possible. Our transportation service includes transfers to and from the airport, as well as trips to nearby tourist places such as Tayrona Park. Our drivers are professional and knowledgeable about the area, ensuring a safe and enjoyable travel experience. In addition, our transport service is carried out in modern and comfortable vehicles that adapt to your needs, whether you are traveling alone or in a group. Don't worry about transportation during your vacation, let us take care of it and enjoy your stay in Tayrona Park!",
     },
     {
       image: image3,
       description:
-        "Disfruta de una experiencia gastronómica única en nuestro restaurante en el Parque Tayrona. Ofrecemos una amplia variedad de platos que fusionan sabores locales con técnicas culinarias innovadoras. Desde pescado fresco del Caribe hasta exquisitos platos vegetarianos, nuestro menú es perfecto para satisfacer todos los paladares. Todos nuestros platos son preparados con ingredientes frescos y de alta calidad, y nuestro personal atento y profesional se asegurará de que tu experiencia culinaria sea inolvidable. Ya sea que busques una cena romántica para dos o una cena en grupo con amigos, nuestro restaurante es el lugar perfecto para disfrutar de una comida deliciosa en el Parque Tayrona.",
+        "Enjoy a unique gastronomic experience in our restaurant in Parque Tayrona. We offer a wide variety of dishes that fuse local flavors with innovative culinary techniques. From fresh Caribbean fish to exquisite vegetarian dishes, our menu is perfect to satisfy every palate. All of our dishes are prepared with fresh, high-quality ingredients, and our attentive and professional staff will ensure that your dining experience is unforgettable. Whether you are looking for a romantic dinner for two or a group dinner with friends, our restaurant is the perfect place to enjoy a delicious meal in Tayrona Park.",
     },
     {
       image: image4,
       description:
-        "El bar del hostal es el lugar perfecto para relajarse después de un día lleno de aventuras en el Parque Tayrona. Ofrecemos una variedad de bebidas, desde cervezas frías hasta cócteles tropicales hechos con frutas frescas de la región. También puedes disfrutar de una selección de bocadillos y platos ligeros para satisfacer tus antojos. Nuestro ambiente relajado y acogedor es ideal para socializar con otros viajeros y compartir historias de tus aventuras. ¡Ven y disfruta de una experiencia única en el corazón del Parque Tayrona!",
+        "The hostel's bar is the perfect place to relax after a day full of adventures in Tayrona Park. We offer a variety of drinks, from cold beers to tropical cocktails made with fresh fruits from the region. You can also enjoy a selection of sandwiches and light dishes to satisfy your cravings. Our relaxed and welcoming environment is ideal for socializing with other travelers and sharing stories of your adventures. Come and enjoy a unique experience in the heart of Tayrona Park!",
     },
   ];
 
   return (
-    <div>
-      <h1>Take a Look At Our Services</h1>
-      <p>
-        We provide a wide range of services to make your stay as comfortable and
-        enjoyable as possible. From room service to a 24-hour front desk, we
-        have everything you need to make your visit unforgettable. Book now and
-        experience the best that we have to offer.
-      </p>
-      <Swiper spaceBetween={0} slidesPerView={1}>
+    <section className="section">
+      <div className="header-section">
+        <h3>Take a look</h3>
+        <h2>
+          At our <span>services</span>
+        </h2>
+        <p>
+          We provide a wide range of services to make your stay as comfortable
+          and enjoyable as possible. From room service to a 24-hour front desk,
+          we have everything you need to make your visit unforgettable. Book now
+          and experience the best that we have to offer.
+        </p>
+      </div>
+      <Swiper spaceBetween={0} slidesPerView={1} loop={true}>
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <CardServices
@@ -50,7 +55,7 @@ const CardServicesContainer = (props) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };
 
