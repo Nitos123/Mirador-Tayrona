@@ -21,6 +21,7 @@ const CardRoomContainer = (props) => {
           return (
             <CardRoom
               key={index}
+              id={room._id}
               image={room.image}
               guests={room.guests}
               name={room.name}

@@ -4,6 +4,7 @@ export const GET_ALL_ROOMS = "GET_ROOMS";
 export const GET_TRANSPORTE = "GET_TRANSPORTE";
 export const GET_DESAYUNO = "GET_DESAYUNO";
 export const GET_COMIDAS = "GET_COMIDAS";
+export const GET_ROOM_DETAIL = "GET_ROOM_DETAIL";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -30,5 +31,13 @@ export const getComidas = () => {
   return async function (dispatch) {
     const comidas = await axios.get("http://localhost:8080/comidas");
     dispatch({ type: GET_COMIDAS, payload: comidas.data });
+  };
+};
+
+export const getRoomDetail = (id) => {
+  return async function (dispatch) {
+    const roomDetail = await axios.get(`http://localhost:8080/room/${id}`);
+
+    dispatch({ type: GET_ROOM_DETAIL, payload: roomDetail.data });
   };
 };

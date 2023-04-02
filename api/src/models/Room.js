@@ -6,7 +6,7 @@ const { Schema } = require("mongoose");
 const RoomSchema = Schema(
   {
     type: { type: String, required: true },
-    id: {type: Number, unique: true},
+    id: { type: Number, unique: true },
     status: Boolean,
     guests: Number,
     name: String,
@@ -28,4 +28,3 @@ module.exports = mongoose.model("Room", RoomSchema);
 //MATRIMONIAL
 //FAMILIAR
 //INDIVIDUAL
-gi;
