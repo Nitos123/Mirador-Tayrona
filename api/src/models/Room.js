@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const {Schema}= require("mongoose")
+const { Schema } = require("mongoose");
 
 // este modelo define la estructura de la tabla RoomSchema en la base de datos
 const RoomSchema = Schema(
@@ -12,12 +12,19 @@ const RoomSchema = Schema(
     desctiption: String,
     image: [String],
     price: Number,
-    bookedDates: [{ 
-      start: { type: Date},
-      end: { type: Date}
-  }],
+    bookedDates: [
+      {
+        start: { type: Date },
+        end: { type: Date },
+      },
+    ],
   },
   { timestamps: true }
 );
 
 module.exports = mongoose.model("Room", RoomSchema);
+
+//MATRIMONIAL
+//FAMILIAR
+//INDIVIDUAL
+gi;

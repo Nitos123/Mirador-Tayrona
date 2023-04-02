@@ -6,17 +6,27 @@ const CardRoom = (props) => {
   return (
     <div className="roomContainer">
       <div className="room">
-        <Link to={"/detail"}>
+        <Link to={`/detail/${props.id}`}>
           <div>
             <img
-              src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/85/70/8c/hostel-g.jpg?w=1200&h=-1&s=1"
+              src={
+                props.image[0]
+                  ? props.image[0]
+                  : "https://t3.ftcdn.net/jpg/05/38/52/48/360_F_538524834_KTWCegIa69mIWDLVx6Sc6tdkW6beiMBR.jpg"
+              }
               alt="image review"
             />
           </div>
-          <div className="txt">
-            <h3>Habitacion principal</h3>
-            <h3>1 guest</h3>
-          </div>
+        </Link>
+
+        <div className="txt">
+          <h3>{props.name}</h3>
+          <h3>Guests: {props.guests}</h3>
+          <h3>Price: {props.price} COP</h3>
+        </div>
+
+        <Link to={`/detail/${props.id}`}>
+          <button>See more</button>
         </Link>
       </div>
     </div>
