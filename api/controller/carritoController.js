@@ -17,6 +17,5 @@ async function addCarrito(req, res) {
 }
 
 module.exports = {
-    addCarrito
-  };
-  
+  addCarrito,
+};
