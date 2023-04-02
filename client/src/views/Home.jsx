@@ -1,5 +1,5 @@
 import React from "react";
-import CardRoomContainer from "../components/CardsRoomContainer";
+import CardRoomContainerHome from "../components/CardRoomContainerHome";
 import CardsReviewsContainer from "../components/CardsReviewsContainer";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -111,8 +111,9 @@ const Home = () => {
             rooms!
           </p>
         </div>
+
         <div>
-          <CardRoomContainer />
+          <CardRoomContainerHome />
         </div>
       </section>
 
