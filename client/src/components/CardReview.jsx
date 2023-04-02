@@ -3,7 +3,7 @@ import '../styles/CardReview.scss';
 
 export default function CardReview() {
   return (
-    <div className="card-review">
+    <div className="card-review box-shadow-hover">
       <div className="card-header">
         <div>
           <img

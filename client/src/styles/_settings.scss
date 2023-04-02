@@ -5,9 +5,9 @@ $light: #FFFFFF;
 $dark: #242424;
 $color-text: #8e8e8e;
 
-// Sombras
+// Shadow
 $shadow: 0px 0px 10px 5px #00000015;
-$shadowHover: 3px 3px 15px 10px #00000015;
+$shadowHover: 3px 3px 15px 10px #0000001f;
 
 // Width containers
 $maxWidthContainer: 1240px;
@@ -17,3 +17,6 @@ $bg-color: $light;
 $font-color: $color-text;
 $header-color: $dark;
 $font-color-secundary: $primary;
+
+//Transitions
+$transition: all .3s ease-in-out;

@@ -116,3 +116,12 @@ button:focus-visible {
   background-color: $primary;
   border-radius: 50px;
 }
+
+.box-shadow-hover {
+  box-shadow: $shadow;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: $shadowHover;
+  }
+}

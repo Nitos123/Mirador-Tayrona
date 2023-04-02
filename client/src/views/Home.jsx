@@ -140,7 +140,7 @@ const Home = () => {
 
       <div className="section">
         <div className="home-grid-icons-hotels">
-          <div className="fa-icons">
+          <div className="fa-icons box-shadow-hover">
             <div className="circle-icon">
               <FontAwesomeIcon icon={faBed} />
             </div>
@@ -151,7 +151,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="fa-icons">
+          <div className="fa-icons box-shadow-hover">
             <div className="circle-icon">
               <FontAwesomeIcon icon={faMartiniGlassCitrus} />
             </div>
@@ -162,7 +162,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="fa-icons">
+          <div className="fa-icons box-shadow-hover">
             <div className="circle-icon">
               <FontAwesomeIcon icon={faUtensils} />
             </div>
@@ -173,7 +173,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="fa-icons">
+          <div className="fa-icons box-shadow-hover">
             <div className="circle-icon">
               <FontAwesomeIcon icon={faMapLocationDot} />
             </div>
