@@ -8,7 +8,7 @@ import { getAllRooms } from "../redux/actions";
 const CardRoomContainer = (props) => {
   const dispatch = useDispatch();
 
-  const rooms = useSelector((state) => state.rooms);
+  const allRooms = useSelector((state) => state.rooms);
 
   useEffect(() => {
     dispatch(getAllRooms());
@@ -17,8 +17,17 @@ const CardRoomContainer = (props) => {
   return (
     <div>
       <div className="container">
-        {rooms?.map((room, index) => {
-          return <CardRoom key={index} />;
+        {allRooms?.map((room, index) => {
+          return (
+            <CardRoom
+              key={index}
+              id={room._id}
+              image={room.image}
+              guests={room.guests}
+              name={room.name}
+              price={room.price}
+            />
+          );
         })}
       </div>
     </div>
