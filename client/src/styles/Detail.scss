@@ -1,0 +1,17 @@
+@import "../styles/settings";
+
+.detail {
+  .mainImageRoom {
+    min-height: 60vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      color: $primary;
+      // text-stroke: 1px red;
+    }
+  }
+}

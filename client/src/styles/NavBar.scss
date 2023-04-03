@@ -1,0 +1,42 @@
+@import './settings';
+
+.navbar {
+  min-height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  margin-bottom: -100px;
+  background-color: #0000004d;
+
+
+  .container-navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: $maxWidthContainer;
+    margin: auto;
+  }
+
+  .logo {
+    a {
+      color: $light;
+      font-weight: bold;
+      display: flex;
+      text-align: left;
+    }
+  }
+
+  .items-menu {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    a {
+      margin-left: 2.5rem;
+      color: $light;
+    }
+  }
+}
