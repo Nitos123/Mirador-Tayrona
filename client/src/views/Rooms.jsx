@@ -7,7 +7,6 @@ import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
 
 const rooms = (props) => {
   const dispatch = useDispatch();
-
   const handlermaxType = (e) => {
     const type = e.target.value;
     paged(1);
@@ -16,15 +15,12 @@ const rooms = (props) => {
 
   const handlerMaxPrce = (e) => {
     const price = e.target.value;
+    paged(1);
     if (price === "maxPrice") {
-      const price = e.target.value;
-      paged(1);
-      if (price === "maxPrice") {
-        dispatch(getMaxPrice());
-      }
-      if (price === "minPrice") {
-        dispatch(getMinPrice());
-      }
+      dispatch(getMaxPrice());
+    }
+    if (price === "minPrice") {
+      dispatch(getMinPrice());
     }
   };
 
