@@ -7,6 +7,7 @@ import {
   GET_MAX_PRICE,
   GET_MIN_PRICE,
   GET_TYPE,
+  RESET,
 } from "./actions";
 const initialState = {
   rooms: [],
@@ -102,6 +103,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: sortedRoomsAscending,
         order: "ASCENDING",
+      };
+
+    case RESET:
+      return {
+        ...state,
+        rooms: [...state.roomsCopy],
       };
 
     default:

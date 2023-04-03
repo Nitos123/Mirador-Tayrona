@@ -18,11 +18,6 @@ const Detail = (props) => {
 
   console.log(detail);
 
-  const style = {
-    height: "300px",
-    width: "100%",
-  };
-
   return (
     <div className="detail">
       {detail ? (
@@ -31,12 +26,11 @@ const Detail = (props) => {
             className="mainImageRoom"
             style={{ backgroundImage: `url(${detail.image})` }}
           >
-            {/* <h1>Estoy en Detail</h1> */}
+            <h1>{detail.name}</h1>
           </div>
           <div className="section">
             <div>
               <p>{detail.desctiption}</p>
-              <img style={style} src={detail.image} alt="image review" />
               <button>Book this room!</button>
               <h1>More rooms</h1>
               <CardRoomContainerDetail />

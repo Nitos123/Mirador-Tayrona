@@ -1,14 +1,21 @@
 import { useEffect } from "react";
 import CardRoom from "./CardRoom";
+import Paged from "./Paged";
 import "../styles/CardsRoomContainer.scss";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getAllRooms } from "../redux/actions";
 
-const CardRoomContainer = (props) => {
+const CardRoomContainer = ({
+  indexOfFirstRoom,
+  indexOfLastRoom,
+  roomsPerPage,
+  paged,
+}) => {
   const dispatch = useDispatch();
 
-  const allRooms = useSelector((state) => state.rooms);
+  const allRooms = useSelector((state) => state.rooms); // Lista de todas las habitaciones
+
+  const currentRooms = allRooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
   useEffect(() => {
     dispatch(getAllRooms());
@@ -17,7 +24,7 @@ const CardRoomContainer = (props) => {
   return (
     <div>
       <div className="container">
-        {allRooms?.map((room, index) => {
+        {currentRooms?.map((room, index) => {
           return (
             <CardRoom
               key={index}
@@ -30,6 +37,11 @@ const CardRoomContainer = (props) => {
           );
         })}
       </div>
+      <Paged
+        roomsPerPage={roomsPerPage}
+        allRooms={allRooms.length}
+        paged={paged}
+      />
     </div>
   );
 };
