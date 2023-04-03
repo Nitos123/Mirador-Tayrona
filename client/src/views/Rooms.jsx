@@ -17,13 +17,14 @@ const rooms = (props) => {
   const handlerMaxPrce = (e) => {
     const price = e.target.value;
     if (price === "maxPrice") {
-    const price = e.target.value;
-    paged(1);
-    if (price === "maxPrice") {
-      dispatch(getMaxPrice());
-    }
-    if (price === "minPrice") {
-      dispatch(getMinPrice());
+      const price = e.target.value;
+      paged(1);
+      if (price === "maxPrice") {
+        dispatch(getMaxPrice());
+      }
+      if (price === "minPrice") {
+        dispatch(getMinPrice());
+      }
     }
   };
 
@@ -55,9 +56,10 @@ const rooms = (props) => {
 
         <section className="roomsFilters">
           <div>
-            <select onChange={(e) => handlerMaxPrce(e)}>
             <select defaultValue={"Price"} onChange={(e) => handlerMaxPrce(e)}>
-              <option disabled value="Price">Price</option>
+              <option disabled value="Price">
+                Price
+              </option>
               <option value="maxPrice">Price maximo</option>
               <option value="minPrice">Price minimo</option>
             </select>
