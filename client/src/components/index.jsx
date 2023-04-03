@@ -6,6 +6,11 @@ import "../styles/index.scss";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://backend-del-hotel-production-c60b.up.railway.app/';
+// axios.defaults.baseURL = 'http://localhost:8080/';
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
