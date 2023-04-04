@@ -13,10 +13,13 @@ import "../styles/App.scss";
 function App() {
   const location = useLocation();
 
+  const hideNavBar = (path) => {
+    return ["/cart", "/login"].includes(path);
+  };
+
   return (
     <div className="App">
-      {location.pathname !== "/cart" && <NavBar />}
-
+      {!hideNavBar(location.pathname) && <NavBar />}
       <Routes>
         <Route exact path="/" Component={Home} />
         <Route exact path="/home" Component={Home} />
@@ -26,8 +29,7 @@ function App() {
         <Route exact path="/cart" Component={ShoppingCar} />
         <Route exact path="/login" Component={Login} />
       </Routes>
-
-      {location.pathname !== "/cart" && <Footer />}
+      {!hideNavBar(location.pathname) && <Footer />}
     </div>
   );
 }
