@@ -1,7 +1,7 @@
 import { React, useEffect } from "react";
 import CardRoomContainerDetail from "../components/CardRoomContainerDetail";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getRoomDetail } from "../redux/actions";
 import "../styles/Detail.scss";
 
@@ -22,13 +22,20 @@ const Detail = (props) => {
     <div className="detail">
       {detail ? (
         <>
-          <div className="mainImageRoom" style={{backgroundImage: `url(${detail.image})`}}>
+          <div
+            className="mainImageRoom"
+            style={{ backgroundImage: `url(${detail.image})` }}
+          >
             <h1>{detail.name}</h1>
           </div>
           <div className="section">
             <div>
               <p>{detail.desctiption}</p>
-              <button>Book this room!</button>
+
+              <Link to="/cart">
+                <button>Book this room!</button>
+              </Link>
+
               <h1>More rooms</h1>
               <CardRoomContainerDetail />
             </div>

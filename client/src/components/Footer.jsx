@@ -16,10 +16,10 @@ const Footer = (props) => {
           <Link to="/rooms">
             <p>Rooms & Services</p>
           </Link>
-          
+          {/*           
           <Link to="/contact">
             <p>Contact</p>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </footer>

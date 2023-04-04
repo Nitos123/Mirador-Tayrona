@@ -1,16 +1,21 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "../views/Home";
 import NavBar from "./NavBar";
 import rooms from "../views/Rooms";
 import Contact from "./Contact";
 import Detail from "../views/Detail";
 import Footer from "./Footer";
+import ShoppingCar from "../views/ShoppingCar";
+import Login from "../views/Login";
+
 import "../styles/App.scss";
 
 function App() {
+  const location = useLocation();
+
   return (
     <div className="App">
-      <NavBar />
+      {location.pathname !== "/cart" && <NavBar />}
 
       <Routes>
         <Route exact path="/" Component={Home} />
@@ -18,9 +23,11 @@ function App() {
         <Route exact path="/detail/:id" Component={Detail} />
         <Route exact path="/rooms" Component={rooms} />
         <Route exact path="/contact" Component={Contact} />
+        <Route exact path="/cart" Component={ShoppingCar} />
+        <Route exact path="/login" Component={Login} />
       </Routes>
 
-      <Footer />
+      {location.pathname !== "/cart" && <Footer />}
     </div>
   );
 }
