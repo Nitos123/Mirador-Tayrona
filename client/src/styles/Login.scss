@@ -1,0 +1,36 @@
+@import "./settings.scss";
+
+.columns-login {
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .image-container {
+    background-image: url("https://imagenescityexpress.scdn6.secure.raxcdn.com/sites/default/files/2017-08/tayrona.jpg");
+    height: 100vh;
+    width: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    display: flex;
+    .back {
+      text-align: left;
+      margin: 1em;
+    }
+  }
+
+  .txt-container {
+    background-color: $bg-color;
+    height: 100vh;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .login-form {
+      padding: 1em;
+    }
+  }
+}

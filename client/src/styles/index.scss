@@ -1,4 +1,4 @@
-@import './settings';
+@import "./settings";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -26,9 +26,15 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: $bg-color;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: $header-color;
 }
 
@@ -102,7 +108,6 @@ button:focus-visible {
     align-items: center;
   }
 }
-
 
 .circle-icon {
   display: flex;
