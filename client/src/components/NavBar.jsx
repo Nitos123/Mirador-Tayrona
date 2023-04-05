@@ -16,7 +16,7 @@ const NavBar = (props) => {
 
           <Link to="/rooms">Rooms & Services</Link>
 
-          <Link to="/login">Login</Link>
+          <Link to="/loginCreate">Login</Link>
 
           {/* <Link to="/contact">Contact</Link> */}
         </div>

@@ -7,7 +7,7 @@
 .mainImageHome {
   width: 100%;
   height: 90vh;
-  background-image: url('https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true');
+  background-image: url("https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -39,11 +39,11 @@
 
   .stayHereTxt {
     text-align: left;
-    
+
     .row-stay-here {
       width: 80%;
       margin: 3rem 0;
-      
+
       h3 {
         margin: 1rem 0;
       }
@@ -53,7 +53,8 @@
 
 .rooms {
   .header-section {
-    h2, h3 {
+    h2,
+    h3 {
       margin: auto;
     }
   }
@@ -69,14 +70,16 @@
     max-width: 1240px;
     margin: auto;
 
-    .about-content, .about-img {
+    .about-content,
+    .about-img {
       width: 50%;
     }
 
     .about-content {
       text-align: left;
-      
-      h2, p {
+
+      h2,
+      p {
         width: 80%;
         color: $light;
       }
@@ -90,7 +93,7 @@
 
     .about-img {
       display: flex;
-      
+
       img {
         height: 100%;
         object-fit: contain;
