@@ -16,6 +16,23 @@ async function addCarrito(req, res) {
   }
 }
 
+const getCarrito = async (req, res) => {
+ try {
+  const carrito = await Carrito.find()
+  res.send(carrito)
+
+ } catch (error) {
+  console.log(error)
+ }
+};
+
+
+
+
+
+
+
 module.exports = {
   addCarrito,
+  getCarrito,
 };

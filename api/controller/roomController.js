@@ -1,5 +1,7 @@
 const Room = require("../src/models/Room");
 
+const Usuario = require("../src/models/Usuario")
+
 const addRoom = async (req, res) => {
   try {
     const {
@@ -10,7 +12,6 @@ const addRoom = async (req, res) => {
       desctiption,
       image,
       price,
-      id,
       bookedDates,
     } = req.body;
     console.log(req.body);
@@ -23,7 +24,6 @@ const addRoom = async (req, res) => {
       desctiption,
       image,
       price,
-      id,
       bookedDates,
     });
 
@@ -58,9 +58,67 @@ async function getRoomType(req, res) {
   res.send(result);
 }
 
+const getAvailableRooms = async (req, res) => {
+  const { start, end } = req.query;
+
+  let startUTC, endUTC;
+
+  try {
+    startUTC = new Date(start).toISOString();
+    endUTC = new Date(end).toISOString();
+  } catch (err) {
+    res.status(400).json({ message: "Invalid date format" });
+    return;
+  }
+
+  try {
+    const availableRooms = await Room.find({
+      bookedDates: {
+        $not: {
+          $elemMatch: {
+            start: { $lt: endUTC },
+            end: { $gt: startUTC },
+          },
+        },
+      },
+    });
+    res.json(availableRooms);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const updateRooms = async (req, res) => {
+  const roomId = req.params.id;
+  const { start, end, userId } = req.body;
+
+  let startUTC, endUTC;
+
+  try {
+    startUTC = new Date(start).toISOString();
+    endUTC = new Date(end).toISOString();
+  } catch (err) {
+    res.status(400).json({ message: "Invalid date format" });
+    return;
+  }
+
+  try {
+    const room = await Room.findByIdAndUpdate(roomId, {
+      $push: { bookedDates: { start: startUTC, end: endUTC, userId: userId } },
+    });
+   
+
+    res.json(room);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   addRoom,
   getAllRooms,
   getRoomId,
   getRoomType,
+  getAvailableRooms,
+  updateRooms,
 };

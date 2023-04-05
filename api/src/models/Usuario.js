@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const cartSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' },
+  rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Room' }],
+  transport:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Transport' }],
+});
+
 const ComentSchema = Schema(
   {
     text: String,
@@ -24,6 +30,7 @@ const UsuarioSchema = Schema(
     status: Boolean,
     type: String,
     coments: [ComentSchema],
+    carrito:[cartSchema]
   },
   { timestamps: true }
 );
