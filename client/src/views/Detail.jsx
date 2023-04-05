@@ -32,7 +32,7 @@ const Detail = (props) => {
             <div>
               <p>{detail.desctiption}</p>
 
-              <Link to="/cart">
+              <Link to="/checkout">
                 <button>Book this room!</button>
               </Link>
 
