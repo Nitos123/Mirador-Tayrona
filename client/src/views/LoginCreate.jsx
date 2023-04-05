@@ -8,7 +8,7 @@ const initialState = {
   password: "",
 };
 
-const Login = () => {
+const LoginCreate = () => {
   const [loginForm, setLoginForm] = useState(initialState);
 
   const changeHandler = (event) => {
@@ -33,14 +33,27 @@ const Login = () => {
 
           <div className="txt-container">
             <div>
-              <h1>Log In</h1>
+              <h1>Create your account</h1>
+            </div>
+
+            <div>
+              <button>Sing up with Google</button>
+              <h2>Or</h2>
             </div>
 
             <form className="login-form">
-              <label>Email: </label>
               <div>
                 <div>
+                  <label>Name: </label>
+                </div>
+
+                <div>
                   <input name="name" type="text" onChange={changeHandler} />
+                </div>
+
+                <label>Email: </label>
+                <div>
+                  <input name="email" type="text" onChange={changeHandler} />
                 </div>
 
                 <label>Password: </label>
@@ -49,20 +62,15 @@ const Login = () => {
                 </div>
 
                 <div>
-                  <button>Log in</button>
+                  <button>Create account</button>
                 </div>
               </div>
+
+              <div>
+                Already have a account?
+                <Link to="/login"> Log in</Link>
+              </div>
             </form>
-
-            <div>
-              <p>Or</p>
-              <button>Log in with Google</button>
-            </div>
-
-            <div>
-              Don't have an account?
-              <Link to="/loginCreate"> Create account</Link>
-            </div>
           </div>
         </div>
       </section>
@@ -70,4 +78,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginCreate;

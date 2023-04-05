@@ -53,7 +53,9 @@ const rooms = (props) => {
         <section className="roomsFilters">
           <div>
             <select defaultValue={"Price"} onChange={(e) => handlerMaxPrce(e)}>
-              <option disabled value="Price">Price</option>
+              <option disabled value="Price">
+                Price
+              </option>
               <option value="maxPrice">Price maximo</option>
               <option value="minPrice">Price minimo</option>
             </select>
