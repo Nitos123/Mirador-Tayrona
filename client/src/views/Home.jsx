@@ -3,6 +3,7 @@ import CardRoomContainerHome from "../components/CardRoomContainerHome";
 import CardsReviewsContainer from "../components/CardsReviewsContainer";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../styles/Home.scss";
 import {
   faUtensils,
   faWarehouse,
@@ -12,7 +13,6 @@ import {
   faMartiniGlassCitrus,
   faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import "../styles/Home.scss";
 
 const Home = () => {
   return (

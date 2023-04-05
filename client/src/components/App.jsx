@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import ShoppingCar from "../views/ShoppingCar";
 import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
+import { AuthProvider } from "../context/authContext";
 
 import "../styles/App.scss";
 
@@ -22,16 +23,18 @@ function App() {
     <div className="App">
       {!hideNavBar(location.pathname) && <NavBar />}
 
-      <Routes>
-        <Route exact path="/" Component={Home} />
-        <Route exact path="/home" Component={Home} />
-        <Route exact path="/detail/:id" Component={Detail} />
-        <Route exact path="/rooms" Component={rooms} />
-        <Route exact path="/contact" Component={Contact} />
-        <Route exact path="/cart" Component={ShoppingCar} />
-        <Route exact path="/login" Component={Login} />
-        <Route exact path="/loginCreate" Component={LoginCreate} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route exact path="/" Component={Home} />
+          <Route exact path="/home" Component={Home} />
+          <Route exact path="/detail/:id" Component={Detail} />
+          <Route exact path="/rooms" Component={rooms} />
+          <Route exact path="/contact" Component={Contact} />
+          <Route exact path="/cart" Component={ShoppingCar} />
+          <Route exact path="/login" Component={Login} />
+          <Route exact path="/loginCreate" Component={LoginCreate} />
+        </Routes>
+      </AuthProvider>
 
       {!hideNavBar(location.pathname) && <Footer />}
     </div>
