@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardRoomContainerHome from "../components/CardRoomContainerHome";
 import CardsReviewsContainer from "../components/CardsReviewsContainer";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../styles/Home.scss";
 import {
   faUtensils,
@@ -15,6 +16,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div className="home">
       <div className="mainImageHome"></div>

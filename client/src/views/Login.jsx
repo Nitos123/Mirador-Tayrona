@@ -1,5 +1,7 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 import "../styles/Login.scss";
 
 const initialState = {
@@ -9,16 +11,31 @@ const initialState = {
 };
 
 const Login = () => {
-  const [loginForm, setLoginForm] = useState(initialState);
+  const [user, setUser] = useState(initialState);
+
+  const { login } = useAuth();
+  const navigate = useNavigate(); // Es un Hook que se puede usar para controlar el redirect a otra página
+  const [error, setError] = useState(); // Con este estado se puede controlar los erros generados al momento de registrarse un nuevo usuario
 
   const changeHandler = (event) => {
     const property = event.target.name;
     const value = event.target.value;
 
-    setLoginForm({
-      ...loginForm,
+    setUser({
+      ...user,
       [property]: value,
     });
+  };
+
+  const submitHandle = async (event) => {
+    event.preventDefault();
+    setError(""); // Reseteando los errores.
+    try {
+      await login(user.email, user.password);
+      navigate("/"); // Al registrarse un usuario, se redirecciona al Home
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -36,23 +53,30 @@ const Login = () => {
               <h1>Log In</h1>
             </div>
 
-            <form className="login-form">
-              <label>Email: </label>
-              <div>
+            <div className="form">
+              {error && <p>{error}</p>}
+              <form className="login-form" onSubmit={submitHandle}>
+                <label>Email: </label>
                 <div>
-                  <input name="name" type="text" onChange={changeHandler} />
-                </div>
+                  <div>
+                    <input name="email" type="email" onChange={changeHandler} />
+                  </div>
 
-                <label>Password: </label>
-                <div>
-                  <input name="password" type="text" onChange={changeHandler} />
-                </div>
+                  <label>Password: </label>
+                  <div>
+                    <input
+                      name="password"
+                      type="password"
+                      onChange={changeHandler}
+                    />
+                  </div>
 
-                <div>
-                  <button>Log in</button>
+                  <div>
+                    <button>Log in</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
 
             <div>
               <p>Or</p>

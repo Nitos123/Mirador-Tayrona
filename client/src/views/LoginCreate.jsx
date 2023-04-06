@@ -1,6 +1,6 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import "../styles/Login.scss";
 
@@ -32,9 +32,8 @@ const LoginCreate = () => {
     setError(''); // Reseteando los errores.
     try {
       await signup(user.email, user.password);
-      navigate("/"); // Al registrarse un usuario, se redirecciona al Home
+      navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
     } catch (error) {
-      console.log("Error-->", error.message);
       setError(error.message);
     }
   };

@@ -9,6 +9,7 @@ import ShoppingCar from "../views/ShoppingCar";
 import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
 import { AuthProvider } from "../context/authContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 import "../styles/App.scss";
 
@@ -21,18 +22,25 @@ function App() {
 
   return (
     <div className="App">
-      {!hideNavBar(location.pathname) && <NavBar />}
-
       <AuthProvider>
+        {!hideNavBar(location.pathname) && <NavBar />}
         <Routes>
           <Route exact path="/" Component={Home} />
           <Route exact path="/home" Component={Home} />
           <Route exact path="/detail/:id" Component={Detail} />
           <Route exact path="/rooms" Component={rooms} />
           <Route exact path="/contact" Component={Contact} />
-          <Route exact path="/cart" Component={ShoppingCar} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
+          <Route
+            exact
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <ShoppingCar />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
 
