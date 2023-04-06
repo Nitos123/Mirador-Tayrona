@@ -50,6 +50,42 @@ const addRoomDate = async (req, res) => {
   try {
     const userID = new mongoose.Types.ObjectId(userId)
     const roomID = new mongoose.Types.ObjectId(idRoom)
+
+
+    const existingRoomDate = await Room.findOne({
+      _id: roomID,
+      bookedDates: {
+        $elemMatch: {
+          start: { $lte: endUTC },
+          end: { $gte: startUTC }
+        }
+      }
+    });
+    
+    if (existingRoomDate) {
+      return res.status(400).json({ message: "The specified dates already exist for this roomSchema" });
+    }
+    
+    
+
+    const existingRoomDates = await Usuario.findOne({
+      _id: userID,
+      "carrito.rooms": {
+        $elemMatch: {
+          start: startUTC,
+          end: endUTC,
+          idRoom: roomID
+        }
+      }
+    });
+    
+    if (existingRoomDates) {
+      return res.status(400).json({ message: "The specified dates already exist for this room" });
+    }
+    
+    
+    
+    
     const user = await Usuario.findByIdAndUpdate(userID, {
       $push: { "carrito.rooms": { start: startUTC, end: endUTC, userId: userID, idRoom:roomID } },
     });
