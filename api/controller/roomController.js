@@ -114,6 +114,9 @@ const updateRooms = async (req, res) => {
   }
 };
 
+
+
+
 module.exports = {
   addRoom,
   getAllRooms,
