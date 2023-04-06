@@ -30,8 +30,6 @@ const getCarrito = async (req, res) => {
 
 
 
-
-
 module.exports = {
   addCarrito,
   getCarrito,
