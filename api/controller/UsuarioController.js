@@ -116,10 +116,36 @@ const deleteRoomCard = async (req, res) => {
 
 
 
+async function crearComentario(req, res) {
+  const usuarioId = req.params.id;
+
+  try {
+    
+    const usuario = await Usuario.findByIdAndUpdate(usuarioId, {
+      $push: { coments: { text: req.body.text, rating: req.body.rating, userId: usuarioId } },
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+   ; // Obtiene el último comentario añadido
+
+    res.send(usuario)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al crear el comentario' });
+  }
+}
+
+
+
+
 
 module.exports = {
   addUsuario,
   getAllUsers,
   addRoomDate,
-  deleteRoomCard
+  deleteRoomCard,
+  crearComentario
 };

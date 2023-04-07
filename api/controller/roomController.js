@@ -126,49 +126,63 @@ const sendTicketToMail = async (req, res) => {
     const usuario = await Usuario.findOne({ _id: id });
 
     const rooms = usuario.carrito[0].rooms;
-
+    let dias = 0
     const cuartos = []
-
+    rooms.forEach(room => {
+      const startDate = new Date(room.start);
+      const endDate = new Date(room.end);
+      if (endDate instanceof Date && !isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+        const resta = endDate.getTime() - startDate.getTime();
+        dias += Math.floor(resta / (1000 * 60 * 60 * 24));
+      } else {
+        console.log(`El objeto room con start = ${room.start} y end = ${room.end} no cumple con el criterio requerido`);
+      }
+    });
+    
+    
+    
+    
+    console.log(dias);
+    
     // rooms.forEach(async element => {
+      
+      //   //console.log(element.idRoom)
+      
+      //   const hab = await Room.findById(element.idRoom)
+      //   cuartos[] = pushAync(hab)
+      //   // console.log(hab)
+      
+      // });
+      for (let index = 0; index < rooms.length; index++) {
+        const hab = await Room.findById(rooms[index].idRoom)
+        await pushAsync(cuartos, hab)
         
-    //   //console.log(element.idRoom)
+      }
       
-    //   const hab = await Room.findById(element.idRoom)
-    //   cuartos[] = pushAync(hab)
-    //   // console.log(hab)
-     
-    // });
-    for (let index = 0; index < rooms.length; index++) {
-      const hab = await Room.findById(rooms[index].idRoom)
-      await pushAsync(cuartos, hab)
       
-    }
-   
-
-    
-
-    console.log('array de cuartos',cuartos)
-
-
-    if (!usuario) {
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
-    }
-    
-   
-  
-
- // Generar el contenido del ticket con los productos del carrito
- let ticket = 'Ticket del hotel Tayrona:\n ';
- let total = 0;
-console.log(cuartos)
- cuartos.forEach(producto => {
-   ticket += `${producto.name}: $${producto.price}\n`;
+      
+      
+      
+      
+      
+      if (!usuario) {
+        return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+      }
+      
+      
+      
+      
+      // Generar el contenido del ticket con los productos del carrito
+      let ticket = 'Ticket del hotel Tayrona:\n ';
+      let total = 0;
+      cuartos.forEach(producto => {
+        ticket += `${producto.name}: $${producto.price}\n`;
   console.log(producto.name)
    total += producto.price;
-  console.log(producto)
  });
 
- ticket += `Total: $${total}`;
+ ticket += `Total: $${total * dias}`;
+ console.log(dias)
 
 
 
