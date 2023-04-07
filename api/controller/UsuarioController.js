@@ -1,5 +1,7 @@
 const Usuario = require("../src/models/Usuario");
+const Room = require("../src/models/Room")
 
+const mongoose = require("mongoose")
 async function addUsuario(req, res) {
   try {
     const { fullName, userName, password, email, phone, status, type, coments } =
@@ -32,8 +34,92 @@ const getAllUsers =  async (req, res)=>{
     console.log(error)
   }
 }
+const addRoomDate = async (req, res) => {
+  const { start, end, userId, idRoom } = req.body;
+
+  let startUTC, endUTC;
+
+  try {
+    startUTC = new Date(start).toISOString();
+    endUTC = new Date(end).toISOString();
+  } catch (err) {
+    res.status(400).json({ message: "Invalid date format" });
+    return;
+  }
+
+  try {
+    const userID = new mongoose.Types.ObjectId(userId)
+    const roomID = new mongoose.Types.ObjectId(idRoom)
+
+
+    const existingRoomDate = await Room.findOne({
+      _id: roomID,
+      bookedDates: {
+        $elemMatch: {
+          start: { $lte: endUTC },
+          end: { $gte: startUTC }
+        }
+      }
+    });
+    
+    if (existingRoomDate) {
+      return res.status(400).json({ message: "The specified dates already exist for this roomSchema" });
+    }
+    
+    
+
+    const existingRoomDates = await Usuario.findOne({
+      _id: userID,
+      "carrito.rooms": {
+        $elemMatch: {
+          start: startUTC,
+          end: endUTC,
+          idRoom: roomID
+        }
+      }
+    });
+    
+    if (existingRoomDates) {
+      return res.status(400).json({ message: "The specified dates already exist for this room" });
+    }
+    
+    
+    
+    
+    const user = await Usuario.findByIdAndUpdate(userID, {
+      $push: { "carrito.rooms": { start: startUTC, end: endUTC, userId: userID, idRoom:roomID } },
+    });
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const deleteRoomCard = async (req, res) => {
+  const { userId, idRoom } = req.body;
+
+  try {
+    const roomID = new mongoose.Types.ObjectId(idRoom)
+    const userID = new mongoose.Types.ObjectId(userId)
+    const user = await Usuario.updateOne(
+      { _id: userID },
+      { $pull: { "carrito.rooms": { idRoom: roomID } } }
+    );
+
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+
 
 module.exports = {
   addUsuario,
-  getAllUsers
+  getAllUsers,
+  addRoomDate,
+  deleteRoomCard
 };
