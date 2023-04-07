@@ -32,7 +32,7 @@ const LoginCreate = () => {
     event.preventDefault();
     setError(""); // Reseteando los errores.
     try {
-      await signup(user.email, user.password);
+      await signup(user.email, user.password, user.name);
       navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
     } catch (error) {
       setError(error.message);
@@ -73,13 +73,13 @@ const LoginCreate = () => {
               {error && <p>{error}</p>}
               <form className="login-form" onSubmit={submitHandle}>
                 <div>
-                  {/* <div>
+                  <div>
                   <label>Name: </label>
                 </div>
 
                 <div>
                   <input name="name" type="text" onChange={changeHandler} />
-                </div> */}
+                </div>
 
                   <label>Email: </label>
                   <div>

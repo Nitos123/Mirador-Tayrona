@@ -7,6 +7,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../firebaseAuth";
 
@@ -22,11 +24,26 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null); //Con este estado, podemos guardar los datos del usuario logueado
   const [loading, setLoading] = useState(true); // Esto es para cuando inicialmente el user está en null
 
-  const signup = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password); //Revisar como puedo enviar el name
+  const signup = async (email, password, displayName) => {
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // Enviando email de verificación del correo electrónico
+      await sendEmailVerification(auth.currentUser);
+
+      //Actualizando el nombre asociado al correo de registro
+      await updateProfile(user, {
+        displayName,
+      });
+    } catch (error) {}
+  };
 
   const login = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password); //Revisar como puedo enviar el name
+    signInWithEmailAndPassword(auth, email, password);
 
   const loginWithGoogle = () => {
     const googleProvider = new GoogleAuthProvider();

@@ -4,13 +4,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getRoomDetail } from "../redux/actions";
 import "../styles/Detail.scss";
+import { useAuth } from "../context/authContext";
 
 const Detail = (props) => {
   const detail = useSelector((state) => state.detail);
-
   const dispatch = useDispatch();
-
   const id = useParams().id;
+  const { user } = useAuth();
+  const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
+  // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
+  const handleMessage = () => {
+    if (user) {
+      return alert("You must first verify your email");
+    } else {
+      return alert("You must first login");
+    }
+  };
 
   useEffect(() => {
     dispatch(getRoomDetail(id));
@@ -30,9 +39,13 @@ const Detail = (props) => {
             <div>
               <p>{detail.desctiption}</p>
 
-              <Link to="/checkout">
-                <button>Book this room!</button>
-              </Link>
+              {!verified ? (
+                <button onClick={() => handleMessage()}>Book this room!</button>
+              ) : (
+                <button>
+                  <Link to="/checkout">Book this room!</Link>
+                </button>
+              )}
 
               <h1>More rooms</h1>
               <CardRoomContainerDetail />
