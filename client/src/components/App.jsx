@@ -5,7 +5,7 @@ import rooms from "../views/Rooms";
 import Contact from "./Contact";
 import Detail from "../views/Detail";
 import Footer from "./Footer";
-import ShoppingCar from "../views/ShoppingCar";
+import checkOut from "../views/Checkout";
 import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
 
@@ -15,7 +15,7 @@ function App() {
   const location = useLocation();
 
   const hideNavBar = (path) => {
-    return ["/cart", "/login", "/loginCreate"].includes(path);
+    return ["/checkout", "/login", "/loginCreate"].includes(path);
   };
 
   return (
@@ -28,7 +28,7 @@ function App() {
         <Route exact path="/detail/:id" Component={Detail} />
         <Route exact path="/rooms" Component={rooms} />
         <Route exact path="/contact" Component={Contact} />
-        <Route exact path="/cart" Component={ShoppingCar} />
+        <Route exact path="/checkout" Component={checkOut} />
         <Route exact path="/login" Component={Login} />
         <Route exact path="/loginCreate" Component={LoginCreate} />
       </Routes>
