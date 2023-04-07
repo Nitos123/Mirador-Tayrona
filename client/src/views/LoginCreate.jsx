@@ -13,7 +13,7 @@ const initialState = {
 const LoginCreate = () => {
   const [user, setUser] = useState(initialState);
 
-  const { signup } = useAuth();
+  const { signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate(); // Es un Hook que se puede usar para controlar el redirect a otra página
   const [error, setError] = useState(); // Con este estado se puede controlar los erros generados al momento de registrarse un nuevo usuario
 
@@ -27,12 +27,23 @@ const LoginCreate = () => {
     });
   };
 
+  // Registro de usuarios por correo y contraseña
   const submitHandle = async (event) => {
     event.preventDefault();
-    setError(''); // Reseteando los errores.
+    setError(""); // Reseteando los errores.
     try {
       await signup(user.email, user.password);
       navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  // Registro de usuario con Google
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -54,12 +65,12 @@ const LoginCreate = () => {
             </div>
 
             <div>
-              <button>Sing up with Google</button>
+              <button onClick={handleGoogleSignIn}>Sing up with Google</button>
               <h2>- Or -</h2>
             </div>
 
             <div className="form">
-              { error && <p>{error}</p> }
+              {error && <p>{error}</p>}
               <form className="login-form" onSubmit={submitHandle}>
                 <div>
                   {/* <div>

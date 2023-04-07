@@ -13,9 +13,11 @@ const initialState = {
 const Login = () => {
   const [user, setUser] = useState(initialState);
 
-  const { login } = useAuth();
+  const { login, loginWithGoogle, resetPassword } = useAuth();
   const navigate = useNavigate(); // Es un Hook que se puede usar para controlar el redirect a otra página
-  const [error, setError] = useState(); // Con este estado se puede controlar los erros generados al momento de registrarse un nuevo usuario
+  const [error, setError] = useState(); // Con este estado se puede controlar los errores generados al momento de registrarse un nuevo usuario
+  
+  const [info, setInfo] = useState(); // Con este estado se puede controlar los erros generados al momento de registrarse un nuevo usuario
 
   const changeHandler = (event) => {
     const property = event.target.name;
@@ -27,6 +29,7 @@ const Login = () => {
     });
   };
 
+  // Login con usuario y contraseña
   const submitHandle = async (event) => {
     event.preventDefault();
     setError(""); // Reseteando los errores.
@@ -37,6 +40,29 @@ const Login = () => {
       setError(error.message);
     }
   };
+
+  // login con Google
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  // Para recuperar la contraseña
+  const handleResetPassword = async () => {
+    if(!user.email) setError('Please enter your email');
+
+    try {
+      await resetPassword(email);
+      setError('');
+      setInfo('We sent you an email with a link to reset you password');      
+    } catch (error) {
+      setError(error.message);
+    }
+  }
 
   return (
     <div>
@@ -54,7 +80,8 @@ const Login = () => {
             </div>
 
             <div className="form">
-              {error && <p>{error}</p>}
+              {error && <p className="error">{error}</p>}
+              {info && <p className="info">{info}</p>}
               <form className="login-form" onSubmit={submitHandle}>
                 <label>Email: </label>
                 <div>
@@ -71,6 +98,8 @@ const Login = () => {
                     />
                   </div>
 
+                  <a href="#!" onClick={handleResetPassword}>Forgot Password?</a>
+
                   <div>
                     <button>Log in</button>
                   </div>
@@ -80,7 +109,7 @@ const Login = () => {
 
             <div>
               <p>Or</p>
-              <button>Log in with Google</button>
+              <button onClick={handleGoogleSignIn}>Log in with Google</button>
             </div>
 
             <div>
