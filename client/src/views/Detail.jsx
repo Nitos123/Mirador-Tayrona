@@ -16,8 +16,6 @@ const Detail = (props) => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id]);
 
-  console.log(detail);
-
   return (
     <div className="detail">
       {detail ? (

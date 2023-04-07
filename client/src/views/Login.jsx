@@ -56,7 +56,7 @@ const Login = () => {
     if(!user.email) setError('Please enter your email');
 
     try {
-      await resetPassword(email);
+      await resetPassword(user.email);
       setError('');
       setInfo('We sent you an email with a link to reset you password');      
     } catch (error) {

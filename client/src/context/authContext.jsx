@@ -14,7 +14,6 @@ export const authContext = createContext(); // devuelve un objeto, con esto pued
 
 export const useAuth = () => {
   const context = useContext(authContext);
-  console.log("contexto-->", context);
   if (!context) throw new Error("There is not auth provider");
   return context;
 };

@@ -1,4 +1,4 @@
-@import './settings';
+@import "./settings";
 
 .navbar {
   min-height: 100px;
@@ -9,7 +9,6 @@
   top: 0;
   margin-bottom: -100px;
   background-color: #0000004d;
-
 
   .container-navbar {
     display: flex;
@@ -38,5 +37,65 @@
       margin-left: 2.5rem;
       color: $light;
     }
+  }
+
+  .login {
+    color: $light;
+    font-size: 1.5rem;
+    margin-left: 3rem;
+
+    &:hover + .dropdown {
+      display: flex;
+    }
+  }
+  
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 3.8rem;
+    flex-direction: column;
+    background-color: $bg-color;
+    border-radius: 10px;
+    width: 150px;
+    
+    a {
+      color: $header-color;
+      margin-left: 0;
+      text-align: left;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      transition: $transition;
+      
+      &:hover {
+        background-color: $primary;
+      }
+    }
+  }
+
+  .dropdown:hover {
+    display: flex;
+  }
+
+  .user-name {
+    color: $light;
+    margin-left: 3rem;
+    margin-right: 1rem;
+  }
+
+  .photo-user {
+    width: 40px;
+    border-radius: 50px;
+  }
+
+  .profile-incognito {
+    background-color: $dark;
+    padding: 10px;
+    color: $light;
+    font-size: 1.5rem;
+    border-radius: 50px;
+  }
+
+  .logout {
+    font-size: 1.5rem;
   }
 }
