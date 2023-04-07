@@ -115,7 +115,7 @@ const deleteRoomCard = async (req, res) => {
 };
 
 
-
+//642df715b277bcadd21c3b38
 async function crearComentario(req, res) {
   const usuarioId = req.params.id;
 
@@ -138,6 +138,28 @@ async function crearComentario(req, res) {
   }
 }
 
+async function deleteComnts(req, res) {
+  const comentsId = req.params.id;
+  const userId = req.params.user
+
+  try {
+    
+    const usuario = await Usuario.findByIdAndUpdate(userId, {
+      $pull: { coments: { _id: comentsId } },
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+   ; // Obtiene el último comentario añadido
+
+    res.send(usuario)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al crear el comentario' });
+  }
+}
 
 
 
@@ -147,5 +169,6 @@ module.exports = {
   getAllUsers,
   addRoomDate,
   deleteRoomCard,
-  crearComentario
+  crearComentario,
+  deleteComnts
 };
