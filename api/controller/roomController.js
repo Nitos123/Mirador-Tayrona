@@ -1,7 +1,7 @@
 const Room = require("../src/models/Room");
-const nodemailer = require('nodemailer');  //para el envio de mails con un ticket al usuario
+const nodemailer = require("nodemailer"); //para el envio de mails con un ticket al usuario
 
-const Usuario = require("../src/models/Usuario")
+const Usuario = require("../src/models/Usuario");
 
 const addRoom = async (req, res) => {
   try {
@@ -107,7 +107,6 @@ const updateRooms = async (req, res) => {
     const room = await Room.findByIdAndUpdate(roomId, {
       $push: { bookedDates: { start: startUTC, end: endUTC, userId: userId } },
     });
-   
 
     res.json(room);
   } catch (err) {
@@ -115,93 +114,96 @@ const updateRooms = async (req, res) => {
   }
 };
 
-const pushAsync  = async (array,elem) =>{
-    await array.push(elem)
-}
+const pushAsync = async (array, elem) => {
+  await array.push(elem);
+};
 
 const sendTicketToMail = async (req, res) => {
   try {
-    const {id} = req.params
+    const { id } = req.params;
     // const habitacion = await Room.findOne({ "bookedDates._id": id }).populate('bookedDates.idRoom');
     const usuario = await Usuario.findOne({ _id: id });
 
     const rooms = usuario.carrito[0].rooms;
+    let dias = 0;
+    const cuartos = [];
+    rooms.forEach((room) => {
+      const startDate = new Date(room.start);
+      const endDate = new Date(room.end);
+      if (
+        endDate instanceof Date &&
+        !isNaN(startDate.getTime()) &&
+        !isNaN(endDate.getTime())
+      ) {
+        const resta = endDate.getTime() - startDate.getTime();
+        dias += Math.floor(resta / (1000 * 60 * 60 * 24));
+      } else {
+        console.log(
+          `El objeto room con start = ${room.start} y end = ${room.end} no cumple con el criterio requerido`
+        );
+      }
+    });
 
-    const cuartos = []
+    console.log(dias);
 
     // rooms.forEach(async element => {
-        
+
     //   //console.log(element.idRoom)
-      
+
     //   const hab = await Room.findById(element.idRoom)
     //   cuartos[] = pushAync(hab)
     //   // console.log(hab)
-     
+
     // });
     for (let index = 0; index < rooms.length; index++) {
-      const hab = await Room.findById(rooms[index].idRoom)
-      await pushAsync(cuartos, hab)
-      
+      const hab = await Room.findById(rooms[index].idRoom);
+      await pushAsync(cuartos, hab);
     }
-   
-
-    
-
-    console.log('array de cuartos',cuartos)
-
 
     if (!usuario) {
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
     }
-    
-   
-  
 
- // Generar el contenido del ticket con los productos del carrito
- let ticket = 'Ticket del hotel Tayrona:\n ';
- let total = 0;
-console.log(cuartos)
- cuartos.forEach(producto => {
-   ticket += `${producto.name}: $${producto.price}\n`;
-  console.log(producto.name)
-   total += producto.price;
-  console.log(producto)
- });
+    // Generar el contenido del ticket con los productos del carrito
+    let ticket = "Ticket del hotel Tayrona:\n ";
+    let total = 0;
+    cuartos.forEach((producto) => {
+      ticket += `${producto.name}: $${producto.price}\n`;
+      console.log(producto.name);
+      total += producto.price;
+    });
 
- ticket += `Total: $${total}`;
-
-
-
+    ticket += `Dias: ${dias}\nTotal: $${total * dias}`;
+    console.log(dias);
 
     // Configurar el transporte de nodemailer
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com', // servidor SMTP
+      host: "smtp.gmail.com", // servidor SMTP
       port: 465, // puerto del servidor SMTP
       secure: true, // utiliza SSL
       auth: {
-        user: 'miradortayronaproyectohenry@gmail.com', // dirección de correo electrónico del remitente
-        pass: 'xewmidrfubohbesq' // contraseña del remitente
-      }
+        user: "miradortayronaproyectohenry@gmail.com", // dirección de correo electrónico del remitente
+        pass: "xewmidrfubohbesq", // contraseña del remitente
+      },
     });
 
     // Enviar el ticket al email del usuario
     const info = await transporter.sendMail({
-      from: 'miradorTayronaProyectoHenry@gmail.com',
+      from: "miradorTayronaProyectoHenry@gmail.com",
       to: usuario.email,
-      subject: 'Ticket de compra ',
-      text: ticket + '\nMuchas gracias por elegir hospedarse aqui'
+      subject: "Ticket de compra ",
+      text: ticket + "\nMuchas gracias por elegir hospedarse aqui",
     });
 
-    transporter.verify().then(() =>{console.log('Ready for send emails')})
+    transporter.verify().then(() => {
+      console.log("Ready for send emails");
+    });
 
-    res.json({ mensaje: 'Ticket enviado exitosamente', info: info });
+    res.json({ mensaje: "Ticket enviado exitosamente", info: info });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
-
-
-
+};
 
 module.exports = {
   addRoom,
@@ -210,5 +212,5 @@ module.exports = {
   getRoomType,
   getAvailableRooms,
   updateRooms,
-  sendTicketToMail
+  sendTicketToMail,
 };
