@@ -5,7 +5,7 @@ import rooms from "../views/Rooms";
 import Contact from "./Contact";
 import Detail from "../views/Detail";
 import Footer from "./Footer";
-import checkOut from "../views/Checkout";
+import Checkout from "../views/Checkout";
 import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
 import { AuthProvider } from "../context/authContext";
@@ -32,12 +32,12 @@ function App() {
           <Route exact path="/contact" Component={Contact} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
+        {/* <Route exact path="/checkout" Component={checkOut} /> */}
           <Route
-            exact
             path="/checkout"
             element={
               <ProtectedRoute>
-                <checkout />
+                <Checkout />
               </ProtectedRoute>
             }
           />

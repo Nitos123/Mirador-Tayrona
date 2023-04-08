@@ -43,6 +43,7 @@
     color: $light;
     font-size: 1.5rem;
     margin-left: 3rem;
+    padding: 1rem;
 
     &:hover + .dropdown {
       display: flex;
