@@ -109,8 +109,10 @@ const Login = () => {
             </div>
 
             <div className="form">
-              {error && <p className="error">{error}</p>}
-              {info && <p className="info">{info}</p>}
+              <div className="message-alert">
+                {error && <p className="error">{error}</p>}
+                {info && <p className="info">{info}</p>}
+              </div>
               <form className="login-form" onSubmit={submitHandle}>
                 <div>
                   <div className="input-content">
@@ -134,7 +136,7 @@ const Login = () => {
                     </a>
                   </div>
 
-                  <div>
+                  <div className="buttom-form">
                     <button>Log in</button>
                   </div>
                 </div>
