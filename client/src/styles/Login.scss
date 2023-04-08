@@ -2,12 +2,12 @@
 
 .columns-login {
   display: flex;
-
   justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
 
   .image-container {
     background-image: url("https://imagenescityexpress.scdn6.secure.raxcdn.com/sites/default/files/2017-08/tayrona.jpg");
-    height: 100vh;
     width: 60%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,14 +22,43 @@
 
   .txt-container {
     background-color: $bg-color;
-    height: 100vh;
     width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    .login-form {
-      padding: 1em;
+    .form {
+      width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .login-form {
+        width: 80%;
+        text-align: left;
+
+        .input-content {
+          margin-bottom: 2rem;
+        }
+
+        input {
+          width: 100%;
+          height: 3rem;
+          background-color: #dee3e7;
+          border: unset;
+          border-radius: 15px;
+          box-shadow: 5px 5px 15px -5px #6d6c6c;
+        }
+
+        label {
+          font-size: 20px;
+        }
+
+        .pass-reset {
+          line-height: 3rem;
+        }
+      }
     }
   }
 }

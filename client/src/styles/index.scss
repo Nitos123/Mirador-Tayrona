@@ -130,3 +130,37 @@ button:focus-visible {
     box-shadow: $shadowHover;
   }
 }
+
+
+/*Estilos del botón de google*/
+.button-sign-google {
+  max-width: 320px;
+  display: flex;
+  padding: 0.5rem 1.4rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  gap: 0.75rem;
+  color: $color-text;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all .6s ease;
+}
+
+.button-sign-google svg {
+  height: 24px;
+}
+
+.button-sign-google:hover {
+  transform: scale(1.02);
+}
+
+.or {
+  font-size: 26px;
+  font-weight: 500;
+}
