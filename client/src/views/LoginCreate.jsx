@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import axios from "axios";
 import "../styles/Login.scss";
 
 const initialState = {
@@ -27,11 +28,21 @@ const LoginCreate = () => {
     });
   };
 
+  // Registrando los datos de usuario a la base de datos
+  const signupLocal = (name, email) =>
+    axios.post("/usuarios", {
+      fullName: name,
+      email,
+      type: "usuario",
+      status: true,
+    });
+
   // Registro de usuarios por correo y contraseña
   const submitHandle = async (event) => {
     event.preventDefault();
     setError(""); // Reseteando los errores.
     try {
+      await signupLocal(user.name, user.email);
       await signup(user.email, user.password, user.name);
       navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
     } catch (error) {
@@ -65,7 +76,10 @@ const LoginCreate = () => {
             </div>
 
             <div>
-              <button class="button-sign-google" onClick={handleGoogleSignIn}>
+              <button
+                className="button-sign-google"
+                onClick={handleGoogleSignIn}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="xMidYMid"
