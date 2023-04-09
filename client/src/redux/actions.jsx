@@ -9,6 +9,8 @@ export const GET_TYPE = "GET_TYPE";
 export const GET_MAX_PRICE = "GET_MAX_PRICE";
 export const GET_MIN_PRICE = "GET_MIN_PRICE";
 export const RESET = "RESET";
+export const CARRITO_USER = "CARRITO_USER"
+export const GET_CAR = "GET_CAR"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -70,3 +72,47 @@ export function reset() {
     type: RESET,
   };
 }
+
+//PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
+export const carritoUser = (start, end, userMail, roomId)=>{
+  return async function (dispatch) {
+    const usuarios = (await axios.get("/usuarios")).data.filter(user=> user.email === userMail);
+    const id = usuarios[0]._id
+    const startUTC = new Date(start).toISOString().slice(0, 10);
+const endUTC = new Date(end).toISOString().slice(0, 10);
+    const data = {
+      start:  startUTC,
+      end: endUTC,
+      userId: id,
+      idRoom: roomId
+    }
+   
+    
+    try {
+      const response = await axios.patch("/usuarios/dateRoom", data)
+      
+      console.log(response.data, "como va ser")
+      dispatch({ type: CARRITO_USER, payload: response.data });
+      return response.data
+      
+    } catch (error) {
+      console.log(error.response.status)
+      return error.response.status
+    }
+    // Hacer algo con la respuesta del servidor, por ejemplo:
+  };
+}
+export const getCar = (email) => {
+  return async function (dispatch) {
+      const usuarios = (await axios.get("/usuarios")).data.filter(user=> user.email === email);
+      const id = usuarios[0]._id
+      const response = await axios.get(`/usuarios`);
+      const user = response.data;
+      const usuario = user.filter(user=> user._id === id);
+      const roomId = usuario[0].carrito[0].rooms.map(room => room.idRoom)
+      const room = (await axios.get("/room")).data.filter(room => roomId.includes(room._id));
+      console.log(room)
+      dispatch({ type: GET_CAR, payload: room });
+   
+  };
+};
