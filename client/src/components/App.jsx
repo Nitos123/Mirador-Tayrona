@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import Checkout from "../views/Checkout";
 import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
+import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -32,7 +33,8 @@ function App() {
           <Route exact path="/contact" Component={Contact} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
-        {/* <Route exact path="/checkout" Component={checkOut} /> */}
+          <Route exact path="/createReview" Component={CreateReview} />
+          {/* <Route exact path="/checkout" Component={checkOut} /> */}
           <Route
             path="/checkout"
             element={
