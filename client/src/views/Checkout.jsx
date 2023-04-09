@@ -1,9 +1,14 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CheckoutForm from "../components/CheckoutForm";
 import "../styles/Checkout.scss";
+import { useSelector } from "react-redux";
 
 const checkOut = (props) => {
+
+    const carrito = useSelector(state => state.carrito)
+  
+  console.log(carrito)
   return (
     <div>
       <section>
@@ -12,18 +17,13 @@ const checkOut = (props) => {
             <Link to="/home">
               <button className="back">Back to home</button>
             </Link>
-            <div>
-              <p>Booked rooms</p>
-              <p>You have 3 items in your cart</p>
-            </div>
-
-            <div>
-              <img
-                className="product-img"
-                src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/277574212.jpg?k=621dbc8e6f3d0217c4d6f28b08a682d817474d4eecb717bf929722fad00f255c&o=&hp=1"
-                alt="front-part-house"
-              />
-            </div>
+           <div>
+            {carrito.map(carrito => <div>
+              <img src={carrito.image[0]} alt={carrito.name} width="300em" />
+            <p>{carrito.name}</p>
+            <p>{carrito.price}</p>
+            </div>)}
+           </div>
           </div>
 
           <div className="txt-container">

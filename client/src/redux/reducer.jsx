@@ -8,6 +8,7 @@ import {
   GET_MIN_PRICE,
   GET_TYPE,
   RESET,
+  GET_CAR
 } from "./actions";
 const initialState = {
   rooms: [],
@@ -16,6 +17,7 @@ const initialState = {
   desayuno: [],
   comidas: [],
   detail: [],
+  carrito: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
 };
 
@@ -110,6 +112,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
       };
+      case GET_CAR:
+        return {
+          ...state,
+          carrito: action.payload
+        }
 
     default:
       return { ...state };
