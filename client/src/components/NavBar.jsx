@@ -12,7 +12,7 @@ import {
 const NavBar = (props) => {
   const { user, logout } = useAuth();
   console.log(user);
-  
+
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
@@ -34,15 +34,23 @@ const NavBar = (props) => {
             // Cuando hay un usuario Logueado
             <>
               <p className="user-name">
-                {user.displayName ? `Hi ${user.displayName.split(" ")[0]}!` : "Howdy"}
+                {user.displayName
+                  ? `Hi ${user.displayName.split(" ")[0]}!`
+                  : "Howdy"}
               </p>
               {user.photoURL ? (
                 <img className="photo-user" src={user.photoURL} alt="perfil" />
               ) : (
-                <FontAwesomeIcon className="profile-incognito" icon={faUserTie} />
+                <FontAwesomeIcon
+                  className="profile-incognito"
+                  icon={faUserTie}
+                />
               )}
               <a href="#!" onClick={handleLogout}>
-                <FontAwesomeIcon className="logout" icon={faArrowRightFromBracket} />
+                <FontAwesomeIcon
+                  className="logout"
+                  icon={faArrowRightFromBracket}
+                />
               </a>
             </>
           )}
