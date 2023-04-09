@@ -1,11 +1,13 @@
 import CardReview from "./CardReview";
 import { register } from "swiper/element/bundle"; //import swiper slider - Con esto podemos hacer el carousel
 import "../styles/CardsReviewsContainer.scss";
-
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 import React from "react";
 
 export default function CardsReviewsContainer() {
   const reviews = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const { user, logout } = useAuth();
 
   register();
 
@@ -34,6 +36,16 @@ export default function CardsReviewsContainer() {
                 );
               })}
             </swiper-container>
+          </div>
+
+          <div>
+            {user && (
+              <div>
+                <Link to="/createReview">
+                  <button>Write a review</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

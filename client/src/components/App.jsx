@@ -8,7 +8,11 @@ import Footer from "./Footer";
 import Checkout from "../views/Checkout";
 import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
+<<<<<<< HEAD
 import Review from "./Review";
+=======
+import CreateReview from "../views/CreateReview";
+>>>>>>> dev
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -34,6 +38,11 @@ function App() {
           <Route exact path="/review" Component={Review} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
+<<<<<<< HEAD
+=======
+          <Route exact path="/createReview" Component={CreateReview} />
+          {/* <Route exact path="/checkout" Component={checkOut} /> */}
+>>>>>>> dev
           <Route
             path="/checkout"
             element={
