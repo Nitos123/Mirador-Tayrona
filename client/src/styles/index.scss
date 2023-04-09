@@ -53,17 +53,19 @@ h3 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  border: none;
+  padding: 0.8rem 4rem;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  color: $header-color;
+  background-color: $primary;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: $transition;
+  box-shadow: $shadow;
 }
 button:hover {
-  border-color: #646cff;
+  box-shadow: $shadowHover;
 }
 button:focus,
 button:focus-visible {
@@ -129,4 +131,38 @@ button:focus-visible {
   &:hover {
     box-shadow: $shadowHover;
   }
+}
+
+
+/*Estilos del botón de google*/
+.button-sign-google {
+  max-width: 320px;
+  display: flex;
+  padding: 0.5rem 1.4rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  gap: 0.75rem;
+  color: $color-text;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all .6s ease;
+}
+
+.button-sign-google svg {
+  height: 24px;
+}
+
+.button-sign-google:hover {
+  transform: scale(1.02);
+}
+
+.or {
+  font-size: 26px;
+  font-weight: 500;
 }
