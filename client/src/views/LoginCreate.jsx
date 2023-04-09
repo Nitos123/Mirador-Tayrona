@@ -42,8 +42,8 @@ const LoginCreate = () => {
     event.preventDefault();
     setError(""); // Reseteando los errores.
     try {
-      await signupLocal(user.name, user.email);
       await signup(user.email, user.password, user.name);
+      await signupLocal(user.name, user.email);
       navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
     } catch (error) {
       setError(error.message);
