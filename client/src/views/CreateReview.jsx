@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import CardRoomContainer from "../components/CardsRoomContainer";
-import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
-import { useDispatch } from "react-redux";
-import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
+// import { Validate } from "../middleware/validate";
+
+const validate = (state) => {
+  const error = {};
+
+  if (!state.review.length || state.review.length < 10) {
+    error.review = "Review must be more than 10 characters!";
+  }
+
+  if (state.stars < 1 || state.stars > 5) {
+    error.stars = "You must choose stars";
+  }
+
+  return error;
+};
 
 const initialState = {
   review: "",
@@ -12,6 +23,10 @@ const initialState = {
 
 const CreateReview = (props) => {
   const [review, setReview] = useState(initialState);
+  const [blur, setBlur] = useState({});
+  const errors = validate(review);
+
+  const formValid = Object.keys(errors).length === 0;
 
   const changeHandler = (event) => {
     const property = event.target.name;
@@ -20,6 +35,22 @@ const CreateReview = (props) => {
     setReview({
       ...review,
       [property]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (formValid) {
+      // dispatch(postPokemon(form));
+      alert("Review created successfully!");
+      setReview(initialState);
+    }
+  };
+
+  const handleBlur = (event) => {
+    setBlur({
+      ...blur,
+      [event.target.name]: true,
     });
   };
 
@@ -36,31 +67,37 @@ const CreateReview = (props) => {
       </section>
 
       <div className="">
-        <form>
+        <form onSubmit={(event) => handleSubmit(event)}>
           <div>
             <label>Stars: </label>
-            <select
-              name="stars"
-              defaultValue={"DEFAULT"}
-              onChange={changeHandler}
-            >
-              <option value="DEFAULT" disabled>
-                Sort by name
-              </option>
+
+            <select name="stars" onBlur={handleBlur} onChange={changeHandler}>
+              <option value="DEFAULT">Select</option>
               <option value="5">⭐⭐⭐⭐⭐</option>
               <option value="4">⭐⭐⭐⭐ </option>
               <option value="3">⭐⭐⭐ </option>
               <option value="2">⭐⭐ </option>
               <option value="1">⭐ </option>
             </select>
-          </div>
-          <div>
-            <label>Review: </label>
-            <input></input>
+            {errors.stars && blur.stars && <p>{errors.stars}</p>}
           </div>
 
           <div>
-            <button>Send</button>
+            <label>Review: </label>
+            <input
+              name="review"
+              type="text"
+              value={review.review}
+              onChange={changeHandler}
+              onBlur={handleBlur}
+            />
+            {errors.review && blur.review && <p>{errors.review}</p>}
+          </div>
+
+          <div>
+            <button type="submit" disabled={!formValid}>
+              Send
+            </button>
           </div>
         </form>
       </div>
