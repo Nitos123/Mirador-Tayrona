@@ -80,7 +80,7 @@ const Login = () => {
             </div>
 
             <div>
-              <button class="button-sign-google" onClick={handleGoogleSignIn}>
+              <button className="button-sign-google" onClick={handleGoogleSignIn}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="xMidYMid"

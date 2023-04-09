@@ -8,11 +8,5 @@ export default function ProtectedRoute({ children }) {
 
   if (!user) return <Navigate to="/login" />;
 
-  // if (!user.emailVerified) {
-  //   alert('You must first verify your email');
-  //   // Redirigir a la última página cuando el usuario presione el botón "Aceptar"
-  //   window.location.href = "/";
-  // }
-
   return <>{children}</>;
 }
