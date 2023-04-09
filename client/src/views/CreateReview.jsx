@@ -20,7 +20,7 @@ const CreateReview = (props) => {
   };
 
   return (
-    <div>
+    <div className="">
       <form>
         <div>
           <label>Stars: </label>
