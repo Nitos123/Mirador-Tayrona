@@ -11,6 +11,8 @@ export const GET_MIN_PRICE = "GET_MIN_PRICE";
 export const RESET = "RESET";
 export const CARRITO_USER = "CARRITO_USER"
 export const GET_CAR = "GET_CAR"
+export const LOCAL_CARRITO = "LOCAL_CARRITO"
+export const RESTORE_CART_FROM_LOCAL_STORAGE = "RESTORE_CART_FROM_LOCAL_STORAGE"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -114,5 +116,33 @@ export const getCar = (email) => {
       console.log(room)
       dispatch({ type: GET_CAR, payload: room });
    
+  };
+};
+
+
+
+export const localCarrito = (id) => {
+  return async function(dispatch) {
+    try {
+      const rooms = (await axios.get("/room")).data;
+      const room = rooms.filter(room => room._id === id)[0];
+      const cartData = JSON.parse(localStorage.getItem('carrito')) || [];
+      const ruta = [...cartData] // Paso 1
+      ruta.push(room); // Paso 2
+      localStorage.setItem("carrito", JSON.stringify(ruta)); // Paso 3
+      console.log(ruta)
+      dispatch({type: LOCAL_CARRITO, payload: ruta});
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+
+export const restoreCartFromLocalStorage = () => {
+  const cartData = JSON.parse(localStorage.getItem('carrito')) || [];
+  return {
+    type: 'RESTORE_CART_FROM_LOCAL_STORAGE',
+    payload: cartData
   };
 };

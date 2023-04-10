@@ -2,13 +2,25 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CheckoutForm from "../components/CheckoutForm";
 import "../styles/Checkout.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { restoreCartFromLocalStorage } from "../redux/actions";
 
-const checkOut = (props) => {
 
-    const carrito = useSelector(state => state.carrito)
+
+
+ const checkOut = (props) => {
+   const dispatch= useDispatch() 
+   const carrito = useSelector(state => state.carrito)
+   
+
+  useEffect(()=>{
+   
+    dispatch(restoreCartFromLocalStorage("carrito"))
   
-  console.log(carrito)
+
+  },[dispatch])
+
+
   return (
     <div>
       <section>
@@ -18,8 +30,8 @@ const checkOut = (props) => {
               <button className="back">Back to home</button>
             </Link>
            <div>
-            {carrito.map(carrito => <div>
-              <img src={carrito.image[0]} alt={carrito.name} width="300em" />
+            {carrito?.map(carrito => <div>
+              <img src={carrito.image} alt={carrito.name} width="300em" />
             <p>{carrito.name}</p>
             <p>{carrito.price}</p>
             </div>)}

@@ -8,7 +8,9 @@ import {
   GET_MIN_PRICE,
   GET_TYPE,
   RESET,
-  GET_CAR
+  GET_CAR,
+  LOCAL_CARRITO,
+  RESTORE_CART_FROM_LOCAL_STORAGE
 } from "./actions";
 const initialState = {
   rooms: [],
@@ -117,6 +119,17 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           carrito: action.payload
         }
+        case LOCAL_CARRITO:
+          return {
+            ...state,
+            carrito:  [...action.payload]
+          };
+        case RESTORE_CART_FROM_LOCAL_STORAGE:
+          return {
+            ...state,
+            carrito: action.payload
+          };
+        
 
     default:
       return { ...state };
