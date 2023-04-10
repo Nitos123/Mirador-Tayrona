@@ -11,7 +11,6 @@ import {
 
 const NavBar = (props) => {
   const { user, logout } = useAuth();
-  // console.log(user);
 
   const navigate = useNavigate();
   const handleLogout = async () => {

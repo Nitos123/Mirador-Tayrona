@@ -10,6 +10,7 @@ import {
   updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
+import axios from "axios";
 import { auth } from "../firebaseAuth";
 
 export const authContext = createContext(); // devuelve un objeto, con esto puedo definir un proveerdor y crear o devolver objetos
@@ -45,9 +46,24 @@ export function AuthProvider({ children }) {
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
 
-  const loginWithGoogle = () => {
+  const loginWithGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider);
+    // Verificando que el correo no esté registrado
+    const allUsers = (await axios.get("/usuarios")).data;
+    const findUserByEmail = (allUsers, email) =>
+      allUsers.find((user) => user.email === email);
+    const user = await findUserByEmail(allUsers, result.user.email);
+    if (!user) {
+      // Envía los datos del usuario a tu servidor de Node.js
+      await axios.post("/usuarios", {
+        fullName: result.user.displayName,
+        email: result.user.email,
+        type: "usuario",
+        status: true,
+      });
+    }
+    return result;
   };
 
   const logout = () => signOut(auth); //Con esta función se puede cerrar sesión
