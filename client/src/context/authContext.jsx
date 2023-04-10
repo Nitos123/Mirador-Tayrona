@@ -49,14 +49,20 @@ export function AuthProvider({ children }) {
   const loginWithGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, googleProvider);
-    // Envía los datos del usuario a tu servidor de Node.js
-    console.log("result name---->", result.user.displayName);
-    await axios.post("/usuarios", {
-      fullName: result.user.displayName,
-      email: result.user.email,
-      type: "usuario",
-      status: true,
-    });
+    // Verificando que el correo no esté registrado
+    const allUsers = (await axios.get("/usuarios")).data;
+    const findUserByEmail = (allUsers, email) =>
+      allUsers.find((user) => user.email === email);
+    const user = await findUserByEmail(allUsers, result.user.email);
+    if (!user) {
+      // Envía los datos del usuario a tu servidor de Node.js
+      await axios.post("/usuarios", {
+        fullName: result.user.displayName,
+        email: result.user.email,
+        type: "usuario",
+        status: true,
+      });
+    }
     return result;
   };
 
