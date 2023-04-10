@@ -34,15 +34,15 @@ function App() {
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
           <Route exact path="/createReview" Component={CreateReview} />
-          {/* <Route exact path="/checkout" Component={checkOut} /> */}
-          <Route
+          <Route exact path="/checkout" Component={Checkout} />
+          {/* <Route
             path="/checkout"
             element={
               <ProtectedRoute>
                 <Checkout />
               </ProtectedRoute>
             }
-          />
+          /> */}
         </Routes>
       </AuthProvider>
 
