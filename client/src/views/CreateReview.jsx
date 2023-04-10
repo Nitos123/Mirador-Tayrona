@@ -30,11 +30,9 @@ const CreateReview = (props) => {
   const dispatch = useDispatch();
   const errors = validate(review);
 
-  const { user } = useAuth();
+  const { user } = useAuth(); // Se obtienen los datos del usuario
 
-  const email = user && user.email;
-
-  console.log(">>>>>>", email);
+  const email = user && user.email; // Se obtiene el email del usuario para buscarlo en la base de datos
 
   const formValid = Object.keys(errors).length === 0;
 
@@ -48,11 +46,18 @@ const CreateReview = (props) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (formValid) {
-      dispatch(postReview(review));
-      alert("Review created successfully!");
+      try {
+        await axios.patch(`/usuarios/${review.id}/comentarios`, {
+          text: review.review,
+          rating: review.stars,
+        });
+        alert("Review created successfully!");
+      } catch (error) {
+        alert(error);
+      }
       setReview(initialState);
     }
   };
@@ -64,18 +69,21 @@ const CreateReview = (props) => {
     });
   };
 
-  const allUsers = async () => {
-    const users = (await axios.get("/usuarios")).data;
+  // Se busca el id del usuario que está logueado para vincularlo con el comentario que va a realizar
+  const findedUser = async (email) => {
+    // Verificando que el correo no esté registrado
+    const allUsers = (await axios.get("/usuarios")).data;
 
-    const findUserByEmail = (users, email) =>
-      users.find((user) => user.email === email);
-
-    const userEmail = await findUserByEmail(users, email);
-
-    return userEmail;
+    const findUserByEmail = (allUsers, email) =>
+      allUsers.find((user) => user.email === email);
+    const user = await findUserByEmail(allUsers, email);
+    setReview({
+      ...review,
+      id: user._id,
+    });
   };
 
-  console.log("---->", allUsers());
+  if (!review.hasOwnProperty("id")) findedUser(email);
 
   return (
     <div>
