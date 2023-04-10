@@ -5,10 +5,9 @@ import "../styles/Checkout.scss";
 import { useSelector } from "react-redux";
 
 const checkOut = (props) => {
+  const carrito = useSelector((state) => state.carrito);
 
-    const carrito = useSelector(state => state.carrito)
-  
-  console.log(carrito)
+  console.log(carrito);
   return (
     <div>
       <section>
@@ -17,13 +16,19 @@ const checkOut = (props) => {
             <Link to="/home">
               <button className="back">Back to home</button>
             </Link>
-           <div>
-            {carrito.map(carrito => <div>
-              <img src={carrito.image[0]} alt={carrito.name} width="300em" />
-            <p>{carrito.name}</p>
-            <p>{carrito.price}</p>
-            </div>)}
-           </div>
+            <div>
+              {carrito.map((carrito) => (
+                <div>
+                  <img
+                    src={carrito.image[0]}
+                    alt={carrito.name}
+                    width="300em"
+                  />
+                  <p>{carrito.name}</p>
+                  <p>{carrito.price}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="txt-container">
