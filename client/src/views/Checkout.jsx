@@ -31,7 +31,7 @@ import { restoreCartFromLocalStorage } from "../redux/actions";
             </Link>
            <div>
             {carrito?.map(carrito => <div>
-              <img src={carrito.image} alt={carrito.name} width="300em" />
+              <img src={carrito.image[0]|| carrito.image} alt={carrito.name} width="300em" />
             <p>{carrito.name}</p>
             <p>{carrito.price}</p>
             </div>)}
