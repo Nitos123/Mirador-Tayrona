@@ -14,19 +14,16 @@ const Detail = (props) => {
   const id = useParams().id;
   const { user } = useAuth();
   const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
- 
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
   const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
   const [startDate, setStartDate] = useState(null);
-  console.log(startDate)
+  // console.log(startDate)
 
   const [endDate, setEndDate] = useState(null);
-  console.log(endDate)
-
-  
+  // console.log(endDate);
 
  
   useEffect(() => {
@@ -47,9 +44,9 @@ const Detail = (props) => {
        const userMail = user.email;
       dispatch(carritoUser(startDate, endDate, userMail, id))
       .then((result) => {
-        console.log(result); // aquí puedes manejar el resultado de la promesa
+        // console.log(result); // aquí puedes manejar el resultado de la promesa
         const variableResultado = result;
-        setError(variableResultado)// aquí guardas el resultado de la promesa en una variable
+        setError(variableResultado); // aquí guardas el resultado de la promesa en una variable
         if (variableResultado !== 400) {
           dispatch(getCar(userMail));
           console.log("Carrito enviado correctamente!");

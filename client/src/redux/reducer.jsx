@@ -9,9 +9,9 @@ import {
   GET_TYPE,
   RESET,
   GET_CAR,
-  LOCAL_CARRITO,
-  RESTORE_CART_FROM_LOCAL_STORAGE
+  POST_REVIEW,
 } from "./actions";
+
 const initialState = {
   rooms: [],
   roomsCopy: [],
@@ -20,6 +20,7 @@ const initialState = {
   comidas: [],
   detail: [],
   carrito: [],
+  // users: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
 };
 
@@ -42,6 +43,17 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         comidas: action.payload,
+      };
+
+    // case GET_USERS:
+    //   return {
+    //     ...state,
+    //     users: action.payload,
+    //   };
+
+    case POST_REVIEW:
+      return {
+        ...state,
       };
 
     case GET_DESAYUNO:
