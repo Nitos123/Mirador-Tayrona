@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
 import CardRoomContainerDetail from "../components/CardRoomContainerDetail";
 import { useSelector, useDispatch } from "react-redux";
-import { Await, Link, useParams, useNavigate } from "react-router-dom";
-import { getRoomDetail, carritoUser, getCar } from "../redux/actions";
+import { useParams, useNavigate } from "react-router-dom";
+import { getRoomDetail, carritoUser, getCar, localCarrito } from "../redux/actions";
 import "../styles/Detail.scss";
 import { useAuth } from "../context/authContext";
 import DatePicker from "react-datepicker";
@@ -15,13 +15,7 @@ const Detail = (props) => {
   const { user } = useAuth();
   const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
-  const handleMessage = () => {
-    if (user) {
-      return alert("You must first verify your email");
-    } else {
-      return alert("You must first login");
-    }
-  };
+  const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -31,17 +25,24 @@ const Detail = (props) => {
   const [endDate, setEndDate] = useState(null);
   // console.log(endDate);
 
+ 
   useEffect(() => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id]);
-
-  const userMail = user.email;
-  console.log(userMail, "usermail");
-
+ 
+  
+  const localCar=()=>{
+     dispatch(localCarrito(id)) 
+     navigate("/checkout");
+  }
+ 
+    
+  
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = () => {
-    const userMail = user.email;
-    dispatch(carritoUser(startDate, endDate, userMail, id))
+    if (verified) {
+       const userMail = user.email;
+      dispatch(carritoUser(startDate, endDate, userMail, id))
       .then((result) => {
         // console.log(result); // aquí puedes manejar el resultado de la promesa
         const variableResultado = result;
@@ -55,7 +56,13 @@ const Detail = (props) => {
       .catch((error) => {
         console.error(error); //aquí puedes manejar el error en caso de que la promesa se haya rechazado
       });
+    }else{
+      
+      localCar()
+    }
+    
   };
+
 
   return (
     <div className="detail">
@@ -71,8 +78,37 @@ const Detail = (props) => {
             <div>
               <p>{detail.desctiption}</p>
 
-              {!verified ? (
-                <button onClick={() => handleMessage()}>Book this room!</button>
+              { !verified ? (
+               <div>
+               <div>
+                 <div>
+                   <p>Desde:</p>
+                   <DatePicker
+                     onChange={(date) => setStartDate(date)}
+                     dateFormat="yyyy-MM-dd"
+                     id="start-date"
+                     name="start-date"
+                   />
+                 </div>
+                 <div>
+                   <p>Hasta</p>
+                   <DatePicker
+                     onChange={(date) => setEndDate(date)}
+                     dateFormat="yyyy-MM-dd"
+                     id="end-date"
+                     name="end-date"
+                   />
+                 </div>
+               </div>
+               {error === 400 ? (
+                 <p>La habitacion no esta disponible en estas fechas.</p>
+               ) : (
+                 ""
+               )}
+               <button onClick={() => localCar()}>
+                 Book this room!
+               </button>
+             </div>
               ) : (
                 <div>
                   <div>
