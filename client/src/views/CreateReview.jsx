@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Rooms.scss";
-// import { Validate } from "../middleware/validate";
+import { postReview } from "../redux/actions";
+import { useDispatch } from "react-redux";
+import { useAuth } from "../context/authContext";
+import axios from "axios";
 
 const validate = (state) => {
   const error = {};
@@ -24,7 +27,12 @@ const initialState = {
 const CreateReview = (props) => {
   const [review, setReview] = useState(initialState);
   const [blur, setBlur] = useState({});
+  const dispatch = useDispatch();
   const errors = validate(review);
+
+  const { user } = useAuth();
+
+  const email = user && user.email;
 
   const formValid = Object.keys(errors).length === 0;
 
@@ -41,7 +49,7 @@ const CreateReview = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (formValid) {
-      // dispatch(postPokemon(form));
+      dispatch(postReview(review));
       alert("Review created successfully!");
       setReview(initialState);
     }
@@ -53,6 +61,20 @@ const CreateReview = (props) => {
       [event.target.name]: true,
     });
   };
+
+  const allUsers = async () => {
+    const users = (await axios.get("http://localhost:8080/usuarios")).data;
+    console.log(users);
+
+    const user = users.find((user) => {
+      user.email === email;
+    });
+
+    console.log(user);
+    return user;
+  };
+
+  allUsers();
 
   return (
     <div>
