@@ -34,6 +34,8 @@ const CreateReview = (props) => {
 
   const email = user && user.email;
 
+  console.log(">>>>>>", email);
+
   const formValid = Object.keys(errors).length === 0;
 
   const changeHandler = (event) => {
@@ -63,18 +65,17 @@ const CreateReview = (props) => {
   };
 
   const allUsers = async () => {
-    const users = (await axios.get("http://localhost:8080/usuarios")).data;
-    console.log(users);
+    const users = (await axios.get("/usuarios")).data;
 
-    const user = users.find((user) => {
-      user.email === email;
-    });
+    const findUserByEmail = (users, email) =>
+      users.find((user) => user.email === email);
 
-    console.log(user);
-    return user;
+    const userEmail = await findUserByEmail(users, email);
+
+    return userEmail;
   };
 
-  allUsers();
+  console.log("---->", allUsers());
 
   return (
     <div>
