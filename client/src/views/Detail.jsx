@@ -14,7 +14,6 @@ const Detail = (props) => {
   const id = useParams().id;
   const { user } = useAuth();
   const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
-  console.log(user.email);
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
   const handleMessage = () => {
     if (user) {
@@ -37,12 +36,11 @@ const Detail = (props) => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id]);
 
-  const userMail = user.email;
-  console.log(userMail, "usermail");
-
-
+  
+  
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = () => {
+    const userMail = user.email;
     dispatch(carritoUser(startDate, endDate, userMail, id))
       .then((result) => {
         console.log(result); // aquí puedes manejar el resultado de la promesa
