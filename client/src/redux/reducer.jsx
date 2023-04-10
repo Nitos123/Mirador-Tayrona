@@ -10,6 +10,8 @@ import {
   RESET,
   GET_CAR,
   POST_REVIEW,
+  LOCAL_CARRITO,
+  RESTORE_CART_FROM_LOCAL_STORAGE
 } from "./actions";
 
 const initialState = {
