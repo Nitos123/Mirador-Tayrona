@@ -15,6 +15,12 @@ export const LOCAL_CARRITO = "LOCAL_CARRITO"
 export const RESTORE_CART_FROM_LOCAL_STORAGE = "RESTORE_CART_FROM_LOCAL_STORAGE"
 export const POST_REVIEW = "POST_REVIEW";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
+export const CHECK_RESERVATION_DATES = " CHECK_RESERVATION_DATES"
+
+
+
+
+
 export const getAllRooms = () => {
   return async function (dispatch) {
     const rooms = await axios.get("/room");
@@ -181,4 +187,41 @@ export const restoreCartFromLocalStorage = () => {
     type: 'RESTORE_CART_FROM_LOCAL_STORAGE',
     payload: cartData
   };
+};
+
+export const checkReservationDates = (roomId, startDate, endDate) => {
+  return async function(dispatch) {
+    try {
+      const roomDetail = await axios.get(`/room/${roomId}`);
+      const bookedDates = roomDetail.data.bookedDates;
+      console.log(bookedDates)
+      
+      // Convertir las fechas a objetos Date
+      const checkInDate = new Date(startDate);
+      const checkOutDate = new Date(endDate);
+
+      // Validar si las fechas están disponibles
+      const isAvailable = !bookedDates.some(({ start, end }) => {
+        const bookedStartDate = new Date(start);
+        const bookedEndDate = new Date(end);
+      
+        return (
+          (checkInDate >= bookedStartDate && checkInDate < bookedEndDate) ||
+          (checkOutDate > bookedStartDate && checkOutDate <= bookedEndDate)
+        );
+      });
+      
+      if (isAvailable) {
+        console.log(isAvailable)
+        console.log("Las fechas están disponibles.");
+      } else {
+        console.log(isAvailable)
+        console.log("Las fechas no están disponibles.");
+      }
+      
+      dispatch({ type: CHECK_RESERVATION_DATES, payload: !isAvailable });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };

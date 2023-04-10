@@ -12,6 +12,7 @@ async function addUsuario(req, res) {
       phone,
       status,
       type,
+      carrito,
       coments,
     } = req.body;
     console.log(req.body);
@@ -24,6 +25,7 @@ async function addUsuario(req, res) {
       phone,
       status,
       type,
+      carrito,
       coments,
     });
     const usuarioStored = await usuario.save();

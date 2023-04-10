@@ -13,6 +13,7 @@ import {
   POST_REVIEW,
   LOCAL_CARRITO,
   RESTORE_CART_FROM_LOCAL_STORAGE,
+  CHECK_RESERVATION_DATES
 } from "./actions";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   carrito: [],
   // users: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
+  dataConflict: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -132,21 +134,22 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
       };
-    case GET_CAR:
-      return {
-        ...state,
-        carrito: action.payload,
-      };
-    case LOCAL_CARRITO:
-      return {
-        ...state,
-        carrito: [...action.payload],
-      };
-    case RESTORE_CART_FROM_LOCAL_STORAGE:
-      return {
-        ...state,
-        carrito: action.payload,
-      };
+      case GET_CAR:
+        return {
+          ...state,
+          carrito: action.payload
+        }
+        case LOCAL_CARRITO:
+          return {
+            ...state,
+            carrito:  [...action.payload]
+          };
+        case RESTORE_CART_FROM_LOCAL_STORAGE:
+          return {
+            ...state,
+            carrito: action.payload
+          };
+        
 
     default:
       return { ...state };
