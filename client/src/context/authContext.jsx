@@ -59,6 +59,7 @@ export function AuthProvider({ children }) {
       // Envía los datos del usuario a tu servidor de Node.js
       await axios.post("/usuarios", {
         fullName: result.user.displayName,
+        userName: result.user.displayName.split(' ')[0],
         email: result.user.email,
         type: "usuario",
         status: true,

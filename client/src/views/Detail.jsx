@@ -53,7 +53,7 @@ if (conflict=== false) {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = () => {
-    if (verified) {
+    if (user) {
       const userMail = user.email;
       dispatch(carritoUser(startDate, endDate, userMail, id))
         .then((result) => {
@@ -88,7 +88,7 @@ if (conflict=== false) {
             <div>
               <p>{detail.desctiption}</p>
 
-              {!verified ? (
+              {!user ? (
                 <div>
                   <div>
                     <div>
