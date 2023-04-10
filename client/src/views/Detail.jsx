@@ -35,9 +35,6 @@ const Detail = (props) => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id]);
 
-  const userMail = user.email;
-  console.log(userMail, "usermail");
-
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = () => {
     const userMail = user.email;
