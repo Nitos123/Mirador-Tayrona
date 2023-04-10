@@ -9,17 +9,14 @@ export const GET_TYPE = "GET_TYPE";
 export const GET_MAX_PRICE = "GET_MAX_PRICE";
 export const GET_MIN_PRICE = "GET_MIN_PRICE";
 export const RESET = "RESET";
-export const CARRITO_USER = "CARRITO_USER"
-export const GET_CAR = "GET_CAR"
-export const LOCAL_CARRITO = "LOCAL_CARRITO"
-export const RESTORE_CART_FROM_LOCAL_STORAGE = "RESTORE_CART_FROM_LOCAL_STORAGE"
+export const CARRITO_USER = "CARRITO_USER";
+export const GET_CAR = "GET_CAR";
+export const LOCAL_CARRITO = "LOCAL_CARRITO";
+export const RESTORE_CART_FROM_LOCAL_STORAGE =
+  "RESTORE_CART_FROM_LOCAL_STORAGE";
 export const POST_REVIEW = "POST_REVIEW";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
-export const CHECK_RESERVATION_DATES = " CHECK_RESERVATION_DATES"
-
-
-
-
+export const CHECK_RESERVATION_DATES = " CHECK_RESERVATION_DATES";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -72,10 +69,10 @@ export const getAllReviews = async () => {
   return async function (dispatch) {
     const allUsers = (await axios.get("/usuarios")).data;
     dispatch({
-        type: GET_ALL_REVIEWS,
-        payload: allUsers,
+      type: GET_ALL_REVIEWS,
+      payload: allUsers,
     });
-  }
+  };
 };
 
 export const getMaxPrice = () => {
@@ -161,41 +158,38 @@ export const getCar = (email) => {
   };
 };
 
-
-
 export const localCarrito = (id) => {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       const rooms = (await axios.get("/room")).data;
-      const room = rooms.filter(room => room._id === id)[0];
-      const cartData = JSON.parse(localStorage.getItem('carrito')) || [];
-      const ruta = [...cartData] // Paso 1
+      const room = rooms.filter((room) => room._id === id)[0];
+      const cartData = JSON.parse(localStorage.getItem("carrito")) || [];
+      const ruta = [...cartData]; // Paso 1
       ruta.push(room); // Paso 2
       localStorage.setItem("carrito", JSON.stringify(ruta)); // Paso 3
-      console.log(ruta)
-      dispatch({type: LOCAL_CARRITO, payload: ruta});
+      console.log(ruta);
+      dispatch({ type: LOCAL_CARRITO, payload: ruta });
     } catch (error) {
       console.error(error);
     }
-  }
-}
-
+  };
+};
 
 export const restoreCartFromLocalStorage = () => {
-  const cartData = JSON.parse(localStorage.getItem('carrito')) || [];
+  const cartData = JSON.parse(localStorage.getItem("carrito")) || [];
   return {
-    type: 'RESTORE_CART_FROM_LOCAL_STORAGE',
-    payload: cartData
+    type: "RESTORE_CART_FROM_LOCAL_STORAGE",
+    payload: cartData,
   };
 };
 
 export const checkReservationDates = (roomId, startDate, endDate) => {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       const roomDetail = await axios.get(`/room/${roomId}`);
       const bookedDates = roomDetail.data.bookedDates;
-      console.log(bookedDates)
-      
+      console.log(bookedDates);
+
       // Convertir las fechas a objetos Date
       const checkInDate = new Date(startDate);
       const checkOutDate = new Date(endDate);
@@ -204,24 +198,24 @@ export const checkReservationDates = (roomId, startDate, endDate) => {
       const isAvailable = !bookedDates.some(({ start, end }) => {
         const bookedStartDate = new Date(start);
         const bookedEndDate = new Date(end);
-      
+
         return (
           (checkInDate >= bookedStartDate && checkInDate < bookedEndDate) ||
           (checkOutDate > bookedStartDate && checkOutDate <= bookedEndDate)
         );
       });
-      
+
       if (isAvailable) {
-        console.log(isAvailable)
+        console.log(isAvailable);
         console.log("Las fechas están disponibles.");
       } else {
-        console.log(isAvailable)
+        console.log(isAvailable);
         console.log("Las fechas no están disponibles.");
       }
-      
+
       dispatch({ type: CHECK_RESERVATION_DATES, payload: !isAvailable });
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 };

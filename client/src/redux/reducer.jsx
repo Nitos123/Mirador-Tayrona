@@ -149,6 +149,11 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             carrito: action.payload
           };
+          case CHECK_RESERVATION_DATES:
+            return{
+              ...state,
+              dataConflict: action.payload
+            }
         
 
     default:
