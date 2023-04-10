@@ -7,11 +7,12 @@ import {
   GET_MAX_PRICE,
   GET_MIN_PRICE,
   GET_TYPE,
+  GET_ALL_REVIEWS,
   RESET,
   GET_CAR,
   POST_REVIEW,
   LOCAL_CARRITO,
-  RESTORE_CART_FROM_LOCAL_STORAGE
+  RESTORE_CART_FROM_LOCAL_STORAGE,
 } from "./actions";
 
 const initialState = {
@@ -57,6 +58,9 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
+    // case GET_ALL_REVIEWS:
+    //   return 
 
     case GET_DESAYUNO:
       return {
@@ -128,22 +132,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
       };
-      case GET_CAR:
-        return {
-          ...state,
-          carrito: action.payload
-        }
-        case LOCAL_CARRITO:
-          return {
-            ...state,
-            carrito:  [...action.payload]
-          };
-        case RESTORE_CART_FROM_LOCAL_STORAGE:
-          return {
-            ...state,
-            carrito: action.payload
-          };
-        
+    case GET_CAR:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
+    case LOCAL_CARRITO:
+      return {
+        ...state,
+        carrito: [...action.payload],
+      };
+    case RESTORE_CART_FROM_LOCAL_STORAGE:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
 
     default:
       return { ...state };

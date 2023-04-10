@@ -14,6 +14,7 @@ export const GET_CAR = "GET_CAR"
 export const LOCAL_CARRITO = "LOCAL_CARRITO"
 export const RESTORE_CART_FROM_LOCAL_STORAGE = "RESTORE_CART_FROM_LOCAL_STORAGE"
 export const POST_REVIEW = "POST_REVIEW";
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const getAllRooms = () => {
   return async function (dispatch) {
     const rooms = await axios.get("/room");
@@ -59,6 +60,16 @@ export const getRoomDetail = (id) => {
 
 const users = async () => {
   return await axios.get("/usuarios");
+};
+
+export const getAllReviews = async () => {
+  return async function (dispatch) {
+    const allUsers = (await axios.get("/usuarios")).data;
+    dispatch({
+        type: GET_ALL_REVIEWS,
+        payload: allUsers,
+    });
+  }
 };
 
 export const getMaxPrice = () => {

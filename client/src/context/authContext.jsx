@@ -62,6 +62,7 @@ export function AuthProvider({ children }) {
         email: result.user.email,
         type: "usuario",
         status: true,
+        carrito: [{rooms: []}]
       });
     }
     return result;
