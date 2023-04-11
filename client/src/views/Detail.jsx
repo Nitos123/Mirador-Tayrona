@@ -43,7 +43,7 @@ const Detail = (props) => {
     
    dispatch(checkReservationDates(id, startDate, endDate))
    console.log(conflict)
-if (conflict=== false) {
+if (!user) {
   dispatch(localCarrito(id));
   navigate("/checkout");
   return

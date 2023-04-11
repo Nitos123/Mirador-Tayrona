@@ -124,31 +124,29 @@ export const carritoUser = (start, end, userMail, roomId) => {
 
       console.log(response.data, "como va ser");
       dispatch({ type: CARRITO_USER, payload: response.data });
-      return response.data;
     } catch (error) {
       console.log(error.response.status);
-      return error.response.status;
     }
     // Hacer algo con la respuesta del servidor, por ejemplo:
   };
 };
-export const getCar = (email) => {
+ // Reemplazar la ruta adecuada al modelo de usuario
+
+export const getCar = (userMail) => {
   return async function (dispatch) {
-    const usuarios = (await axios.get("/usuarios")).data.filter(
-      (user) => user.email === email
-    );
-    const id = usuarios[0]._id;
-    const response = await axios.get(`/usuarios`);
-    const user = response.data;
-    const usuario = user.filter((user) => user._id === id);
-    const roomId = usuario[0].carrito[0].rooms.map((room) => room.idRoom);
-    const room = (await axios.get("/room")).data.filter((room) =>
-      roomId.includes(room._id)
-    );
-    console.log(room);
-    dispatch({ type: GET_CAR, payload: room });
+    try {
+      const user = await Usuario.findOne({ email: userMail }).populate('carrito.rooms');
+      const roomId = user.carrito.rooms[0]._id; // Cambiar el índice adecuado si hay más de una habitación en el carrito
+      dispatch({ type: GET_CAR, payload: roomId });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: GET_CAR_ERROR, payload: error });
+    }
   };
 };
+
+
+
 
 
 
