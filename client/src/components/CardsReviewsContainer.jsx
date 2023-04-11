@@ -1,13 +1,37 @@
 import CardReview from "./CardReview";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllReviews, getAllRooms } from "../redux/actions";
 import { register } from "swiper/element/bundle"; //import swiper slider - Con esto podemos hacer el carousel
 import "../styles/CardsReviewsContainer.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
-import React from "react";
+import axios from "axios";
 
 export default function CardsReviewsContainer() {
-  const reviews = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const { user, logout } = useAuth();
+  const [reviews, setReview] = useState();
+  const allReviews = async () => {
+    const allUsers = (await axios.get(`/usuarios`)).data;
+    console.log("usuarios--->", allUsers);
+    const newReviews = [];
+    allUsers.forEach((user) => {
+      if (user.coments.length > 0) {
+        user.coments.forEach((comment) => {
+          newReviews.push({
+            ...comment,
+            name: user.fullName,
+          });
+        });
+      }
+    });
+    console.log(newReviews)
+    setReview(newReviews);
+  };
+  console.log("Reviews--->", reviews);
+  useEffect(() => {
+    allReviews();
+  }, []);
+  const { user } = useAuth();
 
   register();
 
@@ -28,10 +52,10 @@ export default function CardsReviewsContainer() {
               loop="true"
               space-between="32"
             >
-              {reviews?.map((review, index) => {
+              {reviews?.map((review) => {
                 return (
-                  <swiper-slide key={index}>
-                    <CardReview />
+                  <swiper-slide key={review._id}>
+                    <CardReview review={review} />
                   </swiper-slide>
                 );
               })}

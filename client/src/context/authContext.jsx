@@ -60,6 +60,7 @@ export function AuthProvider({ children }) {
       await axios.post("/usuarios", {
         fullName: result.user.displayName,
         userName: result.user.displayName.split(' ')[0],
+        image: result.user.photoURL,
         email: result.user.email,
         type: "usuario",
         status: true,
