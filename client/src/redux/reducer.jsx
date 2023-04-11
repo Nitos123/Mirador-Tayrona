@@ -135,10 +135,11 @@ const rootReducer = (state = initialState, action) => {
         rooms: [...state.roomsCopy],
       };
       case GET_CAR:
-        return {
-          ...state,
-          carrito: action.payload
-        }
+  return {
+    ...state,
+    carrito: [...state.carrito, ...action.payload]
+  };
+
         case LOCAL_CARRITO:
           return {
             ...state,
