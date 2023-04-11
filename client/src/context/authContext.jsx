@@ -51,7 +51,6 @@ export function AuthProvider({ children }) {
     const result = await signInWithPopup(auth, googleProvider);
     // Verificando que el correo no esté registrado
     const allUsers = (await axios.get("/usuarios")).data;
-
     const findUserByEmail = (allUsers, email) =>
       allUsers.find((user) => user.email === email);
     const user = await findUserByEmail(allUsers, result.user.email);
@@ -60,6 +59,7 @@ export function AuthProvider({ children }) {
       await axios.post("/usuarios", {
         fullName: result.user.displayName,
         userName: result.user.displayName.split(' ')[0],
+        image: result.user.photoURL,
         email: result.user.email,
         type: "usuario",
         status: true,

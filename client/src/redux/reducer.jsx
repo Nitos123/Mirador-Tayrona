@@ -13,7 +13,7 @@ import {
   POST_REVIEW,
   LOCAL_CARRITO,
   RESTORE_CART_FROM_LOCAL_STORAGE,
-  CHECK_RESERVATION_DATES
+  CHECK_RESERVATION_DATES,
 } from "./actions";
 
 const initialState = {
@@ -25,8 +25,9 @@ const initialState = {
   detail: [],
   carrito: [],
   // users: [],
+  reviews: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
-  dataConflict: null
+  dataConflict: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -61,8 +62,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
       };
 
-    // case GET_ALL_REVIEWS:
-    //   return 
+    case GET_ALL_REVIEWS:
+      console.log('-------->',action.payload.coments);
+      return {
+        ...state,
+        reviews: action.payload,
+      };
 
     case GET_DESAYUNO:
       return {

@@ -1,28 +1,33 @@
 import React from "react";
 import "../styles/CardReview.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function CardReview() {
+export default function CardReview({ review }) {
+  let stars = [];
+  for (let i = 0; i < 5; i++) {
+    if (review.rating > i)
+      stars.push(
+        <FontAwesomeIcon key={i} className="icon-star-gold" icon={faStar} />
+      );
+    else stars.push(<FontAwesomeIcon key={i} icon={faStar} />);
+  }
+  console.log("imagen de perfil--->", review.photoURL);
+  const imgURL = review.photoURL
+    ? review.photoURL
+    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+
   return (
     <div className="card-review box-shadow-hover">
       <div className="card-header">
         <div>
-          <img
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-            alt="image review"
-          />
+          <img src={imgURL} alt="image review" />
         </div>
-        <div>⭐⭐⭐⭐⭐</div>
+        <div>{stars}</div>
       </div>
       <div className="card-content">
-        <h3>Floyd Miles</h3>
-        <p>
-          I had an incredible stay at this hostel surrounded by breathtaking
-          forest views. The staff was friendly and attentive, making sure I had
-          everything I needed to feel comfortable during my visit. The rooms
-          were cozy and clean, and the common areas were perfect for relaxing
-          after a long day of exploring the forest. Highly recommend this hostel
-          for anyone looking for a peaceful and rejuvenating getaway in nature!
-        </p>
+        <h3> {review.name} </h3>
+        <p>{review.text}</p>
       </div>
     </div>
   );
