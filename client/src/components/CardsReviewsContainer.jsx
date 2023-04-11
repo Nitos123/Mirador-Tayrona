@@ -12,7 +12,6 @@ export default function CardsReviewsContainer() {
   const [reviews, setReview] = useState();
   const allReviews = async () => {
     const allUsers = (await axios.get(`/usuarios`)).data;
-    console.log("usuarios--->", allUsers);
     const newReviews = [];
     allUsers.forEach((user) => {
       if (user.coments.length > 0) {
@@ -25,10 +24,8 @@ export default function CardsReviewsContainer() {
         });
       }
     });
-    console.log(newReviews);
     setReview(newReviews);
   };
-  console.log("Reviews--->", reviews);
   useEffect(() => {
     allReviews();
   }, []);
