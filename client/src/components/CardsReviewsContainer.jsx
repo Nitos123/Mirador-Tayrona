@@ -20,11 +20,12 @@ export default function CardsReviewsContainer() {
           newReviews.push({
             ...comment,
             name: user.fullName,
+            photoURL: user.image,
           });
         });
       }
     });
-    console.log(newReviews)
+    console.log(newReviews);
     setReview(newReviews);
   };
   console.log("Reviews--->", reviews);
@@ -61,16 +62,13 @@ export default function CardsReviewsContainer() {
               })}
             </swiper-container>
           </div>
-
-          <div>
-            {user && (
-              <div>
-                <Link to="/createReview">
-                  <button>Write a review</button>
-                </Link>
-              </div>
-            )}
-          </div>
+        </div>
+      )}
+      {user && (
+        <div>
+          <Link to="/createReview">
+            <button>Write a review</button>
+          </Link>
         </div>
       )}
     </div>
