@@ -7,6 +7,7 @@ import {
   GET_MAX_PRICE,
   GET_MIN_PRICE,
   GET_TYPE,
+  GET_ALL_REVIEWS,
   RESET,
   GET_CAR,
   POST_REVIEW,
@@ -59,6 +60,9 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
+    // case GET_ALL_REVIEWS:
+    //   return 
 
     case GET_DESAYUNO:
       return {

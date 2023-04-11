@@ -53,7 +53,7 @@ if (!user) {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = () => {
-    if (verified) {
+    if (user) {
       const userMail = user.email;
       dispatch(carritoUser(startDate, endDate, userMail, id))
         .then((result) => {
@@ -88,7 +88,7 @@ if (!user) {
             <div>
               <p>{detail.desctiption}</p>
 
-              {!verified ? (
+              {!user ? (
                 <div>
                   <div>
                     <div>
