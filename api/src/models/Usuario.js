@@ -24,10 +24,9 @@ const ComentSchema = Schema(
 const UsuarioSchema = Schema(
   {
     fullName: String,
+    image: String,
     userName: String,
-    password: String,
     email: String,
-    phone: String,
     status: Boolean,
     type: String,
     coments: [ComentSchema],
