@@ -139,26 +139,28 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
       };
-    case GET_CAR:
-      return {
-        ...state,
-        carrito: action.payload,
-      };
-    case LOCAL_CARRITO:
-      return {
-        ...state,
-        carrito: [...action.payload],
-      };
-    case RESTORE_CART_FROM_LOCAL_STORAGE:
-      return {
-        ...state,
-        carrito: action.payload,
-      };
-    case CHECK_RESERVATION_DATES:
-      return {
-        ...state,
-        dataConflict: action.payload,
-      };
+      case GET_CAR:
+  return {
+    ...state,
+    carrito: [...state.carrito, ...action.payload]
+  };
+
+        case LOCAL_CARRITO:
+          return {
+            ...state,
+            carrito:  [...action.payload]
+          };
+        case RESTORE_CART_FROM_LOCAL_STORAGE:
+          return {
+            ...state,
+            carrito: action.payload
+          };
+          case CHECK_RESERVATION_DATES:
+            return{
+              ...state,
+              dataConflict: action.payload
+            }
+        
 
     default:
       return { ...state };
