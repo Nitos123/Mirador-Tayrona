@@ -4,7 +4,7 @@ import "../styles/NavBar.scss";
 import { useAuth } from "../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { carItemsNumber } from "../redux/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   faUserTie,
@@ -23,6 +23,8 @@ const NavBar = (props) => {
   const itemsCartLogin = useSelector((state) => state.carItems)
   console.log(itemsCartLogin)
   
+  const[itemsLocal, setItemsLocal] = useState(0)
+
   const userMail = user
   useEffect(()=>{
     if (user) {
@@ -32,6 +34,14 @@ const NavBar = (props) => {
 
 },[dispatch, userMail])
 
+
+useEffect(()=>{
+  const carritoLocal = localStorage.getItem('carrito')
+  const carritoObjeto = JSON.parse(carritoLocal)
+  
+  const totItems = carritoObjeto.length
+  setItemsLocal(totItems)
+},[])
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
@@ -85,12 +95,20 @@ const NavBar = (props) => {
           )}
           {!user && (
             // Cuando no hay usuario logueado
+            
+             
+
             <>
               <FontAwesomeIcon className="login" icon={faArrowRightToBracket} />
               <div className="dropdown">
                 <Link to="/login">Sign in</Link>
                 <Link to="/loginCreate">Sign Up</Link>
               </div>
+
+              <Link to="/checkout">       
+             <FontAwesomeIcon icon={faShoppingCart} />
+             <span className="cart-count">{itemsLocal}</span>
+           </Link>
             </>
           )}
 
