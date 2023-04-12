@@ -2,10 +2,17 @@ import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import React from "react";
 import dashboard from "../assets/dashboard.svg";
-import user from "../assets/user.svg";
+import { useAuth } from "../context/authContext";
 import customer from "../assets/customer.svg";
 import { Link } from "react-router-dom";
 import "../styles/DashboardAdmin.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUserTie,
+  faArrowRightFromBracket,
+  faArrowRightToBracket,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MainListItems = () => {
   return (
@@ -47,6 +54,8 @@ const MainListItems = () => {
 };
 
 const DashboardAdmin = () => {
+  const { user } = useAuth();
+
   return (
     <div className="main-container-admin">
       <div className="left-container">
@@ -54,18 +63,32 @@ const DashboardAdmin = () => {
       </div>
 
       <div className="rg-container">
-        <div>
+        <div className="txt-part">
           <h3>Rooms</h3>
         </div>
 
-        <div>
+        <div className="notification-part">
           <Badge badgeContent={5} color="secondary">
             <NotificationsIcon />
           </Badge>
         </div>
 
-        <div>
-          <img alt="Remy Sharp" id="user_img" src={user} />
+        <div className="user-part">
+          <div>
+            <p>
+              {user.displayName
+                ? `Hi ${user.displayName.split(" ")[0]}!`
+                : "Howdy"}
+            </p>
+          </div>
+
+          <div>
+            {user.photoURL ? (
+              <img src={user.photoURL} alt="perfil" />
+            ) : (
+              <FontAwesomeIcon className="profile-incognito" icon={faUserTie} />
+            )}
+          </div>
         </div>
       </div>
     </div>
