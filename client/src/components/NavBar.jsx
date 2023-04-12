@@ -38,10 +38,16 @@ const NavBar = (props) => {
 useEffect(()=>{
   const carritoLocal = localStorage.getItem('carrito')
   const carritoObjeto = JSON.parse(carritoLocal)
+  if(carritoObjeto && carritoObjeto.length){
+    const totItems = carritoObjeto.length
+    setItemsLocal(totItems)
+  }else{
+    setItemsLocal(0)
+  }
   
-  const totItems = carritoObjeto.length
-  setItemsLocal(totItems)
-},[])
+},[itemsLocal])
+
+
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
