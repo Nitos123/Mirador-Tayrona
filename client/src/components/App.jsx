@@ -11,7 +11,7 @@ import LoginCreate from "../views/LoginCreate";
 import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
-import DashboardAdmin from "../views/Dashboard/DashboardAdmin";
+import DashboardAdmin from "../views/DashboardAdmin";
 
 import "../styles/App.scss";
 

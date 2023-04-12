@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     display: "flex",
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: "flex",
@@ -75,12 +75,7 @@ export default makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
-  },
+
   fixedHeight: {
     height: 240,
   },
@@ -93,43 +88,5 @@ export default makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
-  },
-  balnce: {
-    paddingTop: "20px",
-    color: "#2A2A2A",
-    fontWeight: 700,
-    fontSize: "36px",
-  },
-  small_bal: {
-    fontSize: "16px",
-    lineHeight: "19px",
-    letterSpacing: " 0.1px",
-    color: "#A6ABB2",
-  },
-  fund: {
-    // borderBottom: '1px solid #EBEBEB',
-    paddingBottom: "20px",
-  },
-  fundValue: {
-    paddingTop: "30px",
-    paddingBottom: "10px",
-    letterSpacing: " 0.1px",
-    color: "#2A2A2A",
-    fontWeight: 700,
-    fontSize: "36px",
-  },
-  funds_hold: {
-    backgroundColor: "#F5F5F5",
-  },
-  balance_container: {
-    paddingBottom: "40px",
-  },
-  line: {
-    position: "relative",
-    width: "350px",
-    top: ".1rem",
-    right: " 6rem",
-    background: "#EBEBEB",
-    height: "1px",
   },
 }));
