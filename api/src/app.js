@@ -16,35 +16,35 @@ server.use(express.static("public"));
 server.name = "API";
 server.use(express.json());
 
-const YOUR_DOMAIN = "http://localhost:8080";
+// const YOUR_DOMAIN = "http://localhost:8080";
 
-const imagen =
-  "https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png";
+// const imagen =
+//   "https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png";
 
-const description = "fdsfsdfsdfsd";
+// const description = "fdsfsdfsdfsd";
 
-server.post("/createCheckoutSession", async (req, res) => {
-  const product = await stripe.products.create({
-    name: "T-shirt",
-    images: [imagen],
-    description: description,
-  });
+// server.post("/createCheckoutSession", async (req, res) => {
+//   const product = await stripe.products.create({
+//     name: "T-shirt",
+//     images: [imagen],
+//     description: description,
+//   });
 
-  const price = await stripe.prices.create({
-    product: product.id,
-    unit_amount: 2000,
-    currency: "usd",
-  });
+//   const price = await stripe.prices.create({
+//     product: product.id,
+//     unit_amount: 2000,
+//     currency: "usd",
+//   });
 
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: price.id, quantity: 1 }],
-    success_url: `${YOUR_DOMAIN}?success=true`,
-    cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-  });
+//   const session = await stripe.checkout.sessions.create({
+//     mode: "payment",
+//     line_items: [{ price: price.id, quantity: 1 }],
+//     success_url: `${YOUR_DOMAIN}?success=true`,
+//     cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+//   });
 
-  res.redirect(303, session.url);
-});
+//   res.redirect(303, session.url);
+// });
 
 server.post("/api/checkout", async (req, res) => {
   console.log(req.body);

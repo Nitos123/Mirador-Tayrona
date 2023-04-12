@@ -11,7 +11,7 @@ import LoginCreate from "../views/LoginCreate";
 import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
-
+// import CheckoutStripe from "../views/CheckoutStripe";
 import "../styles/App.scss";
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
           <Route exact path="/createReview" Component={CreateReview} />
-          {/* <Route exact path="/checkout" Component={checkOut} /> */}
+
           <Route
             path="/checkout"
             element={
@@ -43,6 +43,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutStripe />
+              </ProtectedRoute>
+            }
+          /> */}
         </Routes>
       </AuthProvider>
 
