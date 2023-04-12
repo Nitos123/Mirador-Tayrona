@@ -29,18 +29,6 @@ const NavBar = (props) => {
     }
   }, [dispatch, userMail]);
 
-      
-
-},[dispatch, userMail])
-
-
-useEffect(()=>{
-  const carritoLocal = localStorage.getItem('carrito')
-  const carritoObjeto = JSON.parse(carritoLocal)
-  
-  const totItems = carritoObjeto.length
-  setItemsLocal(totItems)
-},[])
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();

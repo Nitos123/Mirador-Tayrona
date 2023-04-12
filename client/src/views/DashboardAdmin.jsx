@@ -17,6 +17,7 @@ import dashboard from "../assets/dashboard.svg";
 import user from "../assets/user.svg";
 import wallet from "../assets/Wallet.svg";
 import customer from "../assets/customer.svg";
+import { Link } from "react-router-dom";
 
 const mainListItems = (
   <>
@@ -40,6 +41,12 @@ const mainListItems = (
       </ListItemIcon>
       <ListItemText className="list_item_text" primary="Reviews" />
     </ListItem>
+
+    <div>
+      <Link to="/home">
+        <button>Back Home</button>
+      </Link>
+    </div>
   </>
 );
 
