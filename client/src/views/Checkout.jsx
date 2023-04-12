@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import CheckoutForm from "../components/CheckoutForm";
 import "../styles/Checkout.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { restoreCartFromLocalStorage } from "../redux/actions";
+import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
+import { useAuth } from "../context/authContext";
 
 const checkOut = (props) => {
+  const { user } = useAuth();
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
 
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
+    if (user && user.email) {
+      const userMail = user.email;
+      dispatch(carritoUser(userMail));
+    }
   }, [dispatch]);
 
   return (
