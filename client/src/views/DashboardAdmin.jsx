@@ -7,18 +7,16 @@ import customer from "../assets/customer.svg";
 import { Link } from "react-router-dom";
 import "../styles/DashboardAdmin.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUserTie,
-  faArrowRightFromBracket,
-  faArrowRightToBracket,
-  faShoppingCart,
-} from "@fortawesome/free-solid-svg-icons";
 
 const MainListItems = () => {
   return (
     <div className="left-title">
       <div>
-        <h3>Mirador Tayrona Park</h3>
+        <Link to="/home">
+          <h3>
+            Mirador <br /> Tayrona Park
+          </h3>
+        </Link>
       </div>
 
       <div>

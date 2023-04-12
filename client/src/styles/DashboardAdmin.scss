@@ -32,12 +32,15 @@
 
     .notification-part {
       width: 5%;
+      margin-top: 1em;
     }
 
     .user-part {
       width: 15%;
       display: flex;
       img {
+        margin-top: 0.5em;
+
         width: 50%;
       }
     }
