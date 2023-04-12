@@ -24,11 +24,15 @@ const Detail = (props) => {
   const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
 
-  const [error, setError] = useState(null);
   const [startDate, setStartDate] = useState(null);
   // console.log(startDate)
 
   const conflict = useSelector((state) => state.dataConflict);
+
+  const comprobacion = (date, startDate, id) => {
+    setEndDate(date);
+    dispatch(checkReservationDates(date, startDate, id));
+  };
   console.log(conflict);
   const [endDate, setEndDate] = useState(null);
   // console.log(endDate);
@@ -38,9 +42,8 @@ const Detail = (props) => {
   }, [dispatch, id, startDate, endDate]);
 
   const localCar = () => {
-    dispatch(checkReservationDates(id, startDate, endDate));
     console.log(conflict);
-    if (!user) {
+    if (!user && conflict === true) {
       dispatch(localCarrito(id));
       navigate("/checkout");
       return;
@@ -49,7 +52,8 @@ const Detail = (props) => {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = async () => {
-    if (user) {
+    console.log(conflict);
+    if (user && conflict === true) {
       const userMail = user.email;
 
       await dispatch(carritoAddUser(userMail, startDate, endDate, id));
@@ -99,7 +103,7 @@ const Detail = (props) => {
                       <p>To</p>
                       <DatePicker
                         selected={endDate}
-                        onChange={(date) => setEndDate(date)}
+                        onChange={(date) => comprobacion(date, startDate, id)}
                         minDate={
                           startDate
                             ? new Date(startDate.getTime() + 86400000)
@@ -119,7 +123,7 @@ const Detail = (props) => {
                       />
                     </div>
                   </div>
-                  {conflict === true ? (
+                  {conflict === false ? (
                     <p>La habitacion no esta disponible en estas fechas.</p>
                   ) : (
                     ""
@@ -151,7 +155,7 @@ const Detail = (props) => {
                       <p>To</p>
                       <DatePicker
                         selected={endDate}
-                        onChange={(date) => setEndDate(date)}
+                        onChange={(date) => comprobacion(date, startDate, id)}
                         minDate={
                           startDate
                             ? new Date(startDate.getTime() + 86400000)
@@ -171,7 +175,7 @@ const Detail = (props) => {
                       />
                     </div>
                   </div>
-                  {error === 400 ? (
+                  {conflict === false ? (
                     <p>La habitacion no esta disponible en estas fechas.</p>
                   ) : (
                     ""

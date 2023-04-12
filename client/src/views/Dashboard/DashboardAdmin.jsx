@@ -1,5 +1,4 @@
 import React from "react";
-import "./css/App.css";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,24 +8,14 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems } from "./ListItems";
 import useStyles from "./css/styles";
 import user from "./assets/user.svg";
-import logo from "./assets/logo.svg";
 
 const DashboardAdmin = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div className={classes.root}>
@@ -35,18 +24,6 @@ const DashboardAdmin = (props) => {
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             component="h1"
             variant="h6"
@@ -55,9 +32,6 @@ const DashboardAdmin = (props) => {
             className={classes.title}
           >
             Balances
-            <Typography variant="body2" className={classes.appBarSmall}>
-              Today, 29th June 2021
-            </Typography>
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -77,13 +51,7 @@ const DashboardAdmin = (props) => {
         id="mainDrawer"
       >
         <div className="draw_bar">
-          <img src={logo} alt="logo" />
-
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
+          <h3>Mirador Tayrona Park</h3>
         </div>
 
         <List id="mainDrawer">{mainListItems}</List>

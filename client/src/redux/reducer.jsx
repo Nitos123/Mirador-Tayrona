@@ -15,6 +15,7 @@ import {
   RESTORE_CART_FROM_LOCAL_STORAGE,
   CHECK_RESERVATION_DATES,
   CARRITO_USER,
+  CAR_ITEMS_NUMBER
 } from "./actions";
 
 const initialState = {
@@ -27,6 +28,7 @@ const initialState = {
   carrito: [],
   // users: [],
   reviews: [],
+  carItems: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
   dataConflict: null,
 };
@@ -166,6 +168,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 carrito: action.payload
               }
+              case CAR_ITEMS_NUMBER:
+                return{
+                  ...state,
+                  carItems: action.payload
+                }
         
 
     default:
