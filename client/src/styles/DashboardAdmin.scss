@@ -1,0 +1,26 @@
+@import "./settings";
+
+.main-container-admin {
+  display: flex;
+  height: 100vh;
+
+  .left-container {
+    background-color: $secundary;
+    border: solid black 1px;
+    width: 20%;
+
+    .left-title {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 15em;
+    }
+  }
+
+  .rg-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+  }
+}
