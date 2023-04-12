@@ -3,17 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/NavBar.scss";
 import { useAuth } from "../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { carItemsNumber } from "../redux/actions";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   faUserTie,
   faArrowRightFromBracket,
   faArrowRightToBracket,
+  faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
+// import CartLink from "../components/CartLink";
+
 const NavBar = (props) => {
+  const dispatch = useDispatch();
   const { user, logout } = useAuth();
 
   const itemsCartLogin = useSelector((state) => state.carItems);
   console.log(itemsCartLogin);
+
+  const [itemsLocal, setItemsLocal] = useState(0);
 
   const userMail = user;
   useEffect(() => {
@@ -22,25 +31,17 @@ const NavBar = (props) => {
     }
   }, [dispatch, userMail]);
 
-<<<<<<<<< Temporary merge branch 1
-=========
-},[dispatch, userMail])
+  useEffect(() => {
+    const carritoLocal = localStorage.getItem("carrito");
+    const carritoObjeto = JSON.parse(carritoLocal);
+    if (carritoObjeto && carritoObjeto.length) {
+      const totItems = carritoObjeto.length;
+      setItemsLocal(totItems);
+    } else {
+      setItemsLocal(0);
+    }
+  }, [itemsLocal]);
 
-
-useEffect(()=>{
-  const carritoLocal = localStorage.getItem('carrito')
-  const carritoObjeto = JSON.parse(carritoLocal)
-  if(carritoObjeto && carritoObjeto.length){
-    const totItems = carritoObjeto.length
-    setItemsLocal(totItems)
-  }else{
-    setItemsLocal(0)
-  }
-  
-},[itemsLocal])
-
-
->>>>>>>>> Temporary merge branch 2
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
@@ -74,6 +75,14 @@ useEffect(()=>{
                   icon={faUserTie}
                 />
               )}
+
+              {/* //carrito si el usuario esta logueado */}
+              <Link to="/checkout">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                <span className="cart-count">{itemsCartLogin}</span>
+              </Link>
+
+              {/* < CartLink user={user}/> */}
               <a href="#!" onClick={handleLogout}>
                 <FontAwesomeIcon
                   className="logout"
@@ -84,12 +93,18 @@ useEffect(()=>{
           )}
           {!user && (
             // Cuando no hay usuario logueado
+
             <>
               <FontAwesomeIcon className="login" icon={faArrowRightToBracket} />
               <div className="dropdown">
                 <Link to="/login">Sign in</Link>
                 <Link to="/loginCreate">Sign Up</Link>
               </div>
+
+              <Link to="/checkout">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                <span className="cart-count">{itemsLocal}</span>
+              </Link>
             </>
           )}
 
