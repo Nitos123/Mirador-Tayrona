@@ -5,21 +5,13 @@ import "../styles/Checkout.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { restoreCartFromLocalStorage } from "../redux/actions";
 
+const checkOut = (props) => {
+  const dispatch = useDispatch();
+  const carrito = useSelector((state) => state.carrito);
 
-
-
- const checkOut = (props) => {
-   const dispatch= useDispatch() 
-   const carrito = useSelector(state => state.carrito)
-   
-
-  useEffect(()=>{
-   
-    dispatch(restoreCartFromLocalStorage("carrito"))
-  
-
-  },[dispatch])
-
+  useEffect(() => {
+    dispatch(restoreCartFromLocalStorage("carrito"));
+  }, [dispatch]);
 
   return (
     <div>
@@ -29,13 +21,19 @@ import { restoreCartFromLocalStorage } from "../redux/actions";
             <Link to="/home">
               <button className="back">Back to home</button>
             </Link>
-           <div>
-            {carrito?.map(carrito => <div>
-              <img src={carrito.image[0]|| carrito.image} alt={carrito.name} width="300em" />
-            <p>{carrito.name}</p>
-            <p>{carrito.price}</p>
-            </div>)}
-           </div>
+            <div>
+              {carrito?.map((carrito) => (
+                <div>
+                  <img
+                    src={carrito.image[0] || carrito.image}
+                    alt={carrito.name}
+                    width="300em"
+                  />
+                  <p>{carrito.name}</p>
+                  <p>{carrito.price}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="txt-container">

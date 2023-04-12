@@ -29,6 +29,17 @@ const NavBar = (props) => {
     }
   }, [dispatch, userMail]);
 
+  useEffect(() => {
+    const carritoLocal = localStorage.getItem("carrito");
+    const carritoObjeto = JSON.parse(carritoLocal);
+    if (carritoObjeto && carritoObjeto.length) {
+      const totItems = carritoObjeto.length;
+      setItemsLocal(totItems);
+    } else {
+      setItemsLocal(0);
+    }
+  }, [itemsLocal]);
+
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
