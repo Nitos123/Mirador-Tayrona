@@ -7,11 +7,11 @@ async function addUsuario(req, res) {
     const {
       fullName,
       userName,
-      password,
+      image,
       email,
-      phone,
       status,
       type,
+      carrito,
       coments,
     } = req.body;
     console.log(req.body);
@@ -19,11 +19,11 @@ async function addUsuario(req, res) {
     const usuario = Usuario({
       fullName,
       userName,
-      password,
+      image,
       email,
-      phone,
       status,
       type,
+      carrito,
       coments,
     });
     const usuarioStored = await usuario.save();
@@ -58,42 +58,9 @@ const addRoomDate = async (req, res) => {
     const userID = new mongoose.Types.ObjectId(userId);
     const roomID = new mongoose.Types.ObjectId(idRoom);
 
-    const existingRoomDate = await Room.findOne({
-      _id: roomID,
-      bookedDates: {
-        $elemMatch: {
-          start: { $lte: endUTC },
-          end: { $gte: startUTC },
-        },
-      },
-    });
-
-    if (existingRoomDate) {
-      return res.status(400).json({
-        message: "The specified dates already exist for this roomSchema",
-      });
-    }
-
-    const existingRoomDates = await Usuario.findOne({
-      _id: userID,
-      "carrito.rooms": {
-        $elemMatch: {
-          start: startUTC,
-          end: endUTC,
-          idRoom: roomID,
-        },
-      },
-    });
-
-    if (existingRoomDates) {
-      return res
-        .status(400)
-        .json({ message: "The specified dates already exist for this room" });
-    }
-
     const user = await Usuario.findByIdAndUpdate(userID, {
       $push: {
-        "carrito.rooms": {
+        "carrito": {
           start: startUTC,
           end: endUTC,
           userId: userID,

@@ -7,9 +7,14 @@ import {
   GET_MAX_PRICE,
   GET_MIN_PRICE,
   GET_TYPE,
+  GET_ALL_REVIEWS,
   RESET,
   GET_CAR,
   POST_REVIEW,
+  LOCAL_CARRITO,
+  RESTORE_CART_FROM_LOCAL_STORAGE,
+  CHECK_RESERVATION_DATES,
+  CARRITO_USER,
 } from "./actions";
 
 const initialState = {
@@ -21,7 +26,9 @@ const initialState = {
   detail: [],
   carrito: [],
   // users: [],
+  reviews: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
+  dataConflict: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -54,6 +61,13 @@ const rootReducer = (state = initialState, action) => {
     case POST_REVIEW:
       return {
         ...state,
+      };
+
+    case GET_ALL_REVIEWS:
+      console.log('-------->',action.payload.coments);
+      return {
+        ...state,
+        reviews: action.payload,
       };
 
     case GET_DESAYUNO:
@@ -126,11 +140,33 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
       };
-    case GET_CAR:
-      return {
-        ...state,
-        carrito: action.payload,
-      };
+      case GET_CAR:
+  return {
+    ...state,
+    carrito: [...state.carrito, ...action.payload]
+  };
+
+        case LOCAL_CARRITO:
+          return {
+            ...state,
+            carrito:  [...action.payload]
+          };
+        case RESTORE_CART_FROM_LOCAL_STORAGE:
+          return {
+            ...state,
+            carrito: action.payload
+          };
+          case CHECK_RESERVATION_DATES:
+            return{
+              ...state,
+              dataConflict: action.payload
+            }
+            case CARRITO_USER:
+              return{
+                ...state,
+                carrito: action.payload
+              }
+        
 
     default:
       return { ...state };

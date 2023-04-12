@@ -1,8 +1,14 @@
 import { React, useEffect, useState } from "react";
 import CardRoomContainerDetail from "../components/CardRoomContainerDetail";
 import { useSelector, useDispatch } from "react-redux";
-import { Await, Link, useParams, useNavigate } from "react-router-dom";
-import { getRoomDetail, carritoUser, getCar } from "../redux/actions";
+import { useParams, useNavigate, Await } from "react-router-dom";
+import {
+  getRoomDetail,
+  localCarrito,
+  checkReservationDates,
+  carritoUser,
+  carritoAddUser
+} from "../redux/actions";
 import "../styles/Detail.scss";
 import { useAuth } from "../context/authContext";
 import DatePicker from "react-datepicker";
@@ -13,26 +19,23 @@ const Detail = (props) => {
   const dispatch = useDispatch();
   const id = useParams().id;
   const { user } = useAuth();
-  const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
+  // const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
-  const handleMessage = () => {
-    if (user) {
-      return alert("You must first verify your email");
-    } else {
-      return alert("You must first login");
-    }
-  };
+  const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
-
+  
   const [error, setError] = useState(null);
   const [startDate, setStartDate] = useState(null);
   // console.log(startDate)
-
+  
+  const conflict = useSelector((state) => state.dataConflict);
+  console.log(conflict)
   const [endDate, setEndDate] = useState(null);
   // console.log(endDate);
 
   useEffect(() => {
     dispatch(getRoomDetail(id));
+<<<<<<< HEAD
   }, [dispatch, id]);
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
@@ -52,7 +55,36 @@ const Detail = (props) => {
       .catch((error) => {
         console.error(error); //aquí puedes manejar el error en caso de que la promesa se haya rechazado
       });
+=======
+  }, [dispatch, id, startDate, endDate]);
+  
+  const localCar =  () => {
+    
+   dispatch(checkReservationDates(id, startDate, endDate))
+   console.log(conflict)
+if (!user) {
+  dispatch(localCarrito(id));
+  navigate("/checkout");
+  return
+}
+    
+>>>>>>> 4ac752932b3132c60531bf97e04bd37fd7a05056
   };
+
+  
+  //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
+  const enviarCarrito = async () => {
+    if (user) {
+      const userMail = user.email;
+  
+      await dispatch(carritoAddUser(userMail, startDate, endDate, id));
+      dispatch(carritoUser(userMail));
+      navigate("/checkout");
+    } else {
+      localCar();
+    }
+  };
+  
 
   return (
     <div className="detail">
@@ -68,28 +100,77 @@ const Detail = (props) => {
             <div>
               <p>{detail.desctiption}</p>
 
-              {!verified ? (
-                <button onClick={() => handleMessage()}>Book this room!</button>
+              {!user ? (
+                <div>
+                  <div>
+                    <div>
+                    <p>From:</p>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              minDate={new Date()}
+              maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              yearDropdownItemNumber={15}
+              placeholderText="Date of admission"
+              isClearable
+            />
+                    </div>
+                    <div>
+                    <p>To</p>
+                    <DatePicker
+  selected={endDate}
+  onChange={(date) => setEndDate(date)}
+  minDate={startDate ? new Date(startDate.getTime() + 86400000) : new Date(new Date().getTime() + 86400000)}
+  maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
+  dateFormat="dd/MM/yyyy"
+  showYearDropdown 
+  scrollableYearDropdown
+  yearDropdownItemNumber={15}
+  placeholderText="Return date"
+  isClearable
+/>
+                    </div>
+                  </div>
+                  {conflict===true ? (
+                    <p>La habitacion no esta disponible en estas fechas.</p>
+                  ) : (
+                    ""
+                  )}
+                  <button onClick={() => localCar()}>Book this room!</button>
+                </div>
               ) : (
                 <div>
                   <div>
                     <div>
-                      <p>Desde:</p>
-                      <DatePicker
-                        onChange={(date) => setStartDate(date)}
-                        dateFormat="yyyy-MM-dd"
-                        id="start-date"
-                        name="start-date"
-                      />
+                    <p>From:</p>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              minDate={new Date()}
+              maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              yearDropdownItemNumber={15}
+              placeholderText="Date of admission"
+              isClearable
+            />
                     </div>
                     <div>
-                      <p>Hasta</p>
-                      <DatePicker
-                        onChange={(date) => setEndDate(date)}
-                        dateFormat="yyyy-MM-dd"
-                        id="end-date"
-                        name="end-date"
-                      />
+                    <p>To</p>
+                    <DatePicker
+  selected={endDate}
+  onChange={(date) => setEndDate(date)}
+  minDate={startDate ? new Date(startDate.getTime() + 86400000) : new Date(new Date().getTime() + 86400000)}
+  maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
+  dateFormat="dd/MM/yyyy"
+  showYearDropdown 
+  scrollableYearDropdown
+  yearDropdownItemNumber={15}
+  placeholderText="Return date"
+  isClearable
+/>
                     </div>
                   </div>
                   {error === 400 ? (
