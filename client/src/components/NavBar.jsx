@@ -29,6 +29,7 @@ const NavBar = (props) => {
     }
   }, [dispatch, userMail]);
 
+
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
