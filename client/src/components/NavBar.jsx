@@ -8,6 +8,7 @@ import {
   faArrowRightFromBracket,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
+// import CartLink from "../components/CartLink";
 
 const NavBar = (props) => {
   const { user, logout } = useAuth();
@@ -45,6 +46,9 @@ const NavBar = (props) => {
                   icon={faUserTie}
                 />
               )}
+
+
+              {/* < CartLink user={user}/> */}
               <a href="#!" onClick={handleLogout}>
                 <FontAwesomeIcon
                   className="logout"

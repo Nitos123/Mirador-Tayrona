@@ -16,7 +16,8 @@ export const RESTORE_CART_FROM_LOCAL_STORAGE =
   "RESTORE_CART_FROM_LOCAL_STORAGE";
 export const POST_REVIEW = "POST_REVIEW";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
-export const CHECK_RESERVATION_DATES = " CHECK_RESERVATION_DATES";
+export const CHECK_RESERVATION_DATES = "CHECK_RESERVATION_DATES";
+export const CARRITO_ADD_USER = "CARRITO_ADD_USER"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -112,46 +113,66 @@ export function reset() {
 }
 
 //PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
-export const carritoUser = (start, end, userMail, roomId) => {
-  return async function (dispatch) {
-    const usuarios = (await axios.get("/usuarios")).data.filter(
-      (user) => user.email === userMail
-    );
-    const id = usuarios[0]._id;
-    const startUTC = new Date(start).toISOString().slice(0, 10);
-    const endUTC = new Date(end).toISOString().slice(0, 10);
-    const data = {
-      start: startUTC,
-      end: endUTC,
-      userId: id,
-      idRoom: roomId,
-    };
-
-    try {
-      const response = await axios.patch("/usuarios/dateRoom", data);
-
-      console.log(response.data, "como va ser");
-      dispatch({ type: CARRITO_USER, payload: response.data });
-    } catch (error) {
-      console.log(error.response.status);
-    }
-    // Hacer algo con la respuesta del servidor, por ejemplo:
-  };
-};
- // Reemplazar la ruta adecuada al modelo de usuario
-
-export const getCar = (userMail) => {
+export const carritoUser = (userMail) => {
   return async function (dispatch) {
     try {
-      const user = await Usuario.findOne({ email: userMail }).populate('carrito.rooms');
-      const roomId = user.carrito.rooms[0]._id; // Cambiar el índice adecuado si hay más de una habitación en el carrito
-      dispatch({ type: GET_CAR, payload: roomId });
+      const response = await axios.get("/usuarios")
+      if (response && response.data) {
+        const usuarios = response.data
+        const user = usuarios.filter(usuario => usuario.email === userMail)
+        console.log(user[0].carrito)
+        const roomsId = user[0].carrito.map(room=> room.idRoom)
+        const rooms = await Promise.all(roomsId.map(async (roomId) => {
+          const response = await axios.get(`/room/${roomId}`);
+          return response.data;
+        }));
+        
+        console.log(rooms);
+        
+        dispatch({type: CARRITO_USER, payload: rooms })
+      } else {
+        console.log("No se encontraron datos en la respuesta")
+      }
     } catch (error) {
-      console.log(error);
-      dispatch({ type: GET_CAR_ERROR, payload: error });
+      console.log("Hubo un error al obtener los datos:", error)
+    }
+  }
+}
+
+export const carritoAddUser = (userMail, start, end, id) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("/usuarios");
+      if (response && response.data) {
+        const usuarios = response.data;
+        const user = usuarios.filter((usuario) => usuario.email === userMail);
+        console.log(user[0]._id);
+        const inicio = new Date(start).toISOString().slice(0, 10);
+        const fin = new Date(end).toISOString().slice(0, 10);
+        console.log(inicio, fin, id);
+
+        const date = {
+          start: inicio,
+          end: fin,
+          userId: user[0]._id,
+          idRoom: id,
+        };
+        console.log(date);
+        await axios.patch("/usuarios/dateRoom", date);
+
+        // Obtener los datos de la habitación que acaba de agregarse al carrito
+        const responseRoom = await axios.get(`/room/${id}`);
+        const roomData = responseRoom.data;
+
+        // Devolver los datos de la habitación junto con el mensaje "hola"
+        dispatch({ type: CARRITO_ADD_USER, payload: { message: "hola", room: roomData } });
+      }
+    } catch (error) {
+      console.log("Hubo un error al obtener los datos:", error);
     }
   };
 };
+
 
 
 
