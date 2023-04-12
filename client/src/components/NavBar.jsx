@@ -11,8 +11,36 @@ import {
 
 const NavBar = (props) => {
   const { user, logout } = useAuth();
-  console.log(user);
 
+  const itemsCartLogin = useSelector((state) => state.carItems);
+  console.log(itemsCartLogin);
+
+  const userMail = user;
+  useEffect(() => {
+    if (user) {
+      dispatch(carItemsNumber(userMail));
+    }
+  }, [dispatch, userMail]);
+
+<<<<<<<<< Temporary merge branch 1
+=========
+},[dispatch, userMail])
+
+
+useEffect(()=>{
+  const carritoLocal = localStorage.getItem('carrito')
+  const carritoObjeto = JSON.parse(carritoLocal)
+  if(carritoObjeto && carritoObjeto.length){
+    const totItems = carritoObjeto.length
+    setItemsLocal(totItems)
+  }else{
+    setItemsLocal(0)
+  }
+  
+},[itemsLocal])
+
+
+>>>>>>>>> Temporary merge branch 2
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
