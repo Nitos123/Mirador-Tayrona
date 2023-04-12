@@ -7,9 +7,8 @@ async function addUsuario(req, res) {
     const {
       fullName,
       userName,
-      password,
+      image,
       email,
-      phone,
       status,
       type,
       carrito,
@@ -20,9 +19,8 @@ async function addUsuario(req, res) {
     const usuario = Usuario({
       fullName,
       userName,
-      password,
+      image,
       email,
-      phone,
       status,
       type,
       carrito,

@@ -66,16 +66,6 @@ const users = async () => {
   return await axios.get("/usuarios");
 };
 
-export const getAllReviews = async () => {
-  return async function (dispatch) {
-    const allUsers = (await axios.get("/usuarios")).data;
-    dispatch({
-      type: GET_ALL_REVIEWS,
-      payload: allUsers,
-    });
-  };
-};
-
 export const getMaxPrice = () => {
   return {
     type: GET_MAX_PRICE,
@@ -90,6 +80,18 @@ export const postReview = (payload) => {
     } catch (error) {
       alert(error);
     }
+  };
+};
+
+export const getAllReviews = async () => {
+  return async function (dispatch) {
+    // const allUsers = users.data;
+    const allUsers = (await axios.get(`/usuarios`)).data;
+    console.log("recibiendo los usuarios", allUsers);
+    dispatch({
+      type: GET_ALL_REVIEWS,
+      payload: allUsers,
+    });
   };
 };
 
