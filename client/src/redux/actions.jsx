@@ -18,6 +18,7 @@ export const POST_REVIEW = "POST_REVIEW";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const CHECK_RESERVATION_DATES = "CHECK_RESERVATION_DATES";
 export const CARRITO_ADD_USER = "CARRITO_ADD_USER"
+export const CAR_ITEMS_NUMBER = "CAR_ITEMS_NUMBER"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -204,7 +205,7 @@ export const restoreCartFromLocalStorage = () => {
   };
 };
 
-export const checkReservationDates = (roomId, startDate, endDate) => {
+export const checkReservationDates = ( endDate, startDate, roomId) => {
   return async function (dispatch) {
     try {
       const roomDetail = await axios.get(`/room/${roomId}`);
@@ -234,9 +235,27 @@ export const checkReservationDates = (roomId, startDate, endDate) => {
         console.log("Las fechas no están disponibles.");
       }
 
-      dispatch({ type: CHECK_RESERVATION_DATES, payload: !isAvailable });
+      dispatch({ type: CHECK_RESERVATION_DATES, payload: isAvailable });
     } catch (error) {
       console.error(error);
     }
   };
 };
+
+
+export const carItemsNumber = (userMail)=>{
+  return async function (dispatch) {
+    const response = await axios.get("/usuarios");
+    console.log( userMail)
+    if (response && response.data) {
+      const usuarios = response.data;
+      const user = usuarios.filter((usuario) => usuario.email === userMail.email);
+      console.log( user)
+      const total = user[0].carrito.length
+      console.log(total)
+    
+      dispatch({ type: CAR_ITEMS_NUMBER, payload: total });
+    }
+  };
+}
+

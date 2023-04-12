@@ -3,15 +3,34 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/NavBar.scss";
 import { useAuth } from "../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { carItemsNumber } from "../redux/actions";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   faUserTie,
   faArrowRightFromBracket,
   faArrowRightToBracket,
+  faShoppingCart
 } from "@fortawesome/free-solid-svg-icons";
+
+
 // import CartLink from "../components/CartLink";
 
 const NavBar = (props) => {
+  const dispatch = useDispatch()
   const { user, logout } = useAuth();
+
+  const itemsCartLogin = useSelector((state) => state.carItems)
+  console.log(itemsCartLogin)
+  
+  const userMail = user
+  useEffect(()=>{
+    if (user) {
+     dispatch(carItemsNumber(userMail))
+    }
+      
+
+},[dispatch, userMail])
 
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -46,6 +65,13 @@ const NavBar = (props) => {
                   icon={faUserTie}
                 />
               )}
+
+                  {/* //carrito si el usuario esta logueado */}
+                <Link to="/checkout">       
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <span className="cart-count">{itemsCartLogin}</span>
+                </Link>
+              
 
 
               {/* < CartLink user={user}/> */}
