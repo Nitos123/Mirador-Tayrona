@@ -43,7 +43,7 @@ const mainListItems = (
   </>
 );
 
-const DashboardAdmin = (props) => {
+const DashboardAdmin = () => {
   const classes = useStyles();
 
   return (
@@ -83,7 +83,7 @@ const DashboardAdmin = (props) => {
           <h3>Mirador Tayrona Park</h3>
         </div>
 
-        <List id="mainDrawer">{mainListItems}</List>
+        <List>{mainListItems}</List>
       </Drawer>
     </div>
   );
