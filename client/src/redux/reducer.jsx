@@ -15,7 +15,6 @@ import {
   RESTORE_CART_FROM_LOCAL_STORAGE,
   CHECK_RESERVATION_DATES,
   CARRITO_USER,
-  CHECK_RESERVATION_DATES,
 } from "./actions";
 
 const initialState = {
