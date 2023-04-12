@@ -7,7 +7,7 @@ import {
   localCarrito,
   checkReservationDates,
   carritoUser,
-  carritoAddUser
+  carritoAddUser,
 } from "../redux/actions";
 import "../styles/Detail.scss";
 import { useAuth } from "../context/authContext";
@@ -23,60 +23,35 @@ const Detail = (props) => {
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
   const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
-  
+
   const [error, setError] = useState(null);
   const [startDate, setStartDate] = useState(null);
   // console.log(startDate)
-  
+
   const conflict = useSelector((state) => state.dataConflict);
-  console.log(conflict)
+  console.log(conflict);
   const [endDate, setEndDate] = useState(null);
   // console.log(endDate);
 
   useEffect(() => {
     dispatch(getRoomDetail(id));
-<<<<<<< HEAD
-  }, [dispatch, id]);
-
-  //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
-  const enviarCarrito = () => {
-    const userMail = user.email;
-    dispatch(carritoUser(startDate, endDate, userMail, id))
-      .then((result) => {
-        // console.log(result); // aquí puedes manejar el resultado de la promesa
-        const variableResultado = result;
-        setError(variableResultado); // aquí guardas el resultado de la promesa en una variable
-        if (variableResultado !== 400) {
-          dispatch(getCar(userMail));
-          console.log("Carrito enviado correctamente!");
-          navigate("/checkout");
-        }
-      })
-      .catch((error) => {
-        console.error(error); //aquí puedes manejar el error en caso de que la promesa se haya rechazado
-      });
-=======
   }, [dispatch, id, startDate, endDate]);
-  
-  const localCar =  () => {
-    
-   dispatch(checkReservationDates(id, startDate, endDate))
-   console.log(conflict)
-if (!user) {
-  dispatch(localCarrito(id));
-  navigate("/checkout");
-  return
-}
-    
->>>>>>> 4ac752932b3132c60531bf97e04bd37fd7a05056
+
+  const localCar = () => {
+    dispatch(checkReservationDates(id, startDate, endDate));
+    console.log(conflict);
+    if (!user) {
+      dispatch(localCarrito(id));
+      navigate("/checkout");
+      return;
+    }
   };
 
-  
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = async () => {
     if (user) {
       const userMail = user.email;
-  
+
       await dispatch(carritoAddUser(userMail, startDate, endDate, id));
       dispatch(carritoUser(userMail));
       navigate("/checkout");
@@ -84,7 +59,6 @@ if (!user) {
       localCar();
     }
   };
-  
 
   return (
     <div className="detail">
@@ -104,36 +78,48 @@ if (!user) {
                 <div>
                   <div>
                     <div>
-                    <p>From:</p>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              minDate={new Date()}
-              maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              yearDropdownItemNumber={15}
-              placeholderText="Date of admission"
-              isClearable
-            />
+                      <p>From:</p>
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        minDate={new Date()}
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Date of admission"
+                        isClearable
+                      />
                     </div>
                     <div>
-                    <p>To</p>
-                    <DatePicker
-  selected={endDate}
-  onChange={(date) => setEndDate(date)}
-  minDate={startDate ? new Date(startDate.getTime() + 86400000) : new Date(new Date().getTime() + 86400000)}
-  maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
-  dateFormat="dd/MM/yyyy"
-  showYearDropdown 
-  scrollableYearDropdown
-  yearDropdownItemNumber={15}
-  placeholderText="Return date"
-  isClearable
-/>
+                      <p>To</p>
+                      <DatePicker
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        minDate={
+                          startDate
+                            ? new Date(startDate.getTime() + 86400000)
+                            : new Date(new Date().getTime() + 86400000)
+                        }
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Return date"
+                        isClearable
+                      />
                     </div>
                   </div>
-                  {conflict===true ? (
+                  {conflict === true ? (
                     <p>La habitacion no esta disponible en estas fechas.</p>
                   ) : (
                     ""
@@ -144,33 +130,45 @@ if (!user) {
                 <div>
                   <div>
                     <div>
-                    <p>From:</p>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              minDate={new Date()}
-              maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              yearDropdownItemNumber={15}
-              placeholderText="Date of admission"
-              isClearable
-            />
+                      <p>From:</p>
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        minDate={new Date()}
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Date of admission"
+                        isClearable
+                      />
                     </div>
                     <div>
-                    <p>To</p>
-                    <DatePicker
-  selected={endDate}
-  onChange={(date) => setEndDate(date)}
-  minDate={startDate ? new Date(startDate.getTime() + 86400000) : new Date(new Date().getTime() + 86400000)}
-  maxDate={new Date(new Date().setMonth(new Date().getMonth() + 6))}
-  dateFormat="dd/MM/yyyy"
-  showYearDropdown 
-  scrollableYearDropdown
-  yearDropdownItemNumber={15}
-  placeholderText="Return date"
-  isClearable
-/>
+                      <p>To</p>
+                      <DatePicker
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        minDate={
+                          startDate
+                            ? new Date(startDate.getTime() + 86400000)
+                            : new Date(new Date().getTime() + 86400000)
+                        }
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Return date"
+                        isClearable
+                      />
                     </div>
                   </div>
                   {error === 400 ? (

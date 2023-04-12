@@ -11,14 +11,15 @@ import LoginCreate from "../views/LoginCreate";
 import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
-// import CheckoutStripe from "../views/CheckoutStripe";
+import DashboardAdmin from "../views/Dashboard/DashboardAdmin";
+
 import "../styles/App.scss";
 
 function App() {
   const location = useLocation();
 
   const hideNavBar = (path) => {
-    return ["/checkout", "/login", "/loginCreate"].includes(path);
+    return ["/checkout", "/login", "/loginCreate", "/dashboard"].includes(path);
   };
 
   return (
@@ -35,14 +36,7 @@ function App() {
           <Route exact path="/loginCreate" Component={LoginCreate} />
           <Route exact path="/createReview" Component={CreateReview} />
           <Route exact path="/checkout" Component={Checkout} />
-          {/* <Route
-            path="/checkout"
-            element={
-              <ProtectedRoute>
-                <Checkout />
-              </ProtectedRoute>
-            }
-          />
+          <Route exact path="/dashboard" Component={DashboardAdmin} />
 
           {/* <Route
             path="/checkout"

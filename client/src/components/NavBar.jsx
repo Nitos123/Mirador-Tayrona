@@ -30,6 +30,9 @@ const NavBar = (props) => {
           <Link to="/home">Home</Link>
 
           <Link to="/rooms">Rooms & Services</Link>
+
+          <Link to="dashboard">Dashboard</Link>
+
           {user && (
             // Cuando hay un usuario Logueado
             <>
@@ -46,7 +49,6 @@ const NavBar = (props) => {
                   icon={faUserTie}
                 />
               )}
-
 
               {/* < CartLink user={user}/> */}
               <a href="#!" onClick={handleLogout}>
