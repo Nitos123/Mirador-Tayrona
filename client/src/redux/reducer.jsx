@@ -14,6 +14,8 @@ import {
   LOCAL_CARRITO,
   RESTORE_CART_FROM_LOCAL_STORAGE,
   CHECK_RESERVATION_DATES,
+  CARRITO_USER,
+  CHECK_RESERVATION_DATES,
 } from "./actions";
 
 const initialState = {
@@ -160,6 +162,11 @@ const rootReducer = (state = initialState, action) => {
               ...state,
               dataConflict: action.payload
             }
+            case CARRITO_USER:
+              return{
+                ...state,
+                carrito: action.payload
+              }
         
 
     default:
