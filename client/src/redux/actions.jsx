@@ -73,10 +73,13 @@ export const getMaxPrice = () => {
   };
 };
 
-export const postReview = (payload) => {
+export const postReview = (payload, id) => {
   return async () => {
     try {
-      const response = await axios.patch(`/usuarios/:id/comentarios`, payload);
+      const response = await axios.patch(
+        `/usuarios/${id}/comentarios`,
+        payload
+      );
       return response;
     } catch (error) {
       alert(error);
