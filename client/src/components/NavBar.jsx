@@ -13,6 +13,7 @@ const NavBar = (props) => {
   const { user, logout } = useAuth();
 
   const navigate = useNavigate();
+  window.scrollTo(0, 0);
   const handleLogout = async () => {
     await logout();
     navigate("/login");
