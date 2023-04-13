@@ -43,6 +43,7 @@ const NavBar = (props) => {
   }, [itemsLocal]);
 
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     await logout();
     navigate("/login");

@@ -1,99 +1,96 @@
-// import clsx from "clsx";
-// import Drawer from "@material-ui/core/Drawer";
-// import AppBar from "@material-ui/core/AppBar";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import List from "@material-ui/core/List";
-// import Typography from "@material-ui/core/Typography";
-// import IconButton from "@material-ui/core/IconButton";
-// import Badge from "@material-ui/core/Badge";
-// import Avatar from "@material-ui/core/Avatar";
-// import NotificationsIcon from "@material-ui/icons/Notifications";
-// import useStyles from "./styles";
-// import React from "react";
-// import ListItem from "@material-ui/core/ListItem";
-// import ListItemIcon from "@material-ui/core/ListItemIcon";
-// import ListItemText from "@material-ui/core/ListItemText";
-// import dashboard from "../assets/dashboard.svg";
-// import user from "../assets/user.svg";
-// import wallet from "../assets/Wallet.svg";
-// import customer from "../assets/customer.svg";
-// import { Link } from "react-router-dom";
+import Badge from "@material-ui/core/Badge";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import React from "react";
+import dashboard from "../assets/dashboard.svg";
+import { useAuth } from "../context/authContext";
+import customer from "../assets/customer.svg";
+import { Link } from "react-router-dom";
+import "../styles/DashboardAdmin.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// const mainListItems = (
-//   <>
-//     <ListItem button active>
-//       <ListItemIcon>
-//         <img src={dashboard} alt="dashboard" />
-//       </ListItemIcon>
-//       <ListItemText className="list_item_text" primary="Rooms" />
-//     </ListItem>
+const MainListItems = () => {
+  return (
+    <div className="left-title">
+      <div>
+        <Link to="/home">
+          <h3>
+            Mirador <br /> Tayrona Park
+          </h3>
+        </Link>
+      </div>
 
-//     <ListItem button>
-//       <ListItemIcon>
-//         <img src={customer} alt="wallet" />
-//       </ListItemIcon>
-//       <ListItemText className="list_item_text" primary="Users" />
-//     </ListItem>
+      <div>
+        <div>
+          <Link>
+            <img src={dashboard} alt="activity" />
+            Rooms
+          </Link>
+        </div>
 
-//     <ListItem button>
-//       <ListItemIcon>
-//         <img src={wallet} alt="activity" />
-//       </ListItemIcon>
-//       <ListItemText className="list_item_text" primary="Reviews" />
-//     </ListItem>
+        <div>
+          <Link>
+            <img src={customer} alt="activity" />
+            Users
+          </Link>
+        </div>
 
-//     <div>
-//       <Link to="/home">
-//         <button>Back Home</button>
-//       </Link>
-//     </div>
-//   </>
-// );
+        <div>
+          <Link>
+            <img src={dashboard} alt="activity" />
+            Reviews
+          </Link>
+        </div>
+      </div>
 
-// const DashboardAdmin = () => {
-//   const classes = useStyles();
+      <div>
+        <Link to="/home">
+          <button>Back Home</button>
+        </Link>
+      </div>
+    </div>
+  );
+};
 
-//   return (
-//     <div className={classes.root}>
-//       <AppBar
-//         position="absolute"
-//         className={clsx(classes.appBar, open && classes.appBarShift)}
-//       >
-//         <Toolbar className={classes.toolbar}>
-//           <Typography
-//             component="h1"
-//             variant="h6"
-//             color="#000"
-//             noWrap
-//             className={classes.title}
-//           >
-//             Balances
-//           </Typography>
-//           <IconButton color="inherit">
-//             <Badge badgeContent={4} color="secondary">
-//               <NotificationsIcon />
-//             </Badge>
-//           </IconButton>
-//           <Avatar alt="Remy Sharp" id="user_img" src={user} />
-//         </Toolbar>
-//       </AppBar>
+const DashboardAdmin = () => {
+  const { user } = useAuth();
 
-//       <Drawer
-//         variant="permanent"
-//         classes={{
-//           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-//         }}
-//         open={open}
-//         id="mainDrawer"
-//       >
-//         <div className="draw_bar">
-//           <h3>Mirador Tayrona Park</h3>
-//         </div>
+  return (
+    <div className="main-container-admin">
+      <div className="left-container">
+        <MainListItems />
+      </div>
 
-//         <List>{mainListItems}</List>
-//       </Drawer>
-//     </div>
-//   );
-// };
+      <div className="rg-container">
+        <div className="txt-part">
+          <h3>Rooms</h3>
+        </div>
 
-// export default DashboardAdmin;
+        <div className="notification-part">
+          <Badge badgeContent={5} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </div>
+
+        <div className="user-part">
+          <div>
+            <p>
+              {user.displayName
+                ? `Hi ${user.displayName.split(" ")[0]}!`
+                : "Howdy"}
+            </p>
+          </div>
+
+          <div>
+            {user.photoURL ? (
+              <img src={user.photoURL} alt="perfil" />
+            ) : (
+              <FontAwesomeIcon className="profile-incognito" icon={faUserTie} />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardAdmin;

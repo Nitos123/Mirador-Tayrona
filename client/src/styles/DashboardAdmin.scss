@@ -1,0 +1,48 @@
+@import "./settings";
+
+.main-container-admin {
+  display: flex;
+  height: 100vh;
+
+  .left-container {
+    background-color: $secundary;
+    border: solid black 1px;
+    width: 20%;
+
+    .left-title {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 15em;
+
+      h3 {
+        color: $light;
+      }
+    }
+  }
+
+  .rg-container {
+    width: 80%;
+    display: flex;
+
+    .txt-part {
+      width: 80%;
+    }
+
+    .notification-part {
+      width: 5%;
+      margin-top: 1em;
+    }
+
+    .user-part {
+      width: 15%;
+      display: flex;
+      img {
+        margin-top: 0.5em;
+
+        width: 50%;
+      }
+    }
+  }
+}
