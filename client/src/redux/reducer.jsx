@@ -15,7 +15,8 @@ import {
   RESTORE_CART_FROM_LOCAL_STORAGE,
   CHECK_RESERVATION_DATES,
   CARRITO_USER,
-  CAR_ITEMS_NUMBER
+  CAR_ITEMS_NUMBER,
+  DELETE_USER
 } from "./actions";
 
 const initialState = {
@@ -173,6 +174,11 @@ const rootReducer = (state = initialState, action) => {
                   ...state,
                   carItems: action.payload
                 }
+                case DELETE_USER:
+                  return{
+                    ...state,
+                    carrito: action.payload
+                  }
         
 
     default:
