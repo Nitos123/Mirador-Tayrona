@@ -6,12 +6,12 @@ import "../styles/DashboardAdmin.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 
-const TopBarAdmin = () => {
+const TopBarAdmin = (props) => {
   const { user } = useAuth();
   return (
     <div className="rgd-container">
       <div className="txt-part">
-        <h3>Rooms</h3>
+        <h3>{props.place}</h3>
       </div>
 
       <div className="notification-part">

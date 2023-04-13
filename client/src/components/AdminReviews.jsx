@@ -3,7 +3,7 @@ import React from "react";
 const AdminReview = (props) => {
   return (
     <div>
-      <h1>Esto es AdminReview</h1>
+      <h2>Ver todas las reviews, selecionar cuakes se muestran</h2>
     </div>
   );
 };

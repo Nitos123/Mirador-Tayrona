@@ -17,6 +17,13 @@ const MainListItems = () => {
 
       <div>
         <div>
+          <Link to="/dashboard">
+            <img src={customer} alt="activity" />
+            Overview
+          </Link>
+        </div>
+
+        <div>
           <Link to="/dashboard/rooms">
             <img src={dashboard} alt="activity" />
             Rooms

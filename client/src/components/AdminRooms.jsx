@@ -3,7 +3,7 @@ import React from "react";
 const AdminRooms = (props) => {
   return (
     <div>
-      <h1>Esto es adminRooms</h1>
+      <h2>Crear, editar borrar habitaciones</h2>
     </div>
   );
 };
