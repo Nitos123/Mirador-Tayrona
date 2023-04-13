@@ -9,6 +9,7 @@ import { useAuth } from "../context/authContext";
 const checkOut = (props) => {
   const { user } = useAuth();
   const dispatch = useDispatch();
+
   const carrito = useSelector((state) => state.carrito);
   console.log(carrito, "comova ser")
   

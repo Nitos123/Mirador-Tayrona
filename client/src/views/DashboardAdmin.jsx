@@ -1,58 +1,29 @@
-import Badge from "@material-ui/core/Badge";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import React from "react";
-import dashboard from "../assets/dashboard.svg";
-import { useAuth } from "../context/authContext";
-import customer from "../assets/customer.svg";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../styles/DashboardAdmin.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const MainListItems = () => {
-  return (
-    <div className="left-title">
-      <div>
-        <Link to="/home">
-          <h3>
-            Mirador <br /> Tayrona Park
-          </h3>
-        </Link>
-      </div>
-
-      <div>
-        <div>
-          <Link>
-            <img src={dashboard} alt="activity" />
-            Rooms
-          </Link>
-        </div>
-
-        <div>
-          <Link>
-            <img src={customer} alt="activity" />
-            Users
-          </Link>
-        </div>
-
-        <div>
-          <Link>
-            <img src={dashboard} alt="activity" />
-            Reviews
-          </Link>
-        </div>
-      </div>
-
-      <div>
-        <Link to="/home">
-          <button>Back Home</button>
-        </Link>
-      </div>
-    </div>
-  );
-};
+import MainListItems from "../components/AdminNavBar";
+import TopBarAdmin from "../components/AdminTopBar";
+import AdminUsers from "../components/AdminUsers";
+import AdminReview from "../components/AdminReviews";
+import AdminRooms from "../components/AdminRooms";
+import AdminOverview from "../components/AdminOverview";
 
 const DashboardAdmin = () => {
-  const { user } = useAuth();
+  const location = useLocation();
+
+  let locationFunction = (path) => {
+    if (path === "/dashboard/rooms") return <AdminRooms />;
+    if (path === "/dashboard/users") return <AdminUsers />;
+    if (path === "/dashboard/reviews") return <AdminReview />;
+    if (path === "/dashboard") return <AdminOverview />;
+  };
+
+  let name = (path) => {
+    if (path === "/dashboard/rooms") return "Rooms";
+    if (path === "/dashboard/users") return "Users";
+    if (path === "/dashboard/reviews") return "Reviews";
+    if (path === "/dashboard") return "Overview";
+  };
 
   return (
     <div className="main-container-admin">
@@ -60,34 +31,12 @@ const DashboardAdmin = () => {
         <MainListItems />
       </div>
 
-      <div className="rg-container">
-        <div className="txt-part">
-          <h3>Rooms</h3>
+      <div className="rg-main-container">
+        <div className="rgd-container">
+          <TopBarAdmin place={name(location.pathname)} />
         </div>
 
-        <div className="notification-part">
-          <Badge badgeContent={5} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </div>
-
-        <div className="user-part">
-          <div>
-            <p>
-              {user.displayName
-                ? `Hi ${user.displayName.split(" ")[0]}!`
-                : "Howdy"}
-            </p>
-          </div>
-
-          <div>
-            {user.photoURL ? (
-              <img src={user.photoURL} alt="perfil" />
-            ) : (
-              <FontAwesomeIcon className="profile-incognito" icon={faUserTie} />
-            )}
-          </div>
-        </div>
+        <div>{locationFunction(location.pathname)}</div>
       </div>
     </div>
   );
