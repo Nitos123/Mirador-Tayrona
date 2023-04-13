@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Await } from "react-router-dom";
 
 export const GET_ALL_ROOMS = "GET_ROOMS";
 export const GET_TRANSPORTE = "GET_TRANSPORTE";
@@ -121,29 +122,27 @@ export function reset() {
 //PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
 export const carritoUser = (userMail) => {
   return async function (dispatch) {
-    try {
-      const response = await axios.get("/usuarios")
-      if (response && response.data) {
-        const usuarios = response.data
-        const user = usuarios.filter(usuario => usuario.email === userMail)
-        console.log(user[0].carrito)
-        const roomsId = user[0].carrito.map(room=> room.idRoom)
-        const rooms = await Promise.all(roomsId.map(async (roomId) => {
-          const response = await axios.get(`/room/${roomId}`);
-          return response.data;
-        }));
-        
-        console.log(rooms);
-        
-        dispatch({type: CARRITO_USER, payload: rooms })
-      } else {
-        console.log("No se encontraron datos en la respuesta")
-      }
-    } catch (error) {
-      console.log("Hubo un error al obtener los datos:", error)
+    const response = await axios.get("/usuarios");
+    console.log(response);
+    if (response && response.data) {
+      const usuarios = response.data;
+      const user = usuarios.filter((usuario) => usuario.email === userMail);
+      const idHabitacion = user[0].carrito.map((user) => user.idRoom);
+      console.log(idHabitacion);
+      const habitacionesPromesas = idHabitacion.map(async (id) => {
+        const response = await axios.get(`/room/${id}`);
+        return response.data;
+      });
+      const habitaciones = await Promise.all(habitacionesPromesas);
+      console.log(habitaciones);
+
+      // Aquí puedes hacer lo que necesites con el array de habitaciones
+
     }
-  }
-}
+  };
+};
+
+
 
 export const carritoAddUser = (userMail, start, end, id) => {
   return async function (dispatch) {
