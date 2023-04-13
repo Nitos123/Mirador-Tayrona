@@ -1,4 +1,5 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "../styles/Checkout.scss";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
@@ -9,6 +10,8 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
+import { useAuth } from "../context/authContext";
 
 const stripePromise = loadStripe(
   "pk_test_51MtdRJAxd88LZv2eI3ZXSTGWh0VL8z8i799gIye6ke36gZzmc7H73kJvKRmgW7msmfdIhz0VwCql9Koq7WdGo3Zg009lR7Uc3t"
@@ -16,12 +19,32 @@ const stripePromise = loadStripe(
 
 //
 
-const StripeForm = () => {
+const StripeForm = (props) => {
   const stripe = useStripe();
+  const { user } = useAuth();
+  const dispatch = useDispatch();
 
   const elements = useElements();
 
+  const carrito = useSelector((state) => state.carrito);
   const [loading, setLoading] = useState(false);
+
+  console.log(carrito);
+  let totalPrice = 0;
+
+  for (let i = 0; i < carrito.length; i++) {
+    totalPrice += carrito[i].price;
+  }
+
+  console.log(totalPrice);
+
+  useEffect(() => {
+    dispatch(restoreCartFromLocalStorage("carrito"));
+    if (user && user.email) {
+      const userMail = user.email;
+      dispatch(carritoUser(userMail));
+    }
+  }, [dispatch]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,8 +56,6 @@ const StripeForm = () => {
     setLoading(true);
 
     if (!error) {
-      console.log(paymentMethod);
-
       const { id } = paymentMethod;
 
       try {
@@ -43,12 +64,8 @@ const StripeForm = () => {
           amount: 10 * 100,
         });
 
-        console.log(data);
-
         elements.getElement(CardElement).clear();
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       setLoading(false);
     }
   };
@@ -64,8 +81,6 @@ const StripeForm = () => {
             src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/277574212.jpg?k=621dbc8e6f3d0217c4d6f28b08a682d817474d4eecb717bf929722fad00f255c&o=&hp=1"
             alt="front-part-house"
           />
-
-          <h3>Price: 100$</h3>
         </div>
 
         <h3>Card type</h3>
@@ -105,7 +120,7 @@ const StripeForm = () => {
           </div>
 
           <div>
-            <h4>1000</h4>
+            <h3>{totalPrice}</h3>
           </div>
         </div>
 
