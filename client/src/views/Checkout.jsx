@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CheckoutForm from "../components/CheckoutForm";
 import "../styles/Checkout.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
+import { restoreCartFromLocalStorage, carritoUser, deleteCar } from "../redux/actions";
 import { useAuth } from "../context/authContext";
 
 const checkOut = (props) => {
@@ -11,7 +11,23 @@ const checkOut = (props) => {
   const dispatch = useDispatch();
 
   const carrito = useSelector((state) => state.carrito);
-
+  console.log(carrito, "comova ser")
+  
+  const deleteData = (id)=>{
+    if (user && user.email) {
+      const userMail = user.email;
+      console.log(userMail)
+      dispatch(deleteCar(userMail, id))
+    
+    }
+  }
+  useEffect(()=>{
+    if (user && user.email) {
+      const userMail = user.email;
+      dispatch(carritoUser(userMail));
+    }
+  },[])
+  
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
     if (user && user.email) {
@@ -31,8 +47,9 @@ const checkOut = (props) => {
             <div>
               {carrito?.map((carrito) => (
                 <div>
+                  <button onClick={()=>deleteData(carrito.id)} >X</button>
                   <img
-                    src={carrito.image[0] || carrito.image}
+                    src={carrito.image}
                     alt={carrito.name}
                     width="300em"
                   />
