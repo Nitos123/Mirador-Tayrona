@@ -30,7 +30,7 @@ export default function CardsReviewsContainer() {
   return (
     <div>
       <div>
-        <h2>Borrar usuarios, hacer usuarios admin</h2>
+        <h2>ver todas las revies, escoger cual sale y cual no</h2>
       </div>
 
       <div>
@@ -39,7 +39,13 @@ export default function CardsReviewsContainer() {
         ) : (
           <div>
             {reviews?.map((review) => {
-              return <CardReview review={review} />;
+              return (
+                <div>
+                  <CardReview review={review} />
+                  <button>Show review</button>
+                  <button>Hide hide</button>
+                </div>
+              );
             })}
           </div>
         )}
