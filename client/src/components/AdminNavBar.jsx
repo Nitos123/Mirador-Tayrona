@@ -17,21 +17,21 @@ const MainListItems = () => {
 
       <div>
         <div>
-          <Link to="/dashboard/users">
+          <Link to="/dashboard/rooms">
             <img src={dashboard} alt="activity" />
             Rooms
           </Link>
         </div>
 
         <div>
-          <Link>
+          <Link to="/dashboard/users">
             <img src={customer} alt="activity" />
             Users
           </Link>
         </div>
 
         <div>
-          <Link>
+          <Link to="/dashboard/reviews">
             <img src={dashboard} alt="activity" />
             Reviews
           </Link>
