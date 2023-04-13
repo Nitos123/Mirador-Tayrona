@@ -1,11 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllReviews } from "../redux/actions";
+import CardsReviewsContainer from "./CardsReviewsContainer";
 
 const AdminReview = (props) => {
-  return (
-    <div>
-      <h2>Ver todas las reviews, selecionar cuakes se muestran</h2>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default AdminReview;

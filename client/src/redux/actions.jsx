@@ -18,8 +18,9 @@ export const RESTORE_CART_FROM_LOCAL_STORAGE =
 export const POST_REVIEW = "POST_REVIEW";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const CHECK_RESERVATION_DATES = "CHECK_RESERVATION_DATES";
-export const CARRITO_ADD_USER = "CARRITO_ADD_USER"
-export const CAR_ITEMS_NUMBER = "CAR_ITEMS_NUMBER"
+export const CARRITO_ADD_USER = "CARRITO_ADD_USER";
+export const CAR_ITEMS_NUMBER = "CAR_ITEMS_NUMBER";
+export const GET_ALL_USERS = "GET_ALL_USERS";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -42,12 +43,12 @@ export const getDesayuno = () => {
   };
 };
 
-// export const getUsers = () => {
-//   return async function (dispatch) {
-//     const users = await axios.get("/usuarios");
-//     dispatch({ type: GET_USERS, payload: users.data });
-//   };
-// };
+export const getAllUsers = () => {
+  return async function (dispatch) {
+    const users = await axios.get("http://localhost:8080/usuarios");
+    dispatch({ type: GET_ALL_USERS, payload: users.data });
+  };
+};
 
 export const getComidas = () => {
   return async function (dispatch) {
@@ -62,10 +63,6 @@ export const getRoomDetail = (id) => {
 
     dispatch({ type: GET_ROOM_DETAIL, payload: roomDetail.data });
   };
-};
-
-const users = async () => {
-  return await axios.get("/usuarios");
 };
 
 export const getMaxPrice = () => {
@@ -137,12 +134,9 @@ export const carritoUser = (userMail) => {
       console.log(habitaciones);
 
       // Aquí puedes hacer lo que necesites con el array de habitaciones
-
     }
   };
 };
-
-
 
 export const carritoAddUser = (userMail, start, end, id) => {
   return async function (dispatch) {
@@ -170,17 +164,16 @@ export const carritoAddUser = (userMail, start, end, id) => {
         const roomData = responseRoom.data;
 
         // Devolver los datos de la habitación junto con el mensaje "hola"
-        dispatch({ type: CARRITO_ADD_USER, payload: { message: "hola", room: roomData } });
+        dispatch({
+          type: CARRITO_ADD_USER,
+          payload: { message: "hola", room: roomData },
+        });
       }
     } catch (error) {
       console.log("Hubo un error al obtener los datos:", error);
     }
   };
 };
-
-
-
-
 
 export const localCarrito = (id) => {
   return async function (dispatch) {
@@ -207,7 +200,7 @@ export const restoreCartFromLocalStorage = () => {
   };
 };
 
-export const checkReservationDates = ( endDate, startDate, roomId) => {
+export const checkReservationDates = (endDate, startDate, roomId) => {
   return async function (dispatch) {
     try {
       const roomDetail = await axios.get(`/room/${roomId}`);
@@ -244,20 +237,20 @@ export const checkReservationDates = ( endDate, startDate, roomId) => {
   };
 };
 
-
-export const carItemsNumber = (userMail)=>{
+export const carItemsNumber = (userMail) => {
   return async function (dispatch) {
     const response = await axios.get("/usuarios");
-    console.log( userMail)
+    console.log(userMail);
     if (response && response.data) {
       const usuarios = response.data;
-      const user = usuarios.filter((usuario) => usuario.email === userMail.email);
-      console.log( user)
-      const total = user[0].carrito.length
-      console.log(total)
-    
+      const user = usuarios.filter(
+        (usuario) => usuario.email === userMail.email
+      );
+      console.log(user);
+      const total = user[0].carrito.length;
+      console.log(total);
+
       dispatch({ type: CAR_ITEMS_NUMBER, payload: total });
     }
   };
-}
-
+};
