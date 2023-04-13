@@ -119,31 +119,38 @@ export function reset() {
 }
 
 //PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
-export const carritoUser = (userMail) => {
+export const carritoUser = (emailUsuario) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get("/usuarios")
+      const response = await axios.get("/usuarios");
       if (response && response.data) {
-        const usuarios = response.data
-        const user = usuarios.filter(usuario => usuario.email === userMail)
-        console.log(user[0].carrito)
-        const roomsId = user[0].carrito.map(room=> room.idRoom)
-        const rooms = await Promise.all(roomsId.map(async (roomId) => {
-          const response = await axios.get(`/room/${roomId}`);
-          return response.data;
+        const usuarios = response.data;
+        const usuario = usuarios.find(usuario => usuario.email === emailUsuario);
+        console.log(usuario.carrito);
+
+        const habitacionesId = usuario.carrito.map(fecha => fecha.roomId);
+        console.log(habitacionesId); //habitaciones que tiene el usuario actualmente en el carrito
+
+        const habitaciones = await Promise.all(habitacionesId.map(async (habitacionId) => {
+          const response = await axios.get(`/room/${habitacionId}`);
+          const habitacion = response.data;
+          habitacion.imagen = habitacion.imagen || 'https://via.placeholder.com/150'; // si no hay imagen, añadir imagen por defecto
+          const fecha = usuario.carrito.find(fecha => fecha.roomId === habitacionId);
+          habitacion.precio = fecha.precio;
+          habitacion.fechas = [fecha.start, fecha.end, fecha._id];
+          return habitacion;
         }));
-        
-        console.log(rooms);
-        
-        dispatch({type: CARRITO_USER, payload: rooms })
+
+        dispatch({ type: CARRITO_USER, payload: habitaciones });
       } else {
-        console.log("No se encontraron datos en la respuesta")
+        console.log("No se encontraron datos en la respuesta");
       }
     } catch (error) {
-      console.log("Hubo un error al obtener los datos:", error)
+      console.log("Hubo un error al obtener los datos:", error);
     }
-  }
-}
+  };
+};
+
 
 export const carritoAddUser = (userMail, start, end, id) => {
   return async function (dispatch) {
