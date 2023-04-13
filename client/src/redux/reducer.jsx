@@ -16,7 +16,8 @@ import {
   CHECK_RESERVATION_DATES,
   CARRITO_USER,
   CAR_ITEMS_NUMBER,
-  DELETE_USER
+  GET_ALL_USERS,
+  DELETE_USER,
 } from "./actions";
 
 const initialState = {
@@ -27,7 +28,7 @@ const initialState = {
   comidas: [],
   detail: [],
   carrito: [],
-  // users: [],
+  users: [],
   reviews: [],
   carItems: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
@@ -55,11 +56,11 @@ const rootReducer = (state = initialState, action) => {
         comidas: action.payload,
       };
 
-    // case GET_USERS:
-    //   return {
-    //     ...state,
-    //     users: action.payload,
-    //   };
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
 
     case POST_REVIEW:
       return {
@@ -67,7 +68,6 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_ALL_REVIEWS:
-      console.log('-------->',action.payload.coments);
       return {
         ...state,
         reviews: action.payload,
@@ -143,43 +143,42 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
       };
-      case GET_CAR:
-  return {
-    ...state,
-    carrito: [...state.carrito, ...action.payload]
-  };
+    case GET_CAR:
+      return {
+        ...state,
+        carrito: [...state.carrito, ...action.payload],
+      };
 
-        case LOCAL_CARRITO:
-          return {
-            ...state,
-            carrito:  [...action.payload]
-          };
-        case RESTORE_CART_FROM_LOCAL_STORAGE:
-          return {
-            ...state,
-            carrito: action.payload
-          };
-          case CHECK_RESERVATION_DATES:
-            return{
-              ...state,
-              dataConflict: action.payload
-            }
-            case CARRITO_USER:
-              return{
-                ...state,
-                carrito: action.payload
-              }
-              case CAR_ITEMS_NUMBER:
-                return{
-                  ...state,
-                  carItems: action.payload
-                }
-                case DELETE_USER:
-                  return{
-                    ...state,
-                    carrito: action.payload
-                  }
-        
+    case LOCAL_CARRITO:
+      return {
+        ...state,
+        carrito: [...action.payload],
+      };
+    case RESTORE_CART_FROM_LOCAL_STORAGE:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
+    case CHECK_RESERVATION_DATES:
+      return {
+        ...state,
+        dataConflict: action.payload,
+      };
+    case CARRITO_USER:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
+    case CAR_ITEMS_NUMBER:
+      return {
+        ...state,
+        carItems: action.payload,
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
 
     default:
       return { ...state };
