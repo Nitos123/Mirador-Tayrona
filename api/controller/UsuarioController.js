@@ -42,7 +42,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 const addRoomDate = async (req, res) => {
-  const { start, end, userId, idRoom } = req.body;
+  const { start, end, userId, idRoom, image, name,price, dias, total  } = req.body;
 
   let startUTC, endUTC;
 
@@ -65,6 +65,11 @@ const addRoomDate = async (req, res) => {
           end: endUTC,
           userId: userID,
           idRoom: roomID,
+          image: image,
+          price: price,
+          name: name,
+          dias: dias,
+          total: total
         },
       },
     });
@@ -76,14 +81,15 @@ const addRoomDate = async (req, res) => {
 };
 
 const deleteRoomCard = async (req, res) => {
-  const { userId, idRoom } = req.body;
+  const { userId, id } = req.body;
 
   try {
-    const roomID = new mongoose.Types.ObjectId(idRoom);
+    
     const userID = new mongoose.Types.ObjectId(userId);
+
     const user = await Usuario.updateOne(
       { _id: userID },
-      { $pull: { "carrito.rooms": { idRoom: roomID } } }
+      { $pull: { "carrito": { _id: id } } }
     );
 
     res.json(user);
@@ -92,6 +98,7 @@ const deleteRoomCard = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
 
 //642df715b277bcadd21c3b38
 async function crearComentario(req, res) {

@@ -7,6 +7,11 @@ const roomSchema = new mongoose.Schema({
   end: Date,
   userId: mongoose.Schema.Types.ObjectId,
   idRoom: mongoose.Schema.Types.ObjectId,
+  image:String,
+  price: Number,
+  name:  String,
+  dias: Number,
+  total: Number
 });
 
 const ComentSchema = Schema(
