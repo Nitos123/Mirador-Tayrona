@@ -14,7 +14,7 @@
       align-items: center;
       display: flex;
       flex-direction: column;
-      gap: 15em;
+      gap: 12em;
 
       h3 {
         color: $light;
@@ -22,9 +22,17 @@
     }
   }
 
-  .rg-container {
-    width: 80%;
+  .rg-main-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
+
+  .rgd-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
     .txt-part {
       width: 80%;
@@ -38,10 +46,10 @@
     .user-part {
       width: 15%;
       display: flex;
+      justify-content: space-around;
       img {
         margin-top: 0.5em;
-
-        width: 50%;
+        height: 60%;
       }
     }
   }
