@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Await } from "react-router-dom";
 
 export const GET_ALL_ROOMS = "GET_ROOMS";
 export const GET_TRANSPORTE = "GET_TRANSPORTE";
@@ -119,37 +120,28 @@ export function reset() {
 }
 
 //PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
-export const carritoUser = (emailUsuario) => {
+export const carritoUser = (userMail) => {
   return async function (dispatch) {
-    try {
-      const response = await axios.get("/usuarios");
-      if (response && response.data) {
-        const usuarios = response.data;
-        const usuario = usuarios.find(usuario => usuario.email === emailUsuario);
-        console.log(usuario.carrito);
+    const response = await axios.get("/usuarios");
+    console.log(response);
+    if (response && response.data) {
+      const usuarios = response.data;
+      const user = usuarios.filter((usuario) => usuario.email === userMail);
+      const idHabitacion = user[0].carrito.map((user) => user.idRoom);
+      console.log(idHabitacion);
+      const habitacionesPromesas = idHabitacion.map(async (id) => {
+        const response = await axios.get(`/room/${id}`);
+        return response.data;
+      });
+      const habitaciones = await Promise.all(habitacionesPromesas);
+      console.log(habitaciones);
 
-        const habitacionesId = usuario.carrito.map(fecha => fecha.roomId);
-        console.log(habitacionesId); //habitaciones que tiene el usuario actualmente en el carrito
+      // Aquí puedes hacer lo que necesites con el array de habitaciones
 
-        const habitaciones = await Promise.all(habitacionesId.map(async (habitacionId) => {
-          const response = await axios.get(`/room/${habitacionId}`);
-          const habitacion = response.data;
-          habitacion.imagen = habitacion.imagen || 'https://via.placeholder.com/150'; // si no hay imagen, añadir imagen por defecto
-          const fecha = usuario.carrito.find(fecha => fecha.roomId === habitacionId);
-          habitacion.precio = fecha.precio;
-          habitacion.fechas = [fecha.start, fecha.end, fecha._id];
-          return habitacion;
-        }));
-
-        dispatch({ type: CARRITO_USER, payload: habitaciones });
-      } else {
-        console.log("No se encontraron datos en la respuesta");
-      }
-    } catch (error) {
-      console.log("Hubo un error al obtener los datos:", error);
     }
   };
 };
+
 
 
 export const carritoAddUser = (userMail, start, end, id) => {
