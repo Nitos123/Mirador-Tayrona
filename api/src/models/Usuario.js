@@ -12,6 +12,7 @@ const roomSchema = new mongoose.Schema({
 const ComentSchema = Schema(
   {
     text: String,
+    type: String,
     rating: Number,
     userId: {
       type: Schema.Types.ObjectId,

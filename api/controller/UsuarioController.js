@@ -102,6 +102,7 @@ async function crearComentario(req, res) {
       $push: {
         coments: {
           text: req.body.text,
+          type: req.body.type,
           rating: req.body.rating,
           userId: usuarioId,
         },
@@ -135,8 +136,14 @@ async function deleteComnts(req, res) {
     res.send(usuario);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al crear el comentario" });
+    res.status(500).json({ error: "Error al Eliminar el comentario" });
   }
+}
+
+async function getComentByType(req, res) {
+  const { type } = req.query;
+  const result = await coments.findOne({ type });
+  res.send(result);
 }
 
 module.exports = {
@@ -146,4 +153,5 @@ module.exports = {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
+  getComentByType,
 };
