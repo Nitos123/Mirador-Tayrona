@@ -26,7 +26,7 @@ const checkOut = (props) => {
       const userMail = user.email;
       dispatch(carritoUser(userMail));
     }
-  },[])
+  },[deleteData])
   
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
@@ -53,8 +53,10 @@ const checkOut = (props) => {
                     alt={carrito.name}
                     width="300em"
                   />
-                  <p>{carrito.name}</p>
-                  <p>{carrito.price}</p>
+                  <p>name: {carrito.name}</p>
+                  <p>precio dia: {carrito.price}</p>
+                  <p>dias: {carrito.dias}</p>
+                  <p>total: {carrito.total}</p>
                 </div>
               ))}
             </div>
