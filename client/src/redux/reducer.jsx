@@ -68,7 +68,6 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_ALL_REVIEWS:
-      console.log("-------->", action.payload.coments);
       return {
         ...state,
         reviews: action.payload,

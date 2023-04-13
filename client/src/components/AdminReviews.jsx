@@ -1,10 +1,49 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllReviews } from "../redux/actions";
-import CardsReviewsContainer from "./CardsReviewsContainer";
+import CardReview from "./CardReview";
+import { useEffect, useState } from "react";
+import "../styles/CardsReviewsContainer.scss";
+import axios from "axios";
 
-const AdminReview = (props) => {
-  return <div></div>;
-};
+export default function CardsReviewsContainer() {
+  const [reviews, setReview] = useState();
 
-export default AdminReview;
+  const allReviews = async () => {
+    const allUsers = (await axios.get(`/usuarios`)).data;
+    const newReviews = [];
+    allUsers.forEach((user) => {
+      if (user.coments.length > 0) {
+        user.coments.forEach((comment) => {
+          newReviews.push({
+            ...comment,
+            name: user.fullName,
+            photoURL: user.image,
+          });
+        });
+      }
+    });
+    setReview(newReviews);
+  };
+
+  useEffect(() => {
+    allReviews();
+  }, []);
+
+  return (
+    <div>
+      <div>
+        <h2>Borrar usuarios, hacer usuarios admin</h2>
+      </div>
+
+      <div>
+        {reviews?.length === 0 ? (
+          ""
+        ) : (
+          <div>
+            {reviews?.map((review) => {
+              return <CardReview review={review} />;
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

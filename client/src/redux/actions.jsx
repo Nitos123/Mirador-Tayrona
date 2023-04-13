@@ -51,6 +51,13 @@ export const getAllUsers = () => {
   };
 };
 
+export const getAllReviews = () => {
+  return async function (dispatch) {
+    const allUsers = await axios.get(`/usuarios`);
+    dispatch({ type: GET_ALL_REVIEWS, payload: users.allUsers });
+  };
+};
+
 export const getComidas = () => {
   return async function (dispatch) {
     const comidas = await axios.get("/comidas");
@@ -83,18 +90,6 @@ export const postReview = (payload, id) => {
     } catch (error) {
       alert(error);
     }
-  };
-};
-
-export const getAllReviews = async () => {
-  return async function (dispatch) {
-    // const allUsers = users.data;
-    const allUsers = (await axios.get(`/usuarios`)).data;
-    console.log("recibiendo los usuarios", allUsers);
-    dispatch({
-      type: GET_ALL_REVIEWS,
-      payload: allUsers,
-    });
   };
 };
 
