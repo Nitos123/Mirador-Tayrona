@@ -21,6 +21,7 @@ export const CHECK_RESERVATION_DATES = "CHECK_RESERVATION_DATES";
 export const CARRITO_ADD_USER = "CARRITO_ADD_USER";
 export const CAR_ITEMS_NUMBER = "CAR_ITEMS_NUMBER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const DELETE_USER = "DELETE_USER";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -124,15 +125,20 @@ export const carritoUser = (userMail) => {
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter((usuario) => usuario.email === userMail);
-      const idHabitacion = user[0].carrito.map((user) => user.idRoom);
-      console.log(idHabitacion);
-      const habitacionesPromesas = idHabitacion.map(async (id) => {
-        const response = await axios.get(`/room/${id}`);
-        return response.data;
+      console.log(user, " suario verdadero");
+      const carritoItems = user[0].carrito.map((item) => {
+        console.log(item._id);
+        return {
+          image: item.image,
+          name: item.name,
+          price: item.price,
+          total: item.total,
+          dias: item.dias,
+          id: item._id,
+        };
       });
-      const habitaciones = await Promise.all(habitacionesPromesas);
-      console.log(habitaciones);
 
+      dispatch({ type: CARRITO_USER, payload: carritoItems });
       // Aquí puedes hacer lo que necesites con el array de habitaciones
     }
   };
@@ -146,21 +152,44 @@ export const carritoAddUser = (userMail, start, end, id) => {
         const usuarios = response.data;
         const user = usuarios.filter((usuario) => usuario.email === userMail);
         console.log(user[0]._id);
+
+        function getNumberOfDays(start, end) {
+          const oneDay = 24 * 60 * 60 * 1000; // Milisegundos en un día
+          const startDate = new Date(start);
+          const endDate = new Date(end);
+          const diffDays = Math.round(Math.abs((endDate - startDate) / oneDay));
+          return diffDays;
+        }
+
         const inicio = new Date(start).toISOString().slice(0, 10);
         const fin = new Date(end).toISOString().slice(0, 10);
         console.log(inicio, fin, id);
+        const responseRoom = await axios.get(`/room/${id}`);
+        console.log(responseRoom.data);
+        const room = responseRoom.data;
+        const image = room.image[0];
+        const price = room.price;
+        const name = room.name;
+        const dias = getNumberOfDays(start, end);
+        const totalHabitacion = price * dias;
+
+        console.log(image, "hola mundo pro");
 
         const date = {
           start: inicio,
           end: fin,
           userId: user[0]._id,
           idRoom: id,
+          image: image,
+          price: price,
+          name: name,
+          dias: dias,
+          total: totalHabitacion,
         };
         console.log(date);
         await axios.patch("/usuarios/dateRoom", date);
 
         // Obtener los datos de la habitación que acaba de agregarse al carrito
-        const responseRoom = await axios.get(`/room/${id}`);
         const roomData = responseRoom.data;
 
         // Devolver los datos de la habitación junto con el mensaje "hola"
