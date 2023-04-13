@@ -56,7 +56,7 @@ const Detail = (props) => {
     if (user && conflict === true) {
       const userMail = user.email;
 
-      await dispatch(carritoAddUser(userMail, startDate, endDate, id));
+       dispatch(carritoAddUser(userMail, startDate, endDate, id));
       dispatch(carritoUser(userMail));
       navigate("/checkout");
     } else {
