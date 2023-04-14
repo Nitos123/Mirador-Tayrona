@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   restoreCartFromLocalStorage,
   carritoUser,
-  // deleteCar,
+  deleteCar,
+  deleteLocalStorage
 } from "../redux/actions";
 import { useAuth } from "../context/authContext";
 
@@ -15,21 +16,32 @@ const checkOut = (props) => {
   const dispatch = useDispatch();
 
   const carrito = useSelector((state) => state.carrito);
-  console.log(carrito, "comova ser");
+  
 
-  const deleteData = (id) => {
-    if (user && user.email) {
-      const userMail = user.email;
-      console.log(userMail);
-      dispatch(deleteCar(userMail, id));
-    }
-  };
   useEffect(() => {
+    dispatch(restoreCartFromLocalStorage("carrito"));
     if (user && user.email) {
       const userMail = user.email;
       dispatch(carritoUser(userMail));
     }
-  }, [deleteData]);
+  }, [dispatch, user]);
+  
+
+  const borrarLocal=(id)=>{
+    dispatch(deleteLocalStorage(id, carrito))
+    
+
+  }
+
+  const deleteData = async(id) => {
+    if (user && user.email) {
+      const userMail = user.email;
+      
+      await dispatch(deleteCar(userMail, id));
+      await  dispatch(carritoUser(userMail));
+    }
+  };
+ ;
 
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
@@ -49,8 +61,10 @@ const checkOut = (props) => {
             </Link>
             <div>
               {carrito?.map((carrito) => (
+               
                 <div>
-                  <button onClick={()=>deleteData(carrito.id)} >X</button>
+                  {!user && <button onClick={()=>borrarLocal(carrito._id)} ></button>}
+                  {user && <button onClick={()=>deleteData(carrito.id)} >X</button>}
                   <img
                     src={carrito.image}
                     alt={carrito.name}
