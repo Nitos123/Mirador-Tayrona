@@ -33,7 +33,7 @@ const Detail = (props) => {
     setEndDate(date);
     dispatch(checkReservationDates(date, startDate, id));
   };
-  console.log(conflict);
+ 
   const [endDate, setEndDate] = useState(null);
   // console.log(endDate);
 
@@ -42,7 +42,7 @@ const Detail = (props) => {
   }, [dispatch, id, startDate, endDate]);
 
   const localCar = () => {
-    console.log(conflict);
+   
     if (!user && conflict === true) {
       dispatch(localCarrito(id));
       navigate("/checkout");
@@ -52,7 +52,7 @@ const Detail = (props) => {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = async () => {
-    console.log(conflict);
+    
     if (user && conflict === true) {
       const userMail = user.email;
 

@@ -20,7 +20,7 @@ const NavBar = (props) => {
   const { user, logout } = useAuth();
 
   const itemsCartLogin = useSelector((state) => state.carItems);
-  console.log(itemsCartLogin);
+  
 
   const [itemsLocal, setItemsLocal] = useState(0);
 
