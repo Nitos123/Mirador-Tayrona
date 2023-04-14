@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
+import Sweet from "./Sweet";
 
 const AdminUsers = (props) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const AdminUsers = (props) => {
               <div>{user.fullName}</div>
               <div>{user.type}</div>
               <button>Change user permition</button>
-              <button>Delete User</button>
+              <button onClick={() => Sweet()}>Delete User</button>
             </div>
           );
         })}

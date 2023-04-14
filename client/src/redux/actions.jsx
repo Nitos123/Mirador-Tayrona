@@ -116,7 +116,7 @@ export function reset() {
 export const carritoUser = (userMail) => {
   return async function (dispatch) {
     const response = await axios.get("/usuarios");
-    console.log(response);
+    // console.log(response);
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter((usuario) => usuario.email === userMail);
@@ -270,9 +270,9 @@ export const carItemsNumber = (userMail) => {
       const user = usuarios.filter(
         (usuario) => usuario.email === userMail.email
       );
-      console.log(user);
+      // console.log(user);
       const total = user[0].carrito.length;
-      console.log(total);
+      // console.log(total);
 
       dispatch({ type: CAR_ITEMS_NUMBER, payload: total });
     }
