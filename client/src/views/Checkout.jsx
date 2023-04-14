@@ -16,7 +16,7 @@ const checkOut = (props) => {
   const dispatch = useDispatch();
 
   const carrito = useSelector((state) => state.carrito);
-  console.log(carrito, "comova ser");
+  
 
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
@@ -29,14 +29,14 @@ const checkOut = (props) => {
 
   const borrarLocal=(id)=>{
     dispatch(deleteLocalStorage(id, carrito))
-    console.log(carrito, "hola mundo pro")
+    
 
   }
 
   const deleteData = async(id) => {
     if (user && user.email) {
       const userMail = user.email;
-      console.log(userMail);
+      
       await dispatch(deleteCar(userMail, id));
       await  dispatch(carritoUser(userMail));
     }
@@ -61,6 +61,7 @@ const checkOut = (props) => {
             </Link>
             <div>
               {carrito?.map((carrito) => (
+               
                 <div>
                   {!user && <button onClick={()=>borrarLocal(carrito._id)} ></button>}
                   {user && <button onClick={()=>deleteData(carrito.id)} >X</button>}
