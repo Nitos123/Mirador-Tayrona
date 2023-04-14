@@ -7,6 +7,7 @@ import {
   restoreCartFromLocalStorage,
   carritoUser,
   deleteCar,
+  deleteLocalStorage
 } from "../redux/actions";
 import { useAuth } from "../context/authContext";
 
@@ -16,6 +17,13 @@ const checkOut = (props) => {
 
   const carrito = useSelector((state) => state.carrito);
   console.log(carrito, "comova ser");
+
+
+  const borrarLocal=(id)=>{
+    dispatch(deleteLocalStorage(id, carrito))
+    console.log(carrito, "hola mundo pro")
+
+  }
 
   const deleteData = async(id) => {
     if (user && user.email) {
@@ -46,7 +54,8 @@ const checkOut = (props) => {
             <div>
               {carrito?.map((carrito) => (
                 <div>
-                  <button onClick={()=>deleteData(carrito.id)} >X</button>
+                  {!user && <button onClick={()=>borrarLocal(carrito._id)} ></button>}
+                  {user && <button onClick={()=>deleteData(carrito.id)} >X</button>}
                   <img
                     src={carrito.image}
                     alt={carrito.name}
