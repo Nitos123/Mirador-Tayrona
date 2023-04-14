@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   restoreCartFromLocalStorage,
   carritoUser,
-  // deleteCar,
+  deleteCar,
 } from "../redux/actions";
 import { useAuth } from "../context/authContext";
 
@@ -17,19 +17,15 @@ const checkOut = (props) => {
   const carrito = useSelector((state) => state.carrito);
   console.log(carrito, "comova ser");
 
-  const deleteData = (id) => {
+  const deleteData = async(id) => {
     if (user && user.email) {
       const userMail = user.email;
       console.log(userMail);
-      dispatch(deleteCar(userMail, id));
+      await dispatch(deleteCar(userMail, id));
+      await  dispatch(carritoUser(userMail));
     }
   };
-  useEffect(() => {
-    if (user && user.email) {
-      const userMail = user.email;
-      dispatch(carritoUser(userMail));
-    }
-  }, [deleteData]);
+ ;
 
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
