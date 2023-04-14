@@ -26,6 +26,10 @@ const rooms = (props) => {
     }
   };
 
+  //Filter by available date
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
   //Control del paginado
   const [currentPage, setCurentPage] = useState(1);
   const roomsPerPage = 4;
@@ -71,43 +75,47 @@ const rooms = (props) => {
               <option value="familiar">Familiar</option>
             </select>
             <div className="filterDate">
-              {/* <div>
-                <p>From:</p>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  minDate={new Date()}
-                  maxDate={
-                    new Date(new Date().setMonth(new Date().getMonth() + 6))
-                  }
-                  dateFormat="dd/MM/yyyy"
-                  showYearDropdown
-                  yearDropdownItemNumber={15}
-                  placeholderText="Date of admission"
-                  isClearable
-                />
-              </div>
-              <div>
-                <p>To</p>
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => comprobacion(date, startDate, id)}
-                  minDate={
-                    startDate
-                      ? new Date(startDate.getTime() + 86400000)
-                      : new Date(new Date().getTime() + 86400000)
-                  }
-                  maxDate={
-                    new Date(new Date().setMonth(new Date().getMonth() + 6))
-                  }
-                  dateFormat="dd/MM/yyyy"
-                  showYearDropdown
-                  scrollableYearDropdown
-                  yearDropdownItemNumber={15}
-                  placeholderText="Return date"
-                  isClearable
-                />
-              </div> */}
+            <div>
+                      <p>From:</p>
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        minDate={new Date()}
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="From"
+                        isClearable
+                      />
+                    </div>
+                    <div>
+                      <p>To</p>
+                      <DatePicker
+                        selected={endDate}
+                        // onChange={(date) => comprobacion(date, startDate, id)}
+                        minDate={
+                          startDate
+                            ? new Date(startDate.getTime() + 86400000)
+                            : new Date(new Date().getTime() + 86400000)
+                        }
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText={"To"}
+                        isClearable
+                      />
+                    </div>
             </div>
             <button onClick={() => dispatch(reset())}>Reset</button>
           </div>
