@@ -22,6 +22,7 @@ export const CARRITO_ADD_USER = "CARRITO_ADD_USER";
 export const CAR_ITEMS_NUMBER = "CAR_ITEMS_NUMBER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
+export const  DELETE_LOCAL_STORAGE = " DELETE_LOCAL_STORAGE";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -321,5 +322,23 @@ export const deleteCar = (userMail, id) => {
     } catch (error) {
       console.error(error);
     }
+  };
+};
+
+
+export const deleteLocalStorage = (id, carrito) => {
+  return async function (dispatch) {
+    const car2 = [...carrito];
+    let idFound = false;
+    const limpieza = car2.filter((car) => {
+      if (car._id === id && !idFound) {
+        idFound = true;
+        return false;
+      }
+      return true;
+    });
+    localStorage.setItem("carrito", JSON.stringify(limpieza));
+    console.log(limpieza);
+    dispatch({ type: DELETE_LOCAL_STORAGE, payload: limpieza });
   };
 };
