@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
-import Sweet from "./Sweet";
+import { SweetDelete } from "./Sweet";
 
 const AdminRooms = (props) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const AdminRooms = (props) => {
               <img src={room.image} />
               {room.name}
               <button>Edit</button>
-              <button onClick={() => Sweet()}>Delete</button>;
+              <button onClick={() => SweetDelete()}>Delete</button>;
             </div>
           );
         })}

@@ -279,9 +279,6 @@ export const carItemsNumber = (userMail) => {
   };
 };
 
-
-
-
 export const deleteCar = (userMail, id) => {
   return async function (dispatch) {
     try {
@@ -299,7 +296,7 @@ export const deleteCar = (userMail, id) => {
         const carId = item._id;
         const data = {
           id: carId,
-          userId: userId
+          userId: userId,
         };
         console.log(userId, "esto es un userid");
 
@@ -308,13 +305,15 @@ export const deleteCar = (userMail, id) => {
         // Obtener la información actualizada del usuario desde el servidor
         const responseUpdated = await axios.get("/usuarios");
         if (responseUpdated && responseUpdated.data) {
-          const usuario = responseUpdated.data.find((usuario) => usuario.email === userMail);
+          const usuario = responseUpdated.data.find(
+            (usuario) => usuario.email === userMail
+          );
           const carritoUser = usuario.carrito;
           console.log(carritoUser, "este es el error"); // Obtener el array del carrito del usuario desde la respuesta actualizada
 
           dispatch({
             type: DELETE_USER,
-            payload: carritoUser
+            payload: carritoUser,
           });
         }
       }

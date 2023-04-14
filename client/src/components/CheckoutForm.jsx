@@ -26,12 +26,11 @@ const StripeForm = (props) => {
   const elements = useElements();
 
   const carrito = useSelector((state) => state.carrito);
-  const [loading, setLoading] = useState(false);
 
   let totalPrice = 0;
 
   for (let i = 0; i < carrito.length; i++) {
-    totalPrice += carrito[i].price;
+    totalPrice += carrito[i].total;
   }
 
   useEffect(() => {
@@ -49,7 +48,6 @@ const StripeForm = (props) => {
       type: "card",
       card: elements.getElement(CardElement),
     });
-    setLoading(true);
 
     if (!error) {
       const { id } = paymentMethod;
@@ -62,7 +60,6 @@ const StripeForm = (props) => {
 
         elements.getElement(CardElement).clear();
       } catch (error) {}
-      setLoading(false);
     }
   };
 
@@ -82,7 +79,7 @@ const StripeForm = (props) => {
 
           <div>
             {carrito?.map((carro) => {
-              return <div> {carro.price}</div>;
+              return <div> {carro.total}</div>;
             })}
           </div>
         </div>
@@ -124,15 +121,10 @@ const StripeForm = (props) => {
             <h3>{totalPrice}</h3>
           </div>
         </div>
+
         <div>
-          <button className="btn btn-success" disabled={!stripe}>
-            {loading ? (
-              <div className="spinner-border text-light" role="status">
-                <span className="sr-only"></span>
-              </div>
-            ) : (
-              "CHECKOUT"
-            )}
+          <button type="submit" className="btn btn-success" disabled={!stripe}>
+            Checkout
           </button>
         </div>
       </form>

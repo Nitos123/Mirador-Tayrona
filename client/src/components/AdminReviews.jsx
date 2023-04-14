@@ -2,6 +2,7 @@ import CardReview from "./CardReview";
 import { useEffect, useState } from "react";
 import "../styles/CardsReviewsContainer.scss";
 import axios from "axios";
+import { SweetArpoveReviews, SweetRejectReviews } from "./Sweet";
 
 export default function CardsReviewsContainer() {
   const [reviews, setReview] = useState();
@@ -42,8 +43,8 @@ export default function CardsReviewsContainer() {
               return (
                 <div>
                   <CardReview review={review} />
-                  <button>Show review</button>
-                  <button>Hide hide</button>
+                  <button onClick={() => SweetArpoveReviews()}>Aprove</button>
+                  <button onClick={() => SweetRejectReviews()}>Reject</button>
                 </div>
               );
             })}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Rooms.scss";
-import { postReview } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
+import { SweetReview } from "../components/Sweet";
 
 const validate = (state) => {
   const error = {};
@@ -54,7 +54,6 @@ const CreateReview = (props) => {
           text: review.review,
           rating: review.stars,
         });
-        alert("Review created successfully!");
       } catch (error) {
         alert(error);
       }
@@ -126,7 +125,11 @@ const CreateReview = (props) => {
           </div>
 
           <div>
-            <button type="submit" disabled={!formValid}>
+            <button
+              type="submit"
+              disabled={!formValid}
+              onClick={() => SweetReview()}
+            >
               Send
             </button>
           </div>
