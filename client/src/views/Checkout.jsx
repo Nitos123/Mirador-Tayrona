@@ -18,6 +18,14 @@ const checkOut = (props) => {
   const carrito = useSelector((state) => state.carrito);
   console.log(carrito, "comova ser");
 
+  useEffect(() => {
+    dispatch(restoreCartFromLocalStorage("carrito"));
+    if (user && user.email) {
+      const userMail = user.email;
+      dispatch(carritoUser(userMail));
+    }
+  }, [dispatch, user]);
+  
 
   const borrarLocal=(id)=>{
     dispatch(deleteLocalStorage(id, carrito))
