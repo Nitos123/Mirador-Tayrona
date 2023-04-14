@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
 import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,6 +29,12 @@ const rooms = (props) => {
   //Filter by available date
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const conflict = useSelector((state) => state.dataConflict);
+  const comprobacion = (date, startDate) => {
+    console.log('Los conflictos son--->',conflict);
+    setEndDate(date);
+    // dispatch(checkReservationDates(date, startDate, id));
+  };
 
   //Control del paginado
   const [currentPage, setCurentPage] = useState(1);
@@ -75,47 +81,43 @@ const rooms = (props) => {
               <option value="familiar">Familiar</option>
             </select>
             <div className="filterDate">
-            <div>
-                      <p>From:</p>
-                      <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        minDate={new Date()}
-                        maxDate={
-                          new Date(
-                            new Date().setMonth(new Date().getMonth() + 6)
-                          )
-                        }
-                        dateFormat="dd/MM/yyyy"
-                        showYearDropdown
-                        yearDropdownItemNumber={15}
-                        placeholderText="From"
-                        isClearable
-                      />
-                    </div>
-                    <div>
-                      <p>To</p>
-                      <DatePicker
-                        selected={endDate}
-                        // onChange={(date) => comprobacion(date, startDate, id)}
-                        minDate={
-                          startDate
-                            ? new Date(startDate.getTime() + 86400000)
-                            : new Date(new Date().getTime() + 86400000)
-                        }
-                        maxDate={
-                          new Date(
-                            new Date().setMonth(new Date().getMonth() + 6)
-                          )
-                        }
-                        dateFormat="dd/MM/yyyy"
-                        showYearDropdown
-                        scrollableYearDropdown
-                        yearDropdownItemNumber={15}
-                        placeholderText={"To"}
-                        isClearable
-                      />
-                    </div>
+              <div>
+                <p>From:</p>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  minDate={new Date()}
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 6))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  yearDropdownItemNumber={15}
+                  placeholderText="From"
+                  isClearable
+                />
+              </div>
+              <div>
+                <p>To</p>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => comprobacion(date, startDate)}
+                  minDate={
+                    startDate
+                      ? new Date(startDate.getTime() + 86400000)
+                      : new Date(new Date().getTime() + 86400000)
+                  }
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 6))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={15}
+                  placeholderText={"To"}
+                  isClearable
+                />
+              </div>
             </div>
             <button onClick={() => dispatch(reset())}>Reset</button>
           </div>
