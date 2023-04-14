@@ -4,6 +4,8 @@ import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
 import { useDispatch } from "react-redux";
 import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const rooms = (props) => {
   const dispatch = useDispatch();
@@ -68,10 +70,46 @@ const rooms = (props) => {
               <option value="individual">Individual</option>
               <option value="familiar">Familiar</option>
             </select>
+            <div className="filterDate">
+              {/* <div>
+                <p>From:</p>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  minDate={new Date()}
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 6))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  yearDropdownItemNumber={15}
+                  placeholderText="Date of admission"
+                  isClearable
+                />
+              </div>
+              <div>
+                <p>To</p>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => comprobacion(date, startDate, id)}
+                  minDate={
+                    startDate
+                      ? new Date(startDate.getTime() + 86400000)
+                      : new Date(new Date().getTime() + 86400000)
+                  }
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 6))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={15}
+                  placeholderText="Return date"
+                  isClearable
+                />
+              </div> */}
+            </div>
             <button onClick={() => dispatch(reset())}>Reset</button>
-            {/* <select>
-              <option>Date</option>
-            </select> */}
           </div>
         </section>
 
