@@ -278,3 +278,48 @@ export const carItemsNumber = (userMail) => {
     }
   };
 };
+
+
+
+
+export const deleteCar = (userMail, id) => {
+  return async function (dispatch) {
+    try {
+      // Obtener la información actualizada del usuario desde el servidor
+      const response = await axios.get("/usuarios");
+      console.log(userMail);
+      if (response && response.data) {
+        const usuarios = response.data;
+        const user = usuarios.find((usuario) => usuario.email === userMail);
+        console.log(user.carrito);
+
+        // Encontrar el objeto del carrito con el _id igual al que se pasa como parámetro
+        const item = user.carrito.find((item) => item._id === id);
+        const userId = user._id;
+        const carId = item._id;
+        const data = {
+          id: carId,
+          userId: userId
+        };
+        console.log(userId, "esto es un userid");
+
+        await axios.patch("/usuario/deleteCart", data);
+
+        // Obtener la información actualizada del usuario desde el servidor
+        const responseUpdated = await axios.get("/usuarios");
+        if (responseUpdated && responseUpdated.data) {
+          const usuario = responseUpdated.data.find((usuario) => usuario.email === userMail);
+          const carritoUser = usuario.carrito;
+          console.log(carritoUser, "este es el error"); // Obtener el array del carrito del usuario desde la respuesta actualizada
+
+          dispatch({
+            type: DELETE_USER,
+            payload: carritoUser
+          });
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
