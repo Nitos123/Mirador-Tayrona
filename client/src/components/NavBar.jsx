@@ -4,36 +4,47 @@ import "../styles/NavBar.scss";
 import { useAuth } from "../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { carItemsNumber } from "../redux/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   faUserTie,
   faArrowRightFromBracket,
   faArrowRightToBracket,
-  faShoppingCart
+  faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-
 
 // import CartLink from "../components/CartLink";
 
 const NavBar = (props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { user, logout } = useAuth();
 
-  const itemsCartLogin = useSelector((state) => state.carItems)
-  console.log(itemsCartLogin)
-  
-  const userMail = user
-  useEffect(()=>{
-    if (user) {
-     dispatch(carItemsNumber(userMail))
-    }
-      
+  const itemsCartLogin = useSelector((state) => state.carItems);
+  console.log(itemsCartLogin);
 
-},[dispatch, userMail])
+  const [itemsLocal, setItemsLocal] = useState(0);
+
+  const userMail = user;
+  useEffect(() => {
+    if (user) {
+      dispatch(carItemsNumber(userMail));
+    }
+  }, [dispatch, userMail]);
+
+  useEffect(() => {
+    const carritoLocal = localStorage.getItem("carrito");
+    const carritoObjeto = JSON.parse(carritoLocal);
+    if (carritoObjeto && carritoObjeto.length) {
+      const totItems = carritoObjeto.length;
+      setItemsLocal(totItems);
+    } else {
+      setItemsLocal(0);
+    }
+  }, [itemsLocal]);
 
   const navigate = useNavigate();
   window.scrollTo(0, 0);
+
   const handleLogout = async () => {
     await logout();
     navigate("/login");
@@ -50,6 +61,9 @@ const NavBar = (props) => {
           <Link to="/home">Home</Link>
 
           <Link to="/rooms">Rooms & Services</Link>
+
+          <Link to="/dashboard">Dashboard</Link>
+
           {user && (
             // Cuando hay un usuario Logueado
             <>
@@ -67,13 +81,11 @@ const NavBar = (props) => {
                 />
               )}
 
-                  {/* //carrito si el usuario esta logueado */}
-                <Link to="/checkout">       
-                  <FontAwesomeIcon icon={faShoppingCart} />
-                  <span className="cart-count">{itemsCartLogin}</span>
-                </Link>
-              
-
+              {/* //carrito si el usuario esta logueado */}
+              <Link to="/checkout">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                <span className="cart-count">{itemsCartLogin}</span>
+              </Link>
 
               {/* < CartLink user={user}/> */}
               <a href="#!" onClick={handleLogout}>
@@ -86,12 +98,18 @@ const NavBar = (props) => {
           )}
           {!user && (
             // Cuando no hay usuario logueado
+
             <>
               <FontAwesomeIcon className="login" icon={faArrowRightToBracket} />
               <div className="dropdown">
                 <Link to="/login">Sign in</Link>
                 <Link to="/loginCreate">Sign Up</Link>
               </div>
+
+              <Link to="/checkout">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                <span className="cart-count">{itemsLocal}</span>
+              </Link>
             </>
           )}
 

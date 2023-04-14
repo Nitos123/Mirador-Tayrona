@@ -23,15 +23,15 @@ const Detail = (props) => {
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
   const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
-  
+
   const [startDate, setStartDate] = useState(null);
   // console.log(startDate)
-  
+
   const conflict = useSelector((state) => state.dataConflict);
 
   const comprobacion = (date, startDate, id) => {
     setEndDate(date);
-   dispatch(checkReservationDates(date, startDate, id))
+    dispatch(checkReservationDates(date, startDate, id));
   };
   console.log(conflict);
   const [endDate, setEndDate] = useState(null);
@@ -43,7 +43,7 @@ const Detail = (props) => {
 
   const localCar = () => {
     console.log(conflict);
-    if (!user&& conflict=== true) {
+    if (!user && conflict === true) {
       dispatch(localCarrito(id));
       navigate("/checkout");
       return;
@@ -52,20 +52,17 @@ const Detail = (props) => {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = async () => {
-    console.log(conflict)
-    if (user && conflict===true) {
+    console.log(conflict);
+    if (user && conflict === true) {
       const userMail = user.email;
 
-      await dispatch(carritoAddUser(userMail, startDate, endDate, id));
+       dispatch(carritoAddUser(userMail, startDate, endDate, id));
       dispatch(carritoUser(userMail));
       navigate("/checkout");
     } else {
-      
-        localCar();
-   
+      localCar();
     }
   };
-
 
   return (
     <div className="detail">
