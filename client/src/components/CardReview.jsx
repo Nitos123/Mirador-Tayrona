@@ -15,7 +15,7 @@ export default function CardReview({ review }) {
 
   const imgURL = review.photoURL
     ? review.photoURL
-    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+    : "https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423351/Hostel-tayrona/blank-profile-picture-973460__340_uk32g7.png";
 
   return (
     <div className="card-review box-shadow-hover">

@@ -12,7 +12,7 @@ const CardRoom = (props) => {
               src={
                 props.image[0]
                   ? props.image[0]
-                  : "https://t3.ftcdn.net/jpg/05/38/52/48/360_F_538524834_KTWCegIa69mIWDLVx6Sc6tdkW6beiMBR.jpg"
+                  : "https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423389/Hostel-tayrona/360_F_538524834_KTWCegIa69mIWDLVx6Sc6tdkW6beiMBR_xyodjo.jpg"
               }
               alt="image review"
             />
