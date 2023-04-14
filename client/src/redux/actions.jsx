@@ -121,9 +121,9 @@ export const carritoUser = (userMail) => {
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter((usuario) => usuario.email === userMail);
-      console.log(user, " suario verdadero");
+      
       const carritoItems = user[0].carrito.map((item) => {
-        console.log(item._id);
+       
         return {
           image: item.image,
           name: item.name,
@@ -147,7 +147,7 @@ export const carritoAddUser = (userMail, start, end, id) => {
       if (response && response.data) {
         const usuarios = response.data;
         const user = usuarios.filter((usuario) => usuario.email === userMail);
-        console.log(user[0]._id);
+        
 
         function getNumberOfDays(start, end) {
           const oneDay = 24 * 60 * 60 * 1000; // Milisegundos en un día
@@ -159,9 +159,9 @@ export const carritoAddUser = (userMail, start, end, id) => {
 
         const inicio = new Date(start).toISOString().slice(0, 10);
         const fin = new Date(end).toISOString().slice(0, 10);
-        console.log(inicio, fin, id);
+        
         const responseRoom = await axios.get(`/room/${id}`);
-        console.log(responseRoom.data);
+        
         const room = responseRoom.data;
         const image = room.image[0];
         const price = room.price;
@@ -169,8 +169,7 @@ export const carritoAddUser = (userMail, start, end, id) => {
         const dias = getNumberOfDays(start, end);
         const totalHabitacion = price * dias;
 
-        console.log(image, "hola mundo pro");
-
+        
         const date = {
           start: inicio,
           end: fin,
@@ -182,7 +181,7 @@ export const carritoAddUser = (userMail, start, end, id) => {
           dias: dias,
           total: totalHabitacion,
         };
-        console.log(date);
+        
         await axios.patch("/usuarios/dateRoom", date);
 
         // Obtener los datos de la habitación que acaba de agregarse al carrito
@@ -230,7 +229,7 @@ export const checkReservationDates = (endDate, startDate, roomId) => {
     try {
       const roomDetail = await axios.get(`/room/${roomId}`);
       const bookedDates = roomDetail.data.bookedDates;
-      console.log(bookedDates);
+      
 
       // Convertir las fechas a objetos Date
       const checkInDate = new Date(startDate);
@@ -247,13 +246,13 @@ export const checkReservationDates = (endDate, startDate, roomId) => {
         );
       });
 
-      if (isAvailable) {
-        console.log(isAvailable);
-        console.log("Las fechas están disponibles.");
-      } else {
-        console.log(isAvailable);
-        console.log("Las fechas no están disponibles.");
-      }
+      // if (isAvailable) {
+      //   console.log(isAvailable);
+      //   console.log("Las fechas están disponibles.");
+      // } else {
+      //   console.log(isAvailable);
+      //   console.log("Las fechas no están disponibles.");
+      // }
 
       dispatch({ type: CHECK_RESERVATION_DATES, payload: isAvailable });
     } catch (error) {
@@ -265,7 +264,7 @@ export const checkReservationDates = (endDate, startDate, roomId) => {
 export const carItemsNumber = (userMail) => {
   return async function (dispatch) {
     const response = await axios.get("/usuarios");
-    console.log(userMail);
+   
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter(
@@ -288,11 +287,11 @@ export const deleteCar = (userMail, id) => {
     try {
       // Obtener la información actualizada del usuario desde el servidor
       const response = await axios.get("/usuarios");
-      console.log(userMail);
+      
       if (response && response.data) {
         const usuarios = response.data;
         const user = usuarios.find((usuario) => usuario.email === userMail);
-        console.log(user.carrito);
+        
 
         // Encontrar el objeto del carrito con el _id igual al que se pasa como parámetro
         const item = user.carrito.find((item) => item._id === id);
@@ -302,7 +301,7 @@ export const deleteCar = (userMail, id) => {
           id: carId,
           userId: userId
         };
-        console.log(userId, "esto es un userid");
+        
 
         await axios.patch("/usuario/deleteCart", data);
 
@@ -311,7 +310,7 @@ export const deleteCar = (userMail, id) => {
         if (responseUpdated && responseUpdated.data) {
           const usuario = responseUpdated.data.find((usuario) => usuario.email === userMail);
           const carritoUser = usuario.carrito;
-          console.log(carritoUser, "este es el error"); // Obtener el array del carrito del usuario desde la respuesta actualizada
+         // Obtener el array del carrito del usuario desde la respuesta actualizada
 
           dispatch({
             type: DELETE_USER,

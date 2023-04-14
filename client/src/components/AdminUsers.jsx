@@ -14,7 +14,7 @@ const AdminUsers = (props) => {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  console.log(allUsers);
+  
   return (
     <div>
       <div>
