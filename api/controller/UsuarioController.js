@@ -118,7 +118,7 @@ async function crearComentario(req, res) {
 
     if (!usuario) {
       return res.status(404).json({ error: "Usuario no encontrado" });
-    } // Obtiene el último comentario añadido
+    } // Obtiene el último comentario añadido no homo
 
     res.send(usuario);
   } catch (error) {
