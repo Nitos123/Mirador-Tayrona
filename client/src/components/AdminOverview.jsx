@@ -5,6 +5,7 @@ import { getAllRooms } from "../redux/actions";
 import CardReview from "./CardReview";
 import "../styles/DashboardAdmin.scss";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AdminOverview = (props) => {
   const dispatch = useDispatch();
@@ -46,24 +47,53 @@ const AdminOverview = (props) => {
   return (
     <div>
       <h2>Pequeño resumen de rooms user y reviews</h2>
+      <h2>Admin users</h2>
+      <Link to="/dashboard/users">
+        <div>
+          {allUsers?.map((user) => {
+            return (
+              <div>
+                <img src={user.image} />
+                <div>{user.fullName}</div>
+                <div>{user.type}</div>
+              </div>
+            );
+          })}
+        </div>
+      </Link>
 
-      <div>
-        {reviews?.length === 0 ? (
-          ""
-        ) : (
-          <div>
-            {reviews?.map((review) => {
-              return (
-                <div>
-                  <CardReview review={review} />
-                  <button>Show review</button>
-                  <button>Hide hide</button>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+      <h2>Last comments</h2>
+      <Link to="/dashboard/reviews">
+        <div>
+          {reviews?.length === 0 ? (
+            ""
+          ) : (
+            <div>
+              {reviews?.map((review) => {
+                return (
+                  <div>
+                    <CardReview review={review} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </Link>
+
+      <h2>Most booked rooms</h2>
+      <Link to="/dashboard/rooms">
+        <div className="admin-user-img">
+          {allRooms?.map((room) => {
+            return (
+              <div>
+                <img src={room.image} />
+                {room.name}
+              </div>
+            );
+          })}
+        </div>
+      </Link>
     </div>
   );
 };
