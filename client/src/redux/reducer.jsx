@@ -101,8 +101,6 @@ const rootReducer = (state = initialState, action) => {
         isRoomAvailable(state.date.start, state.date.end, room)
       );
 
-      console.log("estoy en type--->", filteredByDate);
-
       // ordenar según la variable order
       const sortedRooms = [...filteredByDate].sort((a, b) => order(a, b, state.order));
 
@@ -131,7 +129,6 @@ const rootReducer = (state = initialState, action) => {
       const roomsFilteredByDate = rooms.filter((room) =>
         isRoomAvailable(action.payload.startDate, action.payload.endDate, room)
       );
-      console.log("habitaciones filtradas--->", roomsFilteredByDate);
       
       // ordenar según la variable order
       const sortedRoomsbyPrice = [...roomsFilteredByDate].sort((a, b) => order(a, b, state.order));
@@ -150,6 +147,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.roomsCopy],
         date: {},
+        type: "",
       };
     case GET_CAR:
       return {
