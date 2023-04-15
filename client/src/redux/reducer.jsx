@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   GET_ALL_ROOMS,
   GET_TRANSPORTE,
@@ -18,7 +19,9 @@ import {
   CAR_ITEMS_NUMBER,
   GET_ALL_USERS,
   DELETE_USER,
-  DELETE_LOCAL_STORAGE
+  DELETE_LOCAL_STORAGE,
+  FILTER_BY_AVAILABLE_DATE,
+  checkReservationDates,
 } from "./actions";
 
 const initialState = {
@@ -139,6 +142,39 @@ const rootReducer = (state = initialState, action) => {
         order: "ASCENDING",
       };
 
+    case FILTER_BY_AVAILABLE_DATE:
+      const isRoomAvailable = (startDate, endDate, roomDetail) => {
+        // const roomDetail = await axios.get(`/room/${roomId}`);
+
+        const bookedDates = roomDetail.bookedDates;
+
+        // Convertir las fechas a objetos Date
+        const checkInDate = new Date(startDate);
+        const checkOutDate = new Date(endDate);
+
+        // Validar si las fechas están disponibles
+        const isAvailable = !bookedDates.some(({ start, end }) => {
+          const bookedStartDate = new Date(start);
+          const bookedEndDate = new Date(end);
+
+          return (
+            (checkInDate >= bookedStartDate && checkInDate < bookedEndDate) ||
+            (checkOutDate > bookedStartDate && checkOutDate <= bookedEndDate)
+          );
+        });
+        console.log('está disponible-->', isAvailable)
+        return isAvailable;
+      };
+      const rooms = [...state.rooms];
+      const roomsFilteredByDate = rooms.filter((room) =>
+        isRoomAvailable(action.payload.startDate, action.payload.endDate, room)
+      );
+      console.log("habitaciones filtradas--->", roomsFilteredByDate);
+    return {
+      ...state,
+      rooms: roomsFilteredByDate,
+    };
+
     case RESET:
       return {
         ...state,
@@ -165,6 +201,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dataConflict: action.payload,
       };
+
     case CARRITO_USER:
       return {
         ...state,
@@ -180,11 +217,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         carrito: action.payload,
       };
-      case  DELETE_LOCAL_STORAGE:
-        return {
-          ...state,
-          carrito: action.payload
-        }
+    case DELETE_LOCAL_STORAGE:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
 
     default:
       return { ...state };

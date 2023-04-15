@@ -3,7 +3,13 @@ import CardRoomContainer from "../components/CardsRoomContainer";
 import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
+import {
+  filterByAvailableDate,
+  getMaxPrice,
+  getMinPrice,
+  getType,
+  reset,
+} from "../redux/actions";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -29,11 +35,9 @@ const rooms = (props) => {
   //Filter by available date
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const conflict = useSelector((state) => state.dataConflict);
-  const comprobacion = (date, startDate) => {
-    console.log('Los conflictos son--->',conflict);
-    setEndDate(date);
-    // dispatch(checkReservationDates(date, startDate, id));
+  const comprobacion = (startDate, endDateInput) => {
+    setEndDate(endDateInput);
+    dispatch(filterByAvailableDate(startDate, endDateInput));
   };
 
   //Control del paginado
@@ -101,7 +105,7 @@ const rooms = (props) => {
                 <p>To</p>
                 <DatePicker
                   selected={endDate}
-                  onChange={(date) => comprobacion(date, startDate)}
+                  onChange={(date) => comprobacion(startDate, date)}
                   minDate={
                     startDate
                       ? new Date(startDate.getTime() + 86400000)
