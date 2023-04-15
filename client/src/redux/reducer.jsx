@@ -5,8 +5,6 @@ import {
   GET_DESAYUNO,
   GET_COMIDAS,
   GET_ROOM_DETAIL,
-  GET_MAX_PRICE,
-  GET_MIN_PRICE,
   GET_TYPE,
   GET_ALL_REVIEWS,
   RESET,
@@ -21,7 +19,7 @@ import {
   DELETE_USER,
   DELETE_LOCAL_STORAGE,
   FILTER_BY_AVAILABLE_DATE,
-  checkReservationDates,
+  ORDER_BY_PRICE,
 } from "./actions";
 
 const initialState = {
@@ -37,6 +35,8 @@ const initialState = {
   carItems: [],
   order: "DESCENDING", // por defecto ordena de mayor a menor
   dataConflict: null,
+  date: {},
+  type: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -91,94 +91,65 @@ const rootReducer = (state = initialState, action) => {
 
     case GET_TYPE:
       let filteredRooms = [];
-      if (action.payload.includes("matrimonial")) {
-        filteredRooms = [
-          ...state.roomsCopy.filter((room) => room.type === "matrimonial"),
-        ];
-      }
-      if (action.payload.includes("individual")) {
-        filteredRooms = [
-          ...filteredRooms,
-          ...state.roomsCopy.filter((room) => room.type === "individual"),
-        ];
-      }
-      if (action.payload.includes("familiar")) {
-        filteredRooms = [
-          ...filteredRooms,
-          ...state.roomsCopy.filter((room) => room.type === "familiar"),
-        ];
-      }
+      filteredRooms = [
+        //Filtrando las habitaciones por tipo de habitación
+        ...state.roomsCopy.filter((room) => roomType(room, action.payload)),
+      ];
+
+      //ordernar por fecha
+      const filteredByDate = filteredRooms.filter((room) =>
+        isRoomAvailable(state.date.start, state.date.end, room)
+      );
+
+      console.log("estoy en type--->", filteredByDate);
 
       // ordenar según la variable order
-      let sortedRooms = filteredRooms;
-      if (state.order === "DESCENDING") {
-        sortedRooms = [...filteredRooms].sort((a, b) => b.price - a.price);
-      } else if (state.order === "ASCENDING") {
-        sortedRooms = [...filteredRooms].sort((a, b) => a.price - b.price);
-      }
+      const sortedRooms = [...filteredByDate].sort((a, b) => order(a, b, state.order));
 
       return {
         ...state,
         rooms: sortedRooms,
+        type: action.payload,
       };
 
-    case GET_MAX_PRICE:
-      const sortedRoomsDescending = [...state.rooms].sort(
-        (a, b) => b.price - a.price
-      );
+    case ORDER_BY_PRICE:
+      const orderPopulation = [...state.rooms].sort((a, b) => order(a, b, action.payload));
       return {
         ...state,
-        rooms: sortedRoomsDescending,
-        order: "DESCENDING",
-      };
-
-    case GET_MIN_PRICE:
-      const sortedRoomsAscending = [...state.rooms].sort(
-        (a, b) => a.price - b.price
-      );
-      return {
-        ...state,
-        rooms: sortedRoomsAscending,
-        order: "ASCENDING",
+        rooms: orderPopulation,
+        order: action.payload,
       };
 
     case FILTER_BY_AVAILABLE_DATE:
-      const isRoomAvailable = (startDate, endDate, roomDetail) => {
-        // const roomDetail = await axios.get(`/room/${roomId}`);
-
-        const bookedDates = roomDetail.bookedDates;
-
-        // Convertir las fechas a objetos Date
-        const checkInDate = new Date(startDate);
-        const checkOutDate = new Date(endDate);
-
-        // Validar si las fechas están disponibles
-        const isAvailable = !bookedDates.some(({ start, end }) => {
-          const bookedStartDate = new Date(start);
-          const bookedEndDate = new Date(end);
-
-          return (
-            (checkInDate >= bookedStartDate && checkInDate < bookedEndDate) ||
-            (checkOutDate > bookedStartDate && checkOutDate <= bookedEndDate)
-          );
-        });
-        console.log('está disponible-->', isAvailable)
-        return isAvailable;
-      };
-      const rooms = [...state.rooms];
+      // Se revisa si ya hay un type en el state, de ser así se filtran las habitaciones por el state creado y se guarda en rooms, sino, entonces rooms será el estado original de todas las habitaciones
+      const rooms = !state.type
+        ? [...state.roomsCopy]
+        : [
+            //Filtrando las habitaciones por tipo de habitación
+            ...state.roomsCopy.filter((room) => roomType(room, state.type)),
+          ];
       const roomsFilteredByDate = rooms.filter((room) =>
         isRoomAvailable(action.payload.startDate, action.payload.endDate, room)
       );
       console.log("habitaciones filtradas--->", roomsFilteredByDate);
-    return {
-      ...state,
-      rooms: roomsFilteredByDate,
-    };
+      
+      // ordenar según la variable order
+      const sortedRoomsbyPrice = [...roomsFilteredByDate].sort((a, b) => order(a, b, state.order));
+
+      return {
+        ...state,
+        rooms: sortedRoomsbyPrice,
+        date: {
+          start: action.payload.startDate,
+          end: action.payload.endDate,
+        },
+      };
 
     case RESET:
       return {
         ...state,
         rooms: [...state.roomsCopy],
+        date: {},
       };
     case GET_CAR:
       return {
@@ -226,6 +197,36 @@ const rootReducer = (state = initialState, action) => {
     default:
       return { ...state };
   }
+};
+
+const roomType = (room, type) => room.type === type; // Comprobando que el tipo de habitación coincida con el tipo elegido para filtrar
+
+//con la función order, puedo retornar los datos necesarios para poder ordernar las habitaciones por precio
+const order = (a, b, orderType) => {
+  if (a.price > b.price) return "ASCENDING" === orderType ? 1 : -1;
+  if (a.price < b.price) return "DESCENDING" === orderType ? 1 : -1;
+  return 0;
+};
+
+// Con esta función se podrá saber si una habitación está disponible o no
+const isRoomAvailable = (startDate, endDate, roomDetail) => {
+  const bookedDates = roomDetail.bookedDates; //Obteniendo fechas en la que ésta habitación está reservada, ¡sí lo está!
+
+  // Convertir las fechas a objetos Date
+  const checkInDate = new Date(startDate);
+  const checkOutDate = new Date(endDate);
+
+  // Validar si las fechas están disponibles
+  const isAvailable = !bookedDates.some(({ start, end }) => {
+    const bookedStartDate = new Date(start);
+    const bookedEndDate = new Date(end);
+
+    return (
+      (checkInDate >= bookedStartDate && checkInDate < bookedEndDate) ||
+      (checkOutDate > bookedStartDate && checkOutDate <= bookedEndDate)
+    );
+  });
+  return isAvailable;
 };
 
 export default rootReducer;

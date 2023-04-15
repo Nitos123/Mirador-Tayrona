@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Await } from "react-router-dom";
 
 export const GET_ALL_ROOMS = "GET_ROOMS";
 export const GET_TRANSPORTE = "GET_TRANSPORTE";
@@ -7,8 +6,7 @@ export const GET_DESAYUNO = "GET_DESAYUNO";
 export const GET_COMIDAS = "GET_COMIDAS";
 export const GET_ROOM_DETAIL = "GET_ROOM_DETAIL";
 export const GET_TYPE = "GET_TYPE";
-export const GET_MAX_PRICE = "GET_MAX_PRICE";
-export const GET_MIN_PRICE = "GET_MIN_PRICE";
+export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
 export const RESET = "RESET";
 export const CARRITO_USER = "CARRITO_USER";
 export const GET_CAR = "GET_CAR";
@@ -75,11 +73,25 @@ export const getRoomDetail = (id) => {
   };
 };
 
-export const getMaxPrice = () => {
+export function orderByPrice(ordering) {
   return {
-    type: GET_MAX_PRICE,
+      type: ORDER_BY_PRICE,
+      payload: ordering
+  }
+}
+
+export const getType = (type) => {
+  return {
+    type: GET_TYPE,
+    payload: type,
   };
 };
+
+export function reset() {
+  return {
+    type: RESET,
+  };
+}
 
 export const postReview = (payload, id) => {
   return async () => {
@@ -94,25 +106,6 @@ export const postReview = (payload, id) => {
     }
   };
 };
-
-export const getMinPrice = () => {
-  return {
-    type: GET_MIN_PRICE,
-  };
-};
-
-export const getType = (type) => {
-  return {
-    type: "GET_TYPE",
-    payload: type,
-  };
-};
-
-export function reset() {
-  return {
-    type: RESET,
-  };
-}
 
 //PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
 export const carritoUser = (userMail) => {

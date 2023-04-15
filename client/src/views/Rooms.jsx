@@ -5,14 +5,14 @@ import "../styles/Rooms.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   filterByAvailableDate,
-  getMaxPrice,
-  getMinPrice,
   getType,
+  orderByPrice,
   reset,
 } from "../redux/actions";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Filter by Room Type
 const rooms = (props) => {
   const dispatch = useDispatch();
   const handlermaxType = (e) => {
@@ -21,15 +21,11 @@ const rooms = (props) => {
     dispatch(getType(type));
   };
 
+  // Order by price
   const handlerMaxPrce = (e) => {
     const price = e.target.value;
     paged(1);
-    if (price === "maxPrice") {
-      dispatch(getMaxPrice());
-    }
-    if (price === "minPrice") {
-      dispatch(getMinPrice());
-    }
+    dispatch(orderByPrice(price));
   };
 
   //Filter by available date
@@ -37,6 +33,7 @@ const rooms = (props) => {
   const [endDate, setEndDate] = useState(null);
   const comprobacion = (startDate, endDateInput) => {
     setEndDate(endDateInput);
+    paged(1);
     dispatch(filterByAvailableDate(startDate, endDateInput));
   };
 
@@ -72,8 +69,8 @@ const rooms = (props) => {
               <option disabled value="Price">
                 Price
               </option>
-              <option value="maxPrice">Price maximo</option>
-              <option value="minPrice">Price minimo</option>
+              <option value="DESCENDING">Price maximo</option>
+              <option value="ASCENDING">Price minimo</option>
             </select>
 
             <select defaultValue={"Type"} onChange={handlermaxType}>
