@@ -4,7 +4,7 @@ import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
 import Sweet from "./Sweet";
 import CreateRoomForm from "./CreateRoomForm";
-
+import DeleteUpdateRoom from "./DeleteUpdateRoom";
 
 const AdminRooms = (props) => {
   const dispatch = useDispatch();
@@ -16,39 +16,41 @@ const AdminRooms = (props) => {
   }, [dispatch]);
 
   const [showRoomComponent, setShowRoomComponent] = useState(false);
+  const [showEditComponent, setShowEditComponent] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   const handleShowRoomComponent = () => {
-    console.log("showRoomComponent:", showRoomComponent);
-    setShowRoomComponent(prevState => !prevState);
+    setShowRoomComponent(true);
+    setShowEditComponent(false);
+  };
+
+  const handleShowEditComponent = (room) => {
+    setSelectedRoom(room);
+    setShowEditComponent(true);
+    setShowRoomComponent(false);
+  };
+
+  const handleClose = () => {
+    setSelectedRoom(null);
+    setShowRoomComponent(false);
+    setShowEditComponent(false);
   };
 
   return (
-    <div>
-      <h2>Crear, editar y borrar habitaciones</h2>
+    <div className="cont-admin-room" >
+      <h2> Create, edit and delete rooms </h2>
 
       <div>
-        {/* Actualizamos el enlace para llamar a handleShowRoomComponent */}
-        <button onClick={handleShowRoomComponent}>Crear nueva habitación</button>
+        <button onClick={handleShowRoomComponent}>Create new room</button>
       </div>
 
-      {/* Agregamos la condición para mostrar el componente */}
-      {showRoomComponent && <CreateRoomForm show={showRoomComponent} handleClose={handleShowRoomComponent} />}
+      {showRoomComponent && <CreateRoomForm show={showRoomComponent} handleClose={handleClose} />}
+      {/* {showEditComponent && <EditRoomForm show={showEditComponent} handleClose={handleClose} room={selectedRoom} />} */}
 
-
-      <div className="admin-user-img">
-        {allRooms?.map((room) => {
-          return (
-            <div key={room.id}>
-              <img src={room.image} alt={`Habitación ${room.name}`} />
-              {room.name}
-              <button>Editar</button>
-              <button onClick={() => Sweet()}>Eliminar</button>
-            </div>
-          );
-        })}
-      </div>
+      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowEditComponent} Sweet ={Sweet} />
     </div>
   );
 };
 
 export default AdminRooms;
+

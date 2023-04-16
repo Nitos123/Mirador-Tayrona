@@ -1,98 +1,133 @@
-
 @import "../styles/settings";
 
 .modal-body {
-    padding: 2rem;
-    border: 2px solid $primary;
 
-    border-radius: 10px;
-    &:hover {
-      box-shadow: $shadowHover;
-    }
-      .cont-name{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        .label {
-          font-weight: bold;
-          margin-bottom: 0.5rem;
-          
-        }
-        .input{
-          width:30rem ;
-          margin-bottom: 1rem;
-        }
-      }
+  padding: 0;
+  border: 2px solid $primary;
+  border-radius: 10px;
+  overflow: hidden;
 
-      .cont-desc{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        .label {
-          font-weight: bold;
-          
-       
-        }
-        .textarea{
-          width:30rem ;
-          margin-bottom: 1rem;
-        }
-      }
-      .field {
-        margin-bottom: 1.5rem;
-        .textarea,
-        .select {
-          width: 100%;
-          padding: 0.5rem;
-          border: 1px solid #ddd;
-          border-radius: 0.25rem;
-    
-          &:focus {
-            outline: none;
-            border-color: #3273dc;
-          }
-        }
-    
-      
-      .checkbox {
-        display: flex;
-        align-items: center;
+  &:hover {
+    box-shadow: $shadowHover;
+  }
+
+  .title {
+    margin-top: -0.5%;
+    background-color: $secundary;
+    width: 100%;
+    color: $light;
+    margin: 0;
+
+  }
+
+  .label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+
+  }
+
+  .cont-forms {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+
+
+    .input {
+      width: 20rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .textarea {
+    width: 25rem;
+    margin-bottom: 1rem;
+  }
+
+  .price-type{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+ 
+}
+
+  .children{
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
   
-        input[type="checkbox"] {
-          margin-right: 0.5rem;
-        }
+    input{
+      width: 5rem;
+
+    }
+  }
+
+  
+.messageError{
+  color: red;
+  font-size: 0.7rem;
+}
+
+
+
+  .field {
+    margin-bottom: 1.5rem;
+   
+
+    .select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+
+      &:focus {
+        outline: none;
+        border-color: $secundary;
       }
     }
-  
-    .is-grouped {
+
+
+    .checkbox {
       display: flex;
-      justify-content: space-between;
-  
-      .control {
-        width: 48%;
-      }
-    }
-  
-    .button.is-link {
-      background-color: $light;
-      color: $dark;
-      border: 1.4px solid $dark;
-  
-      &:hover {
-        border: 1.4px solid $primary;
-        color: $primary;
-      }
-    }
-  
-    .button.is-link.is-light {
-      background-color: $light;
-      color: $dark;
-      border: 1.4px solid $dark;
-  
-      &:hover {
-        border: 1.4px solid red;
-        color: red;
+      align-items: center;
+
+      input[type="checkbox"] {
+        margin-right: 0.5rem;
       }
     }
   }
-  
+
+  .is-grouped {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+
+    .control {
+      width: 48%;
+    }
+  }
+
+  .button.is-link {
+    background-color: $light;
+    color: $dark;
+    border: 1.4px solid $dark;
+
+    &:hover {
+      border: 1.4px solid $primary;
+      color: $primary;
+    }
+  }
+
+  .button.is-link.is-light {
+    background-color: $light;
+    color: $dark;
+    border: 1.4px solid $dark;
+
+    &:hover {
+      border: 1.4px solid red;
+      color: red;
+    }
+  }
+}

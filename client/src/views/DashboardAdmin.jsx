@@ -19,7 +19,7 @@ const DashboardAdmin = () => {
   };
 
   let name = (path) => {
-    if (path === "/dashboard/rooms") return "Rooms";
+    if (path === "/dashboard/rooms") return "Room management";
     if (path === "/dashboard/users") return "Users";
     if (path === "/dashboard/reviews") return "Reviews";
     if (path === "/dashboard") return "Overview";
