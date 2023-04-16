@@ -18,6 +18,7 @@ const Detail = (props) => {
   const detail = useSelector((state) => state.detail);
   const dispatch = useDispatch();
   const id = useParams().id;
+  const featuredImage = detail.image && detail.image[0];
   const { user } = useAuth();
   // const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
@@ -25,7 +26,6 @@ const Detail = (props) => {
   const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState(null);
-  // console.log(startDate)
 
   const conflict = useSelector((state) => state.dataConflict);
 
@@ -33,16 +33,14 @@ const Detail = (props) => {
     setEndDate(date);
     dispatch(checkReservationDates(date, startDate, id));
   };
- 
+
   const [endDate, setEndDate] = useState(null);
-  // console.log(endDate);
 
   useEffect(() => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id, startDate, endDate]);
 
   const localCar = () => {
-   
     if (!user && conflict === true) {
       dispatch(localCarrito(id));
       navigate("/checkout");
@@ -52,11 +50,10 @@ const Detail = (props) => {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = async () => {
-    
     if (user && conflict === true) {
       const userMail = user.email;
 
-       dispatch(carritoAddUser(userMail, startDate, endDate, id));
+      dispatch(carritoAddUser(userMail, startDate, endDate, id));
       dispatch(carritoUser(userMail));
       navigate("/checkout");
     } else {
@@ -70,7 +67,7 @@ const Detail = (props) => {
         <>
           <div
             className="mainImageRoom"
-            style={{ backgroundImage: `url(${detail.image})` }}
+            style={{ backgroundImage: `url(${featuredImage})` }}
           >
             <h1>{detail.name}</h1>
           </div>
