@@ -13,6 +13,12 @@ import "../styles/Detail.scss";
 import { useAuth } from "../context/authContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUsers,
+  faHotel,
+  faSackDollar,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Detail = (props) => {
   const detail = useSelector((state) => state.detail);
@@ -67,26 +73,29 @@ const Detail = (props) => {
     <div className="detail">
       {detail ? (
         <>
+          <div className="overlay">
+            <h1>{detail.name}</h1>
+          </div>
           <div
             className="mainImageRoom"
             style={{ backgroundImage: `url(${featuredImage})` }}
-          >
-            <h1>{detail.name}</h1>
-          </div>
-          <div className="overlay"></div>
+          ></div>
           <div className="section">
-            <div>
+            <div className="box-content">
               <div className="decription">
                 <div className="metadatos">
-                  <p>
-                    Type Room: <span>{detail.type}</span>
-                  </p>
-                  <p>
-                    Guests: <span>{detail.guests}</span>
-                  </p>
-                  <p>
-                    Price: <span>${detail.price}</span>
-                  </p>
+                  <div className="fa-icons">
+                    <FontAwesomeIcon icon={faHotel} />
+                    <p>{detail.type}</p>
+                  </div>
+                  <div className="fa-icons">
+                    <FontAwesomeIcon icon={faUsers} />
+                    <p>{detail.guests}</p>
+                  </div>
+                  <div className="fa-icons">
+                    <FontAwesomeIcon icon={faSackDollar} />
+                    <p>${detail.price}</p>
+                  </div>
                 </div>
                 <p>{detail.desctiption}</p>
                 {lengthImages > 1 ? (
@@ -96,122 +105,121 @@ const Detail = (props) => {
                         index >= 1 && <img src={url} key={index} />
                     )}
                   </div>
-                ) : ''}
-              </div>
-
-              <div className="booking">
-                {!user ? (
-                  <div>
-                    <div>
-                      <div>
-                        <p>From:</p>
-                        <DatePicker
-                          selected={startDate}
-                          onChange={(date) => setStartDate(date)}
-                          minDate={new Date()}
-                          maxDate={
-                            new Date(
-                              new Date().setMonth(new Date().getMonth() + 6)
-                            )
-                          }
-                          dateFormat="dd/MM/yyyy"
-                          showYearDropdown
-                          yearDropdownItemNumber={15}
-                          placeholderText="Date of admission"
-                          isClearable
-                        />
-                      </div>
-                      <div>
-                        <p>To</p>
-                        <DatePicker
-                          selected={endDate}
-                          onChange={(date) => comprobacion(date, startDate, id)}
-                          minDate={
-                            startDate
-                              ? new Date(startDate.getTime() + 86400000)
-                              : new Date(new Date().getTime() + 86400000)
-                          }
-                          maxDate={
-                            new Date(
-                              new Date().setMonth(new Date().getMonth() + 6)
-                            )
-                          }
-                          dateFormat="dd/MM/yyyy"
-                          showYearDropdown
-                          scrollableYearDropdown
-                          yearDropdownItemNumber={15}
-                          placeholderText="Return date"
-                          isClearable
-                        />
-                      </div>
-                    </div>
-                    {conflict === false ? (
-                      <p>La habitacion no esta disponible en estas fechas.</p>
-                    ) : (
-                      ""
-                    )}
-                    <button onClick={() => localCar()}>Book this room!</button>
-                  </div>
                 ) : (
-                  <div>
-                    <div>
-                      <div>
-                        <p>From:</p>
-                        <DatePicker
-                          selected={startDate}
-                          onChange={(date) => setStartDate(date)}
-                          minDate={new Date()}
-                          maxDate={
-                            new Date(
-                              new Date().setMonth(new Date().getMonth() + 6)
-                            )
-                          }
-                          dateFormat="dd/MM/yyyy"
-                          showYearDropdown
-                          yearDropdownItemNumber={15}
-                          placeholderText="Date of admission"
-                          isClearable
-                        />
-                      </div>
-                      <div>
-                        <p>To</p>
-                        <DatePicker
-                          selected={endDate}
-                          onChange={(date) => comprobacion(date, startDate, id)}
-                          minDate={
-                            startDate
-                              ? new Date(startDate.getTime() + 86400000)
-                              : new Date(new Date().getTime() + 86400000)
-                          }
-                          maxDate={
-                            new Date(
-                              new Date().setMonth(new Date().getMonth() + 6)
-                            )
-                          }
-                          dateFormat="dd/MM/yyyy"
-                          showYearDropdown
-                          scrollableYearDropdown
-                          yearDropdownItemNumber={15}
-                          placeholderText="Return date"
-                          isClearable
-                        />
-                      </div>
-                    </div>
-                    {conflict === false ? (
-                      <p>La habitacion no esta disponible en estas fechas.</p>
-                    ) : (
-                      ""
-                    )}
-                    <button onClick={() => enviarCarrito()}>
-                      Book this room!
-                    </button>
-                  </div>
+                  ""
                 )}
               </div>
-
-              <h1>More rooms</h1>
-              <CardRoomContainerDetail />
+              {!user ? (
+                <div className="booking">
+                  <div className="row">
+                    <div className="input">
+                      <p>From:</p>
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        minDate={new Date()}
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Date of admission"
+                        isClearable
+                      />
+                    </div>
+                    <div className="input">
+                      <p>To:</p>
+                      <DatePicker
+                        selected={endDate}
+                        onChange={(date) => comprobacion(date, startDate, id)}
+                        minDate={
+                          startDate
+                            ? new Date(startDate.getTime() + 86400000)
+                            : new Date(new Date().getTime() + 86400000)
+                        }
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Return date"
+                        isClearable
+                      />
+                    </div>
+                  </div>
+                  {conflict === false ? (
+                    <p>La habitacion no esta disponible en estas fechas.</p>
+                  ) : (
+                    ""
+                  )}
+                  <button className="btn" onClick={() => localCar()}>Book this room!</button>
+                </div>
+              ) : (
+                <div className="booking">
+                  <div className="row">
+                    <div className="input">
+                      <p>From:</p>
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        minDate={new Date()}
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Date of admission"
+                        isClearable
+                      />
+                    </div>
+                    <div className="input">
+                      <p>To:</p>
+                      <DatePicker
+                        selected={endDate}
+                        onChange={(date) => comprobacion(date, startDate, id)}
+                        minDate={
+                          startDate
+                            ? new Date(startDate.getTime() + 86400000)
+                            : new Date(new Date().getTime() + 86400000)
+                        }
+                        maxDate={
+                          new Date(
+                            new Date().setMonth(new Date().getMonth() + 6)
+                          )
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={15}
+                        placeholderText="Return date"
+                        isClearable
+                      />
+                    </div>
+                  </div>
+                  {conflict === false ? (
+                    <p>La habitacion no esta disponible en estas fechas.</p>
+                  ) : (
+                    ""
+                  )}
+                  <button className="btn" onClick={() => enviarCarrito()}>
+                    Book this room!
+                  </button>
+                </div>
+              )}
             </div>
+
+            <h1>More rooms</h1>
+            <CardRoomContainerDetail type={detail.type} />
           </div>
         </>
       ) : (
