@@ -66,7 +66,7 @@ const checkOut = (props) => {
                   {!user && <button onClick={()=>borrarLocal(carrito._id)} ></button>}
                   {user && <button onClick={()=>deleteData(carrito.id)} >X</button>}
                   <img
-                    src={carrito.image}
+                    src={carrito.image[0]}
                     alt={carrito.name}
                     width="300em"
                   />
