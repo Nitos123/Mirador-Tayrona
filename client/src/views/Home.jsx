@@ -92,7 +92,7 @@ const Home = () => {
 
           <div className="stayHereImg">
             <img
-              src="https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true"
+              src="https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423538/Hostel-tayrona/74274b63-61d6fbf1-27_gvlz1i.jpg"
               alt="image review"
             />
           </div>
@@ -141,7 +141,7 @@ const Home = () => {
           </div>
           <div className="about-img">
             <img
-              src="https://www.kayak.es/rimg/kimg/c0/f2/74274b63-61d6fbf1-27.jpeg?width=1366&height=768&crop=true"
+              src="https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423538/Hostel-tayrona/74274b63-61d6fbf1-27_gvlz1i.jpg"
               alt="image review"
             />
           </div>

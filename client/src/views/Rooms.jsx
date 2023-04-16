@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import CardRoomContainer from "../components/CardsRoomContainer";
 import CardServicesContainer from "../components/CardsServicesContainer";
 import "../styles/Rooms.scss";
-import { useDispatch } from "react-redux";
-import { getMaxPrice, getMinPrice, getType, reset } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  filterByAvailableDate,
+  getType,
+  orderByPrice,
+  reset,
+} from "../redux/actions";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
+// Filter by Room Type
 const rooms = (props) => {
   const dispatch = useDispatch();
   const handlermaxType = (e) => {
@@ -13,15 +21,20 @@ const rooms = (props) => {
     dispatch(getType(type));
   };
 
+  // Order by price
   const handlerMaxPrce = (e) => {
     const price = e.target.value;
     paged(1);
-    if (price === "maxPrice") {
-      dispatch(getMaxPrice());
-    }
-    if (price === "minPrice") {
-      dispatch(getMinPrice());
-    }
+    dispatch(orderByPrice(price));
+  };
+
+  //Filter by available date
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const comprobacion = (startDate, endDateInput) => {
+    setEndDate(endDateInput);
+    paged(1);
+    dispatch(filterByAvailableDate(startDate, endDateInput));
   };
 
   //Control del paginado
@@ -56,8 +69,8 @@ const rooms = (props) => {
               <option disabled value="Price">
                 Price
               </option>
-              <option value="maxPrice">Price maximo</option>
-              <option value="minPrice">Price minimo</option>
+              <option value="DESCENDING">Price maximo</option>
+              <option value="ASCENDING">Price minimo</option>
             </select>
 
             <select defaultValue={"Type"} onChange={handlermaxType}>
@@ -68,10 +81,46 @@ const rooms = (props) => {
               <option value="individual">Individual</option>
               <option value="familiar">Familiar</option>
             </select>
+            <div className="filterDate">
+              <div>
+                <p>From:</p>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  minDate={new Date()}
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 6))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  yearDropdownItemNumber={15}
+                  placeholderText="From"
+                  isClearable
+                />
+              </div>
+              <div>
+                <p>To</p>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => comprobacion(startDate, date)}
+                  minDate={
+                    startDate
+                      ? new Date(startDate.getTime() + 86400000)
+                      : new Date(new Date().getTime() + 86400000)
+                  }
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 6))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={15}
+                  placeholderText={"To"}
+                  isClearable
+                />
+              </div>
+            </div>
             <button onClick={() => dispatch(reset())}>Reset</button>
-            {/* <select>
-              <option>Date</option>
-            </select> */}
           </div>
         </section>
 
