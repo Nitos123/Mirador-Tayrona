@@ -5,12 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getAllRooms } from "../redux/actions";
 
-const CardRoomContainerDetail = (props) => {
+const CardRoomContainerDetail = ({type}) => {
   const dispatch = useDispatch();
   const allRooms = useSelector((state) => state.rooms);
-
-  const filteredRooms = allRooms.filter((room) => room.id < 3);
-
+  const filteredRooms = allRooms.filter((room) => room.type === type);
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
@@ -20,6 +18,7 @@ const CardRoomContainerDetail = (props) => {
       <div className="container">
         {filteredRooms?.map((room, index) => {
           return (
+            index < 2 && 
             <CardRoom
               key={index}
               id={room._id}
