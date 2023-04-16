@@ -93,21 +93,21 @@ const StripeForm = (props) => {
             <div>
               <img
                 className="image-checkout"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png"
+                src="https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423455/Hostel-tayrona/2560px-Visa_Inc._logo.svg_zjh3rt.png"
               />
             </div>
 
             <div>
               <img
                 className="image-checkout"
-                src="https://www.delitosfinancieros.org/wp-content/uploads/2017/10/mastercard_bank_money_card_20426_2048x1240.jpg"
+                src="https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423482/Hostel-tayrona/mastercard_bank_money_card_20426_2048x1240_keb903.jpg"
               />
             </div>
 
             <div>
               <img
                 className="image-checkout"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/RuPay.svg/2560px-RuPay.svg.png"
+                src="https://res.cloudinary.com/ds8n6d63e/image/upload/v1681423506/Hostel-tayrona/2560px-RuPay.svg_x80o6e.png"
               />
             </div>
           </div>

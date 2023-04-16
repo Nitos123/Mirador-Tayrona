@@ -43,6 +43,7 @@ const NavBar = (props) => {
   }, [itemsLocal]);
 
   const navigate = useNavigate();
+  window.scrollTo(0, 0);
 
   const handleLogout = async () => {
     await logout();
