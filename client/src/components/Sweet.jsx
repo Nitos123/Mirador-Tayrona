@@ -27,8 +27,8 @@ export const Sweet = () => {
 export const SweetAprovedPayment = (props) => {
   return new Promise((resolve, reject) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Payment Success",
+      text: props,
       icon: "success",
     });
   });
@@ -37,7 +37,7 @@ export const SweetAprovedPayment = (props) => {
 export const SweetRejectedPayment = (props) => {
   return new Promise((resolve, reject) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: "Payment failed",
       text: props,
       icon: "error",
     });

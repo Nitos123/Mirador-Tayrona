@@ -7,12 +7,15 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
 import { useAuth } from "../context/authContext";
 import { SweetAprovedPayment, SweetRejectedPayment } from "./Sweet";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [message, setMessage] = useState(null);
+  const navigate = useNavigate();
+
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -31,11 +34,10 @@ export function CheckoutForm() {
     });
 
     if (error) {
-      setMessage(error.message);
       SweetRejectedPayment(error.message);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      setMessage("Payment status" + paymentIntent.status);
-      SweetAprovedPayment();
+      SweetAprovedPayment(paymentIntent.status);
+      navigate("/");
     } else {
       setMessage("unexpected state");
     }
@@ -53,9 +55,6 @@ export function CheckoutForm() {
           {isProcessing ? "Processing ... " : "Pay now"}
         </span>
       </button>
-
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
     </form>
   );
 }
@@ -70,13 +69,14 @@ function Payment(props) {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const carrito = useSelector((state) => state.carrito);
+
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
 
   let totalPrice = 0;
 
   for (let i = 0; i < carrito.length; i++) {
-    totalPrice += carrito[i].price;
+    totalPrice += carrito[i].total;
   }
 
   useEffect(() => {
@@ -88,23 +88,21 @@ function Payment(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/config").then(async (r) => {
-      const { publishableKey } = await r.json();
-
+    axios.get("http://localhost:8080/config").then((response) => {
+      const { publishableKey } = response.data;
       setStripePromise(loadStripe(publishableKey));
     });
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8080/create-payment-intent", {
-      method: "POST",
-
-      body: JSON.stringify({}),
-    }).then(async (r) => {
-      const { clientSecret } = await r.json();
-
-      setClientSecret(clientSecret);
-    });
+    axios
+      .post("http://localhost:8080/create-payment-intent", {
+        amount: totalPrice,
+      })
+      .then((response) => {
+        const { clientSecret } = response.data;
+        setClientSecret(clientSecret);
+      });
   }, []);
 
   return (
