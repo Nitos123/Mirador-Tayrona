@@ -172,6 +172,6 @@ module.exports = {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
-  changeType
+  changeType,
   getComentByType,
 };

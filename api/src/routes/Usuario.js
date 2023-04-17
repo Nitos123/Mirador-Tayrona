@@ -6,7 +6,7 @@ const {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
-  changeType
+  changeType,
   deleteComnts,
   getComentByType
 } = require("../../controller/UsuarioController");
