@@ -143,7 +143,7 @@ const StripeForm = (props) => {
 
 const CheckoutForm = (props) => {
   return (
-      <div className="fixed">
+      <div>
         <Elements stripe={stripePromise}>
           <StripeForm />
         </Elements>
