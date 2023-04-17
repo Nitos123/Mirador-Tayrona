@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/CardRoom.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUsers,
+  faHotel,
+  faSackDollar,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CardRoom = (props) => {
   return (
@@ -19,10 +25,25 @@ const CardRoom = (props) => {
           </div>
         </Link>
 
+        <div className="metadatos">
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faHotel} />
+            <p>{props.type}</p>
+          </div>
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faUsers} />
+            <p>{props.guests}</p>
+          </div>
+          <div className="fa-icons">
+            <FontAwesomeIcon icon={faSackDollar} />
+            <p>${props.price}</p>
+          </div>
+        </div>
+
         <div className="txt">
           <h3>{props.name}</h3>
-          <h3>Guests: {props.guests}</h3>
-          <h3>Price: {props.price} COP</h3>
+          {/* <h3>Guests: {props.guests}</h3>
+          <h3>Price: {props.price} COP</h3> */}
         </div>
 
         <Link to={`/detail/${props.id}`}>
