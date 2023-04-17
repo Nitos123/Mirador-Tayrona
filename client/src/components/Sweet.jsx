@@ -1,8 +1,6 @@
 import Swal from "sweetalert2";
 
-
-
-const Sweet = () => {
+export const Sweet = () => {
   return new Promise((resolve, reject) => {
     Swal.fire({
       title: "Are you sure?",
@@ -26,4 +24,22 @@ const Sweet = () => {
   });
 };
 
-export default Sweet;
+export const SweetAprovedPayment = (props) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Payment Success",
+      text: props,
+      icon: "success",
+    });
+  });
+};
+
+export const SweetRejectedPayment = (props) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Payment failed",
+      text: props,
+      icon: "error",
+    });
+  });
+};

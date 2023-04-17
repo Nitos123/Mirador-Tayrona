@@ -13,6 +13,7 @@ import {
 import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
 import { useAuth } from "../context/authContext";
 import "../styles/CheckoutForm.scss";
+import Payment from "./Payment";
 
 const stripePromise = loadStripe(
   "pk_test_51MtdRJAxd88LZv2eI3ZXSTGWh0VL8z8i799gIye6ke36gZzmc7H73kJvKRmgW7msmfdIhz0VwCql9Koq7WdGo3Zg009lR7Uc3t"
@@ -143,11 +144,12 @@ const StripeForm = (props) => {
 
 const CheckoutForm = (props) => {
   return (
-      <div>
-        <Elements stripe={stripePromise}>
-          <StripeForm />
-        </Elements>
-      </div>
+    <div>
+      <Elements stripe={stripePromise}>
+        {/* <StripeForm /> */}
+        <Payment />
+      </Elements>
+    </div>
   );
 };
 

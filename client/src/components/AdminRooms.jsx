@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
- import Sweet from "./Sweet";
+import { Sweet } from "./Sweet";
 
 const AdminRooms = (props) => {
   const dispatch = useDispatch();
