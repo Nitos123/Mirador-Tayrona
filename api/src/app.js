@@ -7,15 +7,13 @@ const routes = require("./routes/index.js");
 
 //
 
-//
+/////////////////////////
+// REQUERIDO PARA QUE LA PASARELA DE PAGO FUNCIONE
 const { resolve } = require("path");
 const env = require("dotenv").config({ path: "./.env" });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
-//
-
-//
 
 require("./db.js");
 
@@ -24,10 +22,8 @@ server.use(express.static("public"));
 server.name = "API";
 server.use(express.json());
 
-//
-
-//
-
+///////////////////////
+//SON LAS RUTAS PARA LA PARTE DE LA PARESALE DE PAGOS
 server.use(express.static(process.env.STATIC_DIR));
 
 server.get("/nada", (req, res) => {
@@ -60,14 +56,10 @@ server.post("/create-payment-intent", async (req, res) => {
     });
   }
 });
+/////////////////////////////
 
 //
 
-//
-
-//
-
-//
 server.post("/api/checkout", async (req, res) => {
   console.log(req.body);
 
@@ -91,7 +83,6 @@ server.post("/api/checkout", async (req, res) => {
     res.json({ message: error.message });
   }
 });
-
 //
 
 //

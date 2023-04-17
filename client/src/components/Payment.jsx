@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
+import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
+import { useAuth } from "../context/authContext";
 
 export function CheckoutForm() {
   const stripe = useStripe();
@@ -56,9 +58,26 @@ export function CheckoutForm() {
   );
 }
 
+//
+
+//
+
+//
+
 function Payment(props) {
+  const dispatch = useDispatch();
+  const { user } = useAuth();
+  const carrito = useSelector((state) => state.carrito);
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    dispatch(restoreCartFromLocalStorage("carrito"));
+    if (user && user.email) {
+      const userMail = user.email;
+      dispatch(carritoUser(userMail));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     fetch("http://localhost:8080/config").then(async (r) => {
@@ -81,15 +100,25 @@ function Payment(props) {
 
   return (
     <>
-      <h1>React Stripe and the Payment Element</h1>
+      <div>
+        <h1>Total Price:</h1>
+        <div>
+          {carrito?.map((carro) => {
+            return <div> {carro.name}</div>;
+          })}
+        </div>
 
+        <div>
+          {carrito?.map((carro) => {
+            return <div> {carro.price}</div>;
+          })}
+        </div>
+      </div>
       {setStripePromise && clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <CheckoutForm />
         </Elements>
       )}
-
-      <h1>HOla</h1>
     </>
   );
 }
