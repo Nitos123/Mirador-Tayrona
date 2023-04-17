@@ -329,3 +329,34 @@ export const deleteLocalStorage = (id, carrito) => {
     dispatch({ type: DELETE_LOCAL_STORAGE, payload: limpieza });
   };
 };
+
+export const changeValueType = (id, type) => {
+  return async function (dispatch) {
+    const typeAdmin = "admin";
+    const typeUser = "user";
+    const typeBlock = "block";
+
+    const buscar = (await axios.get("/usuarios")).data
+    const filtrar = buscar.filter(user=> user._id === id)
+    console.log(filtrar)
+
+    let message = ""; // inicializamos la variable message
+
+    if (type === typeAdmin) {
+      await axios.patch(`/usuarios/${id}/types/${typeAdmin}`);
+      message = `Los permisos del usuario ${filtrar[0].fullName} han sido cambiados a administrador.`;
+    }
+    if (type === typeBlock) {
+      await axios.patch(`/usuarios/${id}/types/${typeBlock}`);
+      message = `Los permisos del usuario ${filtrar[0].fullName} han sido bloqueados.`;
+    }
+    if (type === typeUser) {
+      await axios.patch(`/usuarios/${id}/types/${typeUser}`);
+      message = `Los permisos del usuario ${filtrar[0].fullName} han sido cambiados a usuario regular.`;
+    }
+
+    // dispatch({ type: "CHANGE_USER_TYPE", payload: { id, type } });
+    return message; // devolvemos el mensaje apropiado
+  };
+};
+

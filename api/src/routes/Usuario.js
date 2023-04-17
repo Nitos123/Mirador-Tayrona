@@ -6,6 +6,8 @@ const {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
+  changeType
+  deleteComnts,
   getComentByType
 } = require("../../controller/UsuarioController");
 
@@ -17,6 +19,7 @@ api.patch("/usuarios/dateRoom", addRoomDate)
 api.patch("/usuario/deleteCart",deleteRoomCard )
 api.patch("/usuarios/:id/comentarios",crearComentario)
 api.patch("/usuario/:id/coments/:user",deleteComnts )
+api.patch("/usuarios/:id/types/:type", changeType)
 api.get("/coments/type", getComentByType)
 
 
