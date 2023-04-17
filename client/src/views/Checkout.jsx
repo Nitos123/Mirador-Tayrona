@@ -51,7 +51,7 @@ const checkOut = (props) => {
     <section className="section checkout">
       <div className="header">
         <Link to="/rooms">
-          <button className="back">Back to home</button>
+          <button className="back">Keep Booking</button>
         </Link>
       </div>
       <div className="detail">
