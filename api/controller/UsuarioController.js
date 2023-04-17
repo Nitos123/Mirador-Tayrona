@@ -4,16 +4,8 @@ const Room = require("../src/models/Room");
 const mongoose = require("mongoose");
 async function addUsuario(req, res) {
   try {
-    const {
-      fullName,
-      userName,
-      image,
-      email,
-      status,
-      type,
-      carrito,
-      coments,
-    } = req.body;
+    const { fullName, userName, image, email, status, type, carrito, coments } =
+      req.body;
     console.log(req.body);
 
     const usuario = Usuario({
@@ -42,7 +34,8 @@ const getAllUsers = async (req, res) => {
   }
 };
 const addRoomDate = async (req, res) => {
-  const { start, end, userId, idRoom, image, name,price, dias, total  } = req.body;
+  const { start, end, userId, idRoom, image, name, price, dias, total } =
+    req.body;
 
   let startUTC, endUTC;
 
@@ -60,7 +53,7 @@ const addRoomDate = async (req, res) => {
 
     const user = await Usuario.findByIdAndUpdate(userID, {
       $push: {
-        "carrito": {
+        carrito: {
           start: startUTC,
           end: endUTC,
           userId: userID,
@@ -69,7 +62,7 @@ const addRoomDate = async (req, res) => {
           price: price,
           name: name,
           dias: dias,
-          total: total
+          total: total,
         },
       },
     });
@@ -84,12 +77,11 @@ const deleteRoomCard = async (req, res) => {
   const { userId, id } = req.body;
 
   try {
-    
     const userID = new mongoose.Types.ObjectId(userId);
 
     const user = await Usuario.updateOne(
       { _id: userID },
-      { $pull: { "carrito": { _id: id } } }
+      { $pull: { carrito: { _id: id } } }
     );
 
     res.json(user);
@@ -98,7 +90,6 @@ const deleteRoomCard = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
-
 
 //642df715b277bcadd21c3b38
 async function crearComentario(req, res) {
@@ -144,7 +135,27 @@ async function deleteComnts(req, res) {
     console.error(error);
     res.status(500).json({ error: "Error al crear el comentario" });
   }
+
+  
 }
+const changeType = async (req, res) => {
+  const id = req.params.id;
+  const type = req.params.type;
+
+  try {
+    const usuario = await Usuario.findByIdAndUpdate(
+      id,
+      { type: type },
+      { new: true } // Devuelve el usuario actualizado en lugar del usuario antiguo
+    );
+
+    res.send(usuario);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Ha ocurrido un error al actualizar el usuario.");
+  }
+};
+
 
 module.exports = {
   addUsuario,
@@ -153,4 +164,5 @@ module.exports = {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
+  changeType
 };

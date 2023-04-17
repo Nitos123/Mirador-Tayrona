@@ -20,7 +20,7 @@ const NavBar = (props) => {
   const { user, logout } = useAuth();
 
   const itemsCartLogin = useSelector((state) => state.carItems);
-  console.log(itemsCartLogin);
+  
 
   const [itemsLocal, setItemsLocal] = useState(0);
 
@@ -43,6 +43,7 @@ const NavBar = (props) => {
   }, [itemsLocal]);
 
   const navigate = useNavigate();
+  window.scrollTo(0, 0);
 
   const handleLogout = async () => {
     await logout();
