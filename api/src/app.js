@@ -1,13 +1,21 @@
-const stripe = require("stripe")(
-  "sk_test_51MtdRJAxd88LZv2egEjZ27veNPYORmChJEvjyRUBjG7XsOiLcYaXp92Mz6FWq0EJrACFyj1Er28uoFLURDtF0kbP00E5dlFSKT"
-);
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
+
+//
+
+//
+const { resolve } = require("path");
+const env = require("dotenv").config({ path: "./.env" });
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-08-01",
+});
+//
+
+//
 
 require("./db.js");
 
@@ -16,36 +24,50 @@ server.use(express.static("public"));
 server.name = "API";
 server.use(express.json());
 
-// const YOUR_DOMAIN = "http://localhost:8080";
+//
 
-// const imagen =
-//   "https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png";
+//
 
-// const description = "fdsfsdfsdfsd";
+server.use(express.static(process.env.STATIC_DIR));
 
-// server.post("/createCheckoutSession", async (req, res) => {
-//   const product = await stripe.products.create({
-//     name: "T-shirt",
-//     images: [imagen],
-//     description: description,
-//   });
+server.get("/nada", (req, res) => {
+  const path = resolve(process.env.STATIC_DIR + "/index.html");
+  res.sendFile(path);
+});
 
-//   const price = await stripe.prices.create({
-//     product: product.id,
-//     unit_amount: 2000,
-//     currency: "usd",
-//   });
+server.get("/config", (req, res) => {
+  res.send({
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  });
+});
 
-//   const session = await stripe.checkout.sessions.create({
-//     mode: "payment",
-//     line_items: [{ price: price.id, quantity: 1 }],
-//     success_url: `${YOUR_DOMAIN}?success=true`,
-//     cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-//   });
+server.post("/create-payment-intent", async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      currency: "usd",
+      amount: 1999,
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
 
-//   res.redirect(303, session.url);
-// });
+    res.send({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    return res.status(400).send({
+      error: {
+        message: error.message,
+      },
+    });
+  }
+});
 
+//
+
+//
+
+//
+
+//
 server.post("/api/checkout", async (req, res) => {
   console.log(req.body);
 
