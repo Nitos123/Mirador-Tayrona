@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/CreateRoomForm.scss";
+import UploadWidgetCloud from "./UploadWidgetCloud";
 
 
 const CreateRoomForm = ({ handleClose }) => {
     const [roomName, setRoomName] = useState("");
     const [roomDescription, setRoomDescription] = useState("");
     const [roomPrice, setRoomPrice] = useState("");
-    const [roomImage, setRoomImage] = useState("");
+    const [urlImage, setUrlImage] = useState("");
     const [roomType, setRoomType] = useState("");
     const [roomGuests, setRoomGuests] = useState("");
     const [error, setError] = useState("");
-    const [formCompleted, setFormCompleted] = useState(false);
     const [formDisabled, setFormDisabled] = useState(true);
+    const[formCompleted,setFormCompleted] = useState(false)
 
+
+    const handleUploadImg = async (url) => {
+
+        setUrlImage(url); // Guardar la información del archivo en el estado del componente contenedor
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -21,14 +27,16 @@ const CreateRoomForm = ({ handleClose }) => {
             name: roomName,
             description: roomDescription,
             price: roomPrice,
-            image: roomImage,
+            image: urlImage,
             type: roomType,
-            status: false,
+            status: true,
             guests: roomGuests,
             bookedDates: [],
         };
 
-        console.log(newRoom);
+        console.log("Estos son los datos de la habitacion creada",newRoom);
+
+        //aca hay que pegarle a la rura del back  con los datos de new room
     };
 
 
@@ -73,7 +81,7 @@ const CreateRoomForm = ({ handleClose }) => {
             roomName &&
             roomDescription &&
             roomPrice &&
-            roomImage &&
+            urlImage &&
             roomType &&
             roomGuests
         ) {
@@ -137,7 +145,7 @@ const CreateRoomForm = ({ handleClose }) => {
                         <label className="label">Type&nbsp;&nbsp;&nbsp; &nbsp;   </label>
                         <div className="control">
                             <div className="select">
-                                <select required  value={roomType} onChange={(e) => setRoomType(e.target.value)}   >
+                                <select required value={roomType} onChange={(e) => setRoomType(e.target.value)}   >
                                     <option cvalue="">Select a room type</option>
                                     <option value="familiar">Familiar</option>
                                     <option value="individual">Individual</option>
@@ -158,31 +166,28 @@ const CreateRoomForm = ({ handleClose }) => {
                             name="roomGuests"
                             value={roomGuests}
                             onChange={handleChangeGuest}
-                            required 
+                            required
                         />
 
                     </div>
+                </div>
 
-                    <div className="cont-forms children" >
-                        <label className="label">Image &nbsp;&nbsp;</label>
-                        <div className="control">
-                            <input
-                                className="input"
-                                type="file"
-                                onChange={(event) => setRoomImage(event.target.files[0])}
-                                required 
-                            />
-                        </div>
-                    </div>
+                <div>
+                    <UploadWidgetCloud urlImg={handleUploadImg} />
+                    {urlImage && (
+                        <img src={urlImage} alt="image not found" style={{ width: '200px', height: 'auto' }} />
+                    )}
                 </div>
 
                 {/*Manejo de errores */}
+
+
                 {error && <p className="messageError">{error}</p>}
 
 
                 <div className="field is-grouped">
                     <div className="control">
-                        <button type="submit" className="button is-link"  disabled={!formDisabled} >
+                        <button type="submit" className="button is-link" disabled={!formDisabled} >
                             Submit
                         </button>
                     </div>

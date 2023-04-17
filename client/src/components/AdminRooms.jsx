@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
 import Sweet from "./Sweet";
-import CreateRoomForm from "./CreateRoomForm";
+import EditRoomForm from "./EditRoomForm";
 import DeleteUpdateRoom from "./DeleteUpdateRoom";
+import CreateRoomForm from "./CreateRoomForm";
 
 const AdminRooms = (props) => {
   const dispatch = useDispatch();
@@ -15,25 +16,25 @@ const AdminRooms = (props) => {
     dispatch(getAllRooms());
   }, [dispatch]);
 
-  const [showRoomComponent, setShowRoomComponent] = useState(false);
-  const [showEditComponent, setShowEditComponent] = useState(false);
+  const [showRoomCreate, setShowRoomCreate] = useState(false);
+  const [showEditRoom, setshowEditRoom] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
-  const handleShowRoomComponent = () => {
-    setShowRoomComponent(true);
-    setShowEditComponent(false);
+  const handleShowRoomCreate = () => {
+    setShowRoomCreate(true);
+    setshowEditRoom(false);
   };
 
-  const handleShowEditComponent = (room) => {
+  const handleShowUpdateRoom = (room) => {
     setSelectedRoom(room);
-    setShowEditComponent(true);
-    setShowRoomComponent(false);
+    setshowEditRoom(true);
+    setShowRoomCreate(false);
   };
 
   const handleClose = () => {
     setSelectedRoom(null);
-    setShowRoomComponent(false);
-    setShowEditComponent(false);
+    setShowRoomCreate(false);
+    setshowEditRoom(false);
   };
 
   return (
@@ -41,13 +42,13 @@ const AdminRooms = (props) => {
       <h2> Create, edit and delete rooms </h2>
 
       <div>
-        <button onClick={handleShowRoomComponent}>Create new room</button>
+        <button onClick={handleShowRoomCreate}>Create new room</button>
       </div>
 
-      {showRoomComponent && <CreateRoomForm show={showRoomComponent} handleClose={handleClose} />}
-      {/* {showEditComponent && <EditRoomForm show={showEditComponent} handleClose={handleClose} room={selectedRoom} />} */}
+      {showRoomCreate && <CreateRoomForm show={showRoomCreate} handleClose={handleClose} />} {/*  muestra componente para crear room */}
+      {showEditRoom && <EditRoomForm show={showEditRoom} handleClose={handleClose} room={selectedRoom} />}  {/*  muestra el componente para actualizar una room */}
 
-      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowEditComponent} Sweet ={Sweet} />
+      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowUpdateRoom} Sweet ={Sweet} />
     </div>
   );
 };

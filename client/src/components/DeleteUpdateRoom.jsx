@@ -8,7 +8,7 @@ const DeleteUpdateRoom = ({ allRooms, handleShowEditComponent, Sweet }) => {
       {allRooms?.map((room) => {
         return (
           <div className="cont-card " key={room._id} >
-            <img src={room.image} alt={`Habitación ${room.name}`} />
+            <img src={room.image[0]} alt={`Habitación ${room.name}`} />
             <div>
               <h4> {room.name}</h4>
               <div className='all-btn' >
