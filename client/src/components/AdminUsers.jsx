@@ -3,12 +3,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeValueType, getAllUsers } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
-import Sweet from "./Sweet";
+import { Sweet } from "./Sweet";
 
 const AdminUsers = (props) => {
-
-  const [messages, setMessages]= useState({})
-  const [confirmate, setConfirmate]= useState(false)
+  const [messages, setMessages] = useState({});
+  const [confirmate, setConfirmate] = useState(false);
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
@@ -27,7 +26,7 @@ const AdminUsers = (props) => {
       }, 5000); // remove message after 10 seconds
     });
   };
-  
+
   const typeUser = (id) => {
     const ids = id;
     const type = "user";
@@ -38,7 +37,7 @@ const AdminUsers = (props) => {
       }, 5000); // remove message after 10 seconds
     });
   };
-  
+
   const blockUser = (id) => {
     Sweet().then((confirmed) => {
       if (confirmed) {
@@ -52,7 +51,7 @@ const AdminUsers = (props) => {
       }
     });
   };
-  
+
   return (
     <div>
       <div>
@@ -66,14 +65,10 @@ const AdminUsers = (props) => {
               <img src={user.image} />
               <div>{user.fullName}</div>
               <div>{user.type}</div>
-              { messages[user._id] && <p>{messages[user._id]}</p>}
-              <button onClick={()=> typeAdmin(user._id)} >make it admin</button>
-              <button onClick={()=> typeUser(user._id)} >make it a user</button>
-              <button
-                onClick={() => blockUser(user._id)}
-              >
-                block user
-              </button>
+              {messages[user._id] && <p>{messages[user._id]}</p>}
+              <button onClick={() => typeAdmin(user._id)}>make it admin</button>
+              <button onClick={() => typeUser(user._id)}>make it a user</button>
+              <button onClick={() => blockUser(user._id)}>block user</button>
             </div>
           );
         })}

@@ -6,6 +6,7 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { restoreCartFromLocalStorage, carritoUser } from "../redux/actions";
 import { useAuth } from "../context/authContext";
+import { SweetAprovedPayment, SweetRejectedPayment } from "./Sweet";
 
 export function CheckoutForm() {
   const stripe = useStripe();
@@ -31,15 +32,16 @@ export function CheckoutForm() {
 
     if (error) {
       setMessage(error.message);
+      SweetRejectedPayment(error.message);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       setMessage("Payment status" + paymentIntent.status);
+      SweetAprovedPayment();
     } else {
       setMessage("unexpected state");
     }
 
     //
 
-    //
     setIsProcessing(false);
   };
 
@@ -71,6 +73,12 @@ function Payment(props) {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
 
+  let totalPrice = 0;
+
+  for (let i = 0; i < carrito.length; i++) {
+    totalPrice += carrito[i].price;
+  }
+
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
     if (user && user.email) {
@@ -90,6 +98,7 @@ function Payment(props) {
   useEffect(() => {
     fetch("http://localhost:8080/create-payment-intent", {
       method: "POST",
+
       body: JSON.stringify({}),
     }).then(async (r) => {
       const { clientSecret } = await r.json();
@@ -101,18 +110,7 @@ function Payment(props) {
   return (
     <>
       <div>
-        <h1>Total Price:</h1>
-        <div>
-          {carrito?.map((carro) => {
-            return <div> {carro.name}</div>;
-          })}
-        </div>
-
-        <div>
-          {carrito?.map((carro) => {
-            return <div> {carro.price}</div>;
-          })}
-        </div>
+        <h3>Total Price: {totalPrice}$</h3>
       </div>
       {setStripePromise && clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
