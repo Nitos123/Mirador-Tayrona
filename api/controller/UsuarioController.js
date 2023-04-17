@@ -149,7 +149,8 @@ async function deleteComnts(req, res) {
 
 async function getComentByType(req, res) {
   const { type } = req.query;
-  const result = await coments.findOne({ type });
+  const user = req.params.user;
+  const result = user && user.coments ? await user.coments.findOne({ type }) : null;
   res.send(result);
 }
 
