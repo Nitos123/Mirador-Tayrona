@@ -138,6 +138,7 @@ async function deleteComnts(req, res) {
 
   
 }
+
 const changeType = async (req, res) => {
   const id = req.params.id;
   const type = req.params.type;
@@ -155,6 +156,25 @@ const changeType = async (req, res) => {
     res.status(500).send("Ha ocurrido un error al actualizar el usuario.");
   }
 };
+const changeTypeComents = async (req, res) => {
+  const userId = req.params.userId;
+  const comentId = req.params.comentId;
+  const type = req.body.type;
+
+  try {
+    const usuario = await Usuario.findOneAndUpdate(
+      { _id: userId, "coments._id": comentId }, // Filtra el documento por el _id de usuario y el _id de comentario
+      { $set: { "coments.$.type": type } }, // Actualiza el campo "type" del comentario en posición del array
+      { new: true } // Devuelve el usuario actualizado en lugar del usuario antiguo
+    );
+
+    res.send(usuario);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Ha ocurrido un error al actualizar el tipo de comentario del usuario.");
+  }
+};
+
 
 
 module.exports = {
@@ -164,5 +184,6 @@ module.exports = {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
-  changeType
+  changeType,
+  changeTypeComents
 };
