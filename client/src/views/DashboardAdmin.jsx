@@ -12,10 +12,10 @@ const DashboardAdmin = () => {
   const location = useLocation();
 
   let locationFunction = (path) => {
+    if (path === "/dashboard") return <AdminOverview />;
     if (path === "/dashboard/rooms") return <AdminRooms />;
     if (path === "/dashboard/users") return <AdminUsers />;
     if (path === "/dashboard/reviews") return <AdminReview />;
-    if (path === "/dashboard") return <AdminOverview />;
   };
 
   let name = (path) => {

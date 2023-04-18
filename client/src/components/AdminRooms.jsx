@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
 import DelRoomSweet from "./DelRoomSweet";
+import { Sweet } from "./Sweet";
 import EditRoomForm from "./EditRoomForm";
 import DeleteUpdateRoom from "./DeleteUpdateRoom";
 import CreateRoomForm from "./CreateRoomForm";
