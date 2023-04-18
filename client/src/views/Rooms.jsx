@@ -128,6 +128,7 @@ const rooms = (props) => {
           indexOfLastRoom={indexOfLastRoom}
           paged={paged}
           roomsPerPage={roomsPerPage}
+          currentPage={currentPage}
         />
         <CardServicesContainer />
       </section>

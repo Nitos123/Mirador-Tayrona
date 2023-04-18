@@ -40,4 +40,33 @@
     border: solid 1px $color-text;
     border-radius: 10px;
   }
+
+  .react-datepicker__close-icon {
+    box-shadow: none;
+  }
+
+  .react-datepicker__close-icon::after {
+    background-color: red;
+  }
+}
+
+.paged {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  min-height: 100px;
+  margin: 5rem 0;
+
+  button {
+    padding: .8rem;
+    border-radius: 50px;
+    width: 3rem;
+    height: 3rem;
+
+    &:hover, &.active {
+      background-color: $secundary;
+      color: $light;
+    }
+  }
 }
