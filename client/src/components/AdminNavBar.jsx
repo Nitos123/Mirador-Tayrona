@@ -1,6 +1,4 @@
 import React from "react";
-import dashboard from "../assets/dashboard.svg";
-import customer from "../assets/customer.svg";
 import { Link } from "react-router-dom";
 import "../styles/DashboardAdmin.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
