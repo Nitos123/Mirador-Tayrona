@@ -10,11 +10,12 @@ import Login from "../views/Login";
 import LoginCreate from "../views/LoginCreate";
 import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
-import ProtectedRoute from "./ProtectedRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
 import DashboardAdmin from "../views/DashboardAdmin";
 import Payment from "./Payment";
 // import AdminUsers from "./AdminUsers";
 import "../styles/App.scss";
+import { isAdmin } from "./ProtectedRoute";
 
 function App() {
   const location = useLocation();
@@ -31,10 +32,6 @@ function App() {
     ].includes(path);
   };
 
-  const isAdmin = () => {
-    return true;
-  };
-
   return (
     <div className="App">
       <AuthProvider>
@@ -48,38 +45,47 @@ function App() {
           <Route exact path="/contact" Component={Contact} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
-          <Route exact path="/createReview" Component={CreateReview} />
-          <Route exact path="/checkout" Component={Checkout} />
 
+          <Route
+            exact
+            path="/createReview"
+            Component={() =>
+              isAdmin() ? <CreateReview /> : (window.location.href = "/")
+            }
+          />
+          <Route
+            exact
+            path="/checkout"
+            Component={() =>
+              isAdmin() ? <Checkout /> : (window.location.href = "/")
+            }
+          />
           <Route
             exact
             path="/dashboard"
             Component={() =>
-              false ? <DashboardAdmin /> : (window.location.href = "/")
+              isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
-
           <Route
             exact
             path="/dashboard/users"
             Component={() =>
-              false ? <DashboardAdmin /> : (window.location.href = "/")
+              isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
-
           <Route
             exact
             path="/dashboard/reviews"
             Component={() =>
-              false ? <DashboardAdmin /> : (window.location.href = "/")
+              isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
-
           <Route
             exact
             path="/dashboard/rooms"
             Component={() =>
-              false ? <DashboardAdmin /> : (window.location.href = "/")
+              isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
 
