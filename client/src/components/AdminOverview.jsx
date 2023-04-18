@@ -1,10 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../redux/actions";
-import { getAllRooms } from "../redux/actions";
-import CardReview from "./CardReview";
+
 import "../styles/DashboardAdmin.scss";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

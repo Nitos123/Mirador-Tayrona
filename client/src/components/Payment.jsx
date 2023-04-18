@@ -83,7 +83,7 @@ function Payment() {
         const response = await axios.post(
           "http://localhost:8080/create-payment-intent",
           {
-            amount: totalPrice,
+            amount: 1000,
           }
         );
         const { clientSecret } = response.data;
