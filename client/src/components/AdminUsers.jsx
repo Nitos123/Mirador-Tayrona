@@ -7,7 +7,6 @@ import { Sweet } from "./Sweet";
 
 const AdminUsers = (props) => {
   const [messages, setMessages] = useState({});
-  const [confirmate, setConfirmate] = useState(false);
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);

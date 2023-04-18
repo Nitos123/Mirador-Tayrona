@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/NavBar.scss";
 import { useAuth } from "../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { carItemsNumber } from "../redux/actions";
+import { carItemsNumber, getAllUsers } from "../redux/actions";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,18 +13,24 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
-// import CartLink from "../components/CartLink";
-
 const NavBar = (props) => {
   const dispatch = useDispatch();
   const { user, logout } = useAuth();
 
   const itemsCartLogin = useSelector((state) => state.carItems);
-  
+
+  const users = useSelector((state) => state.users);
+
+  const adminUsers = users.filter((user) => user.type === "admin");
+
+  const adminUsersAndCurrent = adminUsers.filter(
+    (us) => us.email === user?.email
+  );
 
   const [itemsLocal, setItemsLocal] = useState(0);
 
   const userMail = user;
+
   useEffect(() => {
     if (user) {
       dispatch(carItemsNumber(userMail));
@@ -49,6 +55,11 @@ const NavBar = (props) => {
     await logout();
     navigate("/login");
   };
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
   return (
     <div className="navbar">
       <div className="container-navbar">
@@ -62,7 +73,9 @@ const NavBar = (props) => {
 
           <Link to="/rooms">Rooms & Services</Link>
 
-          <Link to="/dashboard">Dashboard</Link>
+          {adminUsersAndCurrent.length > 0 && (
+            <Link to="/dashboard">Dashboard</Link>
+          )}
 
           {user && (
             // Cuando hay un usuario Logueado

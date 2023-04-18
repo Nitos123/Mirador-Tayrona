@@ -65,6 +65,7 @@ const checkOut = (props) => {
               <p>dias: {carrito.dias}</p>
               <p>total: {carrito.total}</p>
             </div>
+
             {!user && (
               <button
                 className="deleted"
