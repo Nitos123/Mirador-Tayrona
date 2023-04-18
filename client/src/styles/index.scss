@@ -61,7 +61,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   color: $header-color;
-  background-color: $primary;
+  background-color: $primary !important;
   cursor: pointer;
   transition: $transition;
   box-shadow: $shadow;

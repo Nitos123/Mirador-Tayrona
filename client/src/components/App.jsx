@@ -29,7 +29,7 @@ function App() {
       "/dashboard/users",
       "/dashboard/reviews",
       "/dashboard/rooms",
-      "/nada",
+      
     ].includes(path);
   };
 
@@ -52,8 +52,6 @@ function App() {
           <Route exact path="/dashboard/users" Component={DashboardAdmin} />
           <Route exact path="/dashboard/reviews" Component={DashboardAdmin} />
           <Route exact path="/dashboard/rooms" Component={DashboardAdmin} />
-
-          <Route path="/nada" element={<Payment />} />
 
           {/* <Route
             path="/checkout"

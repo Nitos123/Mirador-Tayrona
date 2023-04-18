@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
+import DelRoomSweet from "./DelRoomSweet";
 import { Sweet } from "./Sweet";
+import EditRoomForm from "./EditRoomForm";
+import DeleteUpdateRoom from "./DeleteUpdateRoom";
+import CreateRoomForm from "./CreateRoomForm";
 
 const AdminRooms = (props) => {
   const dispatch = useDispatch();
@@ -13,28 +17,42 @@ const AdminRooms = (props) => {
     dispatch(getAllRooms());
   }, [dispatch]);
 
+  const [showRoomCreate, setShowRoomCreate] = useState(false);
+  const [showEditRoom, setshowEditRoom] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
+  const handleShowRoomCreate = () => {
+    setShowRoomCreate(true);
+    setshowEditRoom(false);
+  };
+
+  const handleShowUpdateRoom = (room) => {
+    setSelectedRoom(room);
+    setshowEditRoom(true);
+    setShowRoomCreate(false);
+  };
+
+  const handleClose = () => {
+    setSelectedRoom(null);
+    setShowRoomCreate(false);
+    setshowEditRoom(false);
+  };
+
   return (
-    <div>
-      <h2>Crear, editar borrar habitaciones</h2>
+    <div className="cont-admin-room" >
+      <h2> Create, edit and delete rooms </h2>
 
       <div>
-        <button>Create new room</button>
+        <button onClick={handleShowRoomCreate}>Create new room</button>
       </div>
 
-      <div className="admin-user-img">
-        {allRooms?.map((room) => {
-          return (
-            <div>
-              <img src={room.image} />
-              {room.name}
-              <button>Edit</button>
-              <button onClick={() => Sweet()}>Delete</button>;
-            </div>
-          );
-        })}
-      </div>
+      {showRoomCreate && <CreateRoomForm show={showRoomCreate} handleClose={handleClose} />} {/*  muestra componente para crear room */}
+      {showEditRoom && <EditRoomForm show={showEditRoom} handleClose={handleClose} room={selectedRoom} />}  {/*  muestra el componente para actualizar una room */}
+
+      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowUpdateRoom} DelRoomSweet ={DelRoomSweet} />
     </div>
   );
 };
 
 export default AdminRooms;
+
