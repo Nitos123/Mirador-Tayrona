@@ -20,9 +20,11 @@ const NavBar = (props) => {
   const itemsCartLogin = useSelector((state) => state.carItems);
 
   const users = useSelector((state) => state.users);
+
   const adminUsers = users.filter((user) => user.type === "admin");
+
   const adminUsersAndCurrent = adminUsers.filter(
-    (us) => us.email === user.email
+    (us) => us.email === user?.email
   );
 
   const [itemsLocal, setItemsLocal] = useState(0);
