@@ -20,8 +20,21 @@ export const isAdmin = () => {
   const adminUsers = users.filter((user) => user.type === "admin");
 
   const adminUsersAndCurrent = adminUsers.filter(
-    (us) => us.email === user?.email
+    (admuser) => admuser.email === user?.email
   );
 
-  return !adminUsersAndCurrent.length > 0;
+  return adminUsersAndCurrent.length > 0;
+};
+
+export const blockedUsers = () => {
+  const { user } = useAuth();
+
+  const users = useSelector((state) => state.users);
+  const blocked = users.filter((user) => user.type === "block");
+
+  const blockedAndCurrent = blocked.filter(
+    (admuser) => admuser.email === user?.email
+  );
+
+  return blockedAndCurrent.length > 0;
 };

@@ -15,7 +15,7 @@ import DashboardAdmin from "../views/DashboardAdmin";
 import Payment from "./Payment";
 // import AdminUsers from "./AdminUsers";
 import "../styles/App.scss";
-import { isAdmin } from "./ProtectedRoute";
+import { isAdmin, blockedUsers } from "./ProtectedRoute";
 
 function App() {
   const location = useLocation();
@@ -45,28 +45,27 @@ function App() {
           <Route exact path="/contact" Component={Contact} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
-
           <Route
             exact
             path="/createReview"
             Component={() =>
-              isAdmin() ? <CreateReview /> : (window.location.href = "/")
+              blockedUsers() ? <CreateReview /> : (window.location.href = "/")
             }
           />
           <Route
             exact
             path="/checkout"
             Component={() =>
-              isAdmin() ? <Checkout /> : (window.location.href = "/")
+              !blockedUsers() ? <Checkout /> : (window.location.href = "/")
             }
           />
-          <Route
+          {/* <Route
             exact
             path="/dashboard"
             Component={() =>
               isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
-          />
+          /> */}
           <Route
             exact
             path="/dashboard/users"
@@ -88,7 +87,6 @@ function App() {
               isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
-
           {/* <Route
             path="/checkout"
             element={

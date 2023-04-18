@@ -16,27 +16,25 @@ const MainListItems = () => {
       </div>
 
       <div>
-        <div>
+        {/* <div>
           <Link to="/dashboard">
             <img src={customer} alt="activity" />
             Overview
           </Link>
-        </div>
-
+        </div> */}
+        ,
         <div>
           <Link to="/dashboard/rooms">
             <img src={dashboard} alt="activity" />
             Rooms
           </Link>
         </div>
-
         <div>
           <Link to="/dashboard/users">
             <img src={customer} alt="activity" />
             Users
           </Link>
         </div>
-
         <div>
           <Link to="/dashboard/reviews">
             <img src={dashboard} alt="activity" />
