@@ -27,6 +27,7 @@ const CardRoomContainerHome = (props) => {
               guests={room.guests}
               name={room.name}
               price={room.price}
+              type={room.type}
             />
           );
         })}

@@ -107,3 +107,19 @@ export const SweetRejectReviews = () => {
     icon: "error",
   });
 };
+
+export const SweetAprovedPayment = () => {
+  Swal.fire({
+    title: "Success!",
+    text: "The review was approved and it's visible at home",
+    icon: "success",
+  });
+};
+
+export const SweetRejectedPayment = (props) => {
+  Swal.fire({
+    title: "Rejected!",
+    text: props,
+    icon: "error",
+  });
+};

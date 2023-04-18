@@ -12,7 +12,6 @@ import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardAdmin from "../views/DashboardAdmin";
-// import AdminUsers from "./AdminUsers";
 
 import "../styles/App.scss";
 
@@ -28,6 +27,7 @@ function App() {
       "/dashboard/users",
       "/dashboard/reviews",
       "/dashboard/rooms",
+      "/nada",
     ].includes(path);
   };
 

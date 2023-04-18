@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Await } from "react-router-dom";
 
 export const GET_ALL_ROOMS = "GET_ROOMS";
 export const GET_TRANSPORTE = "GET_TRANSPORTE";
@@ -7,8 +6,7 @@ export const GET_DESAYUNO = "GET_DESAYUNO";
 export const GET_COMIDAS = "GET_COMIDAS";
 export const GET_ROOM_DETAIL = "GET_ROOM_DETAIL";
 export const GET_TYPE = "GET_TYPE";
-export const GET_MAX_PRICE = "GET_MAX_PRICE";
-export const GET_MIN_PRICE = "GET_MIN_PRICE";
+export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
 export const RESET = "RESET";
 export const CARRITO_USER = "CARRITO_USER";
 export const GET_CAR = "GET_CAR";
@@ -22,6 +20,8 @@ export const CARRITO_ADD_USER = "CARRITO_ADD_USER";
 export const CAR_ITEMS_NUMBER = "CAR_ITEMS_NUMBER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
+export const DELETE_LOCAL_STORAGE = " DELETE_LOCAL_STORAGE";
+export const FILTER_BY_AVAILABLE_DATE = " FILTER_BY_AVAILABLE_DATE";
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -73,11 +73,25 @@ export const getRoomDetail = (id) => {
   };
 };
 
-export const getMaxPrice = () => {
+export function orderByPrice(ordering) {
   return {
-    type: GET_MAX_PRICE,
+      type: ORDER_BY_PRICE,
+      payload: ordering
+  }
+}
+
+export const getType = (type) => {
+  return {
+    type: GET_TYPE,
+    payload: type,
   };
 };
+
+export function reset() {
+  return {
+    type: RESET,
+  };
+}
 
 export const postReview = (payload, id) => {
   return async () => {
@@ -93,25 +107,6 @@ export const postReview = (payload, id) => {
   };
 };
 
-export const getMinPrice = () => {
-  return {
-    type: GET_MIN_PRICE,
-  };
-};
-
-export const getType = (type) => {
-  return {
-    type: "GET_TYPE",
-    payload: type,
-  };
-};
-
-export function reset() {
-  return {
-    type: RESET,
-  };
-}
-
 //PREGUNTAR ANTES DE MANIPULAR ESTA ACCION, LOGICA MUY COMPLEJA
 export const carritoUser = (userMail) => {
   return async function (dispatch) {
@@ -120,9 +115,8 @@ export const carritoUser = (userMail) => {
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter((usuario) => usuario.email === userMail);
-      console.log(user, " suario verdadero");
+
       const carritoItems = user[0].carrito.map((item) => {
-        console.log(item._id);
         return {
           image: item.image,
           name: item.name,
@@ -146,7 +140,6 @@ export const carritoAddUser = (userMail, start, end, id) => {
       if (response && response.data) {
         const usuarios = response.data;
         const user = usuarios.filter((usuario) => usuario.email === userMail);
-        console.log(user[0]._id);
 
         function getNumberOfDays(start, end) {
           const oneDay = 24 * 60 * 60 * 1000; // Milisegundos en un día
@@ -158,17 +151,15 @@ export const carritoAddUser = (userMail, start, end, id) => {
 
         const inicio = new Date(start).toISOString().slice(0, 10);
         const fin = new Date(end).toISOString().slice(0, 10);
-        console.log(inicio, fin, id);
+
         const responseRoom = await axios.get(`/room/${id}`);
-        console.log(responseRoom.data);
+
         const room = responseRoom.data;
         const image = room.image[0];
         const price = room.price;
         const name = room.name;
         const dias = getNumberOfDays(start, end);
         const totalHabitacion = price * dias;
-
-        console.log(image, "hola mundo pro");
 
         const date = {
           start: inicio,
@@ -181,7 +172,7 @@ export const carritoAddUser = (userMail, start, end, id) => {
           dias: dias,
           total: totalHabitacion,
         };
-        console.log(date);
+
         await axios.patch("/usuarios/dateRoom", date);
 
         // Obtener los datos de la habitación que acaba de agregarse al carrito
@@ -229,7 +220,6 @@ export const checkReservationDates = (endDate, startDate, roomId) => {
     try {
       const roomDetail = await axios.get(`/room/${roomId}`);
       const bookedDates = roomDetail.data.bookedDates;
-      console.log(bookedDates);
 
       // Convertir las fechas a objetos Date
       const checkInDate = new Date(startDate);
@@ -246,14 +236,6 @@ export const checkReservationDates = (endDate, startDate, roomId) => {
         );
       });
 
-      if (isAvailable) {
-        console.log(isAvailable);
-        console.log("Las fechas están disponibles.");
-      } else {
-        console.log(isAvailable);
-        console.log("Las fechas no están disponibles.");
-      }
-
       dispatch({ type: CHECK_RESERVATION_DATES, payload: isAvailable });
     } catch (error) {
       console.error(error);
@@ -261,10 +243,20 @@ export const checkReservationDates = (endDate, startDate, roomId) => {
   };
 };
 
+export const filterByAvailableDate = (startDate, endDate) => {
+  return {
+    type: FILTER_BY_AVAILABLE_DATE,
+    payload: {
+      startDate,
+      endDate,
+    },
+  };
+};
+
 export const carItemsNumber = (userMail) => {
   return async function (dispatch) {
     const response = await axios.get("/usuarios");
-    console.log(userMail);
+
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter(
@@ -284,11 +276,10 @@ export const deleteCar = (userMail, id) => {
     try {
       // Obtener la información actualizada del usuario desde el servidor
       const response = await axios.get("/usuarios");
-      console.log(userMail);
+
       if (response && response.data) {
         const usuarios = response.data;
         const user = usuarios.find((usuario) => usuario.email === userMail);
-        console.log(user.carrito);
 
         // Encontrar el objeto del carrito con el _id igual al que se pasa como parámetro
         const item = user.carrito.find((item) => item._id === id);
@@ -298,7 +289,6 @@ export const deleteCar = (userMail, id) => {
           id: carId,
           userId: userId,
         };
-        console.log(userId, "esto es un userid");
 
         await axios.patch("/usuario/deleteCart", data);
 
@@ -309,7 +299,7 @@ export const deleteCar = (userMail, id) => {
             (usuario) => usuario.email === userMail
           );
           const carritoUser = usuario.carrito;
-          console.log(carritoUser, "este es el error"); // Obtener el array del carrito del usuario desde la respuesta actualizada
+          // Obtener el array del carrito del usuario desde la respuesta actualizada
 
           dispatch({
             type: DELETE_USER,
@@ -322,3 +312,51 @@ export const deleteCar = (userMail, id) => {
     }
   };
 };
+
+export const deleteLocalStorage = (id, carrito) => {
+  return async function (dispatch) {
+    const car2 = [...carrito];
+    let idFound = false;
+    const limpieza = car2.filter((car) => {
+      if (car._id === id && !idFound) {
+        idFound = true;
+        return false;
+      }
+      return true;
+    });
+    localStorage.setItem("carrito", JSON.stringify(limpieza));
+    console.log(limpieza);
+    dispatch({ type: DELETE_LOCAL_STORAGE, payload: limpieza });
+  };
+};
+
+export const changeValueType = (id, type) => {
+  return async function (dispatch) {
+    const typeAdmin = "admin";
+    const typeUser = "user";
+    const typeBlock = "block";
+
+    const buscar = (await axios.get("/usuarios")).data
+    const filtrar = buscar.filter(user=> user._id === id)
+    console.log(filtrar)
+
+    let message = ""; // inicializamos la variable message
+
+    if (type === typeAdmin) {
+      await axios.patch(`/usuarios/${id}/types/${typeAdmin}`);
+      message = `Los permisos del usuario ${filtrar[0].fullName} han sido cambiados a administrador.`;
+    }
+    if (type === typeBlock) {
+      await axios.patch(`/usuarios/${id}/types/${typeBlock}`);
+      message = `Los permisos del usuario ${filtrar[0].fullName} han sido bloqueados.`;
+    }
+    if (type === typeUser) {
+      await axios.patch(`/usuarios/${id}/types/${typeUser}`);
+      message = `Los permisos del usuario ${filtrar[0].fullName} han sido cambiados a usuario regular.`;
+    }
+
+    // dispatch({ type: "CHANGE_USER_TYPE", payload: { id, type } });
+    return message; // devolvemos el mensaje apropiado
+  };
+};
+

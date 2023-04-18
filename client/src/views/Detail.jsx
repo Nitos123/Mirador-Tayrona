@@ -13,11 +13,20 @@ import "../styles/Detail.scss";
 import { useAuth } from "../context/authContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUsers,
+  faHotel,
+  faSackDollar,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Detail = (props) => {
   const detail = useSelector((state) => state.detail);
   const dispatch = useDispatch();
   const id = useParams().id;
+  const images = detail && detail.image;
+  const featuredImage = images && detail.image[0];
+  const lengthImages = detail.image ? images.length : 0;
   const { user } = useAuth();
   // const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
   // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
@@ -25,7 +34,6 @@ const Detail = (props) => {
   const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState(null);
-  // console.log(startDate)
 
   const conflict = useSelector((state) => state.dataConflict);
 
@@ -33,16 +41,14 @@ const Detail = (props) => {
     setEndDate(date);
     dispatch(checkReservationDates(date, startDate, id));
   };
-  console.log(conflict);
+
   const [endDate, setEndDate] = useState(null);
-  // console.log(endDate);
 
   useEffect(() => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id, startDate, endDate]);
 
   const localCar = () => {
-    console.log(conflict);
     if (!user && conflict === true) {
       dispatch(localCarrito(id));
       navigate("/checkout");
@@ -52,11 +58,10 @@ const Detail = (props) => {
 
   //NO TOCAR ESTA MONDA, LOGICA MUY COMPLICADA
   const enviarCarrito = async () => {
-    console.log(conflict);
     if (user && conflict === true) {
       const userMail = user.email;
 
-       dispatch(carritoAddUser(userMail, startDate, endDate, id));
+      dispatch(carritoAddUser(userMail, startDate, endDate, id));
       dispatch(carritoUser(userMail));
       navigate("/checkout");
     } else {
@@ -68,20 +73,46 @@ const Detail = (props) => {
     <div className="detail">
       {detail ? (
         <>
-          <div
-            className="mainImageRoom"
-            style={{ backgroundImage: `url(${detail.image})` }}
-          >
+          <div className="overlay">
             <h1>{detail.name}</h1>
           </div>
+          <div
+            className="mainImageRoom"
+            style={{ backgroundImage: `url(${featuredImage})` }}
+          ></div>
           <div className="section">
-            <div>
-              <p>{detail.desctiption}</p>
-
+            <div className="box-content">
+              <div className="decription">
+                <div className="metadatos">
+                  <div className="fa-icons">
+                    <FontAwesomeIcon icon={faHotel} />
+                    <p>{detail.type}</p>
+                  </div>
+                  <div className="fa-icons">
+                    <FontAwesomeIcon icon={faUsers} />
+                    <p>{detail.guests}</p>
+                  </div>
+                  <div className="fa-icons">
+                    <FontAwesomeIcon icon={faSackDollar} />
+                    <p>${detail.price}</p>
+                  </div>
+                </div>
+                <p>{detail.desctiption}</p>
+                {lengthImages > 1 ? (
+                  <div className="gallery">
+                    {images.map(
+                      (url, index) =>
+                        index >= 1 && <img src={url} key={index} />
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
               {!user ? (
-                <div>
-                  <div>
-                    <div>
+                <div className="booking">
+                  <div className="row">
+                    <div className="input">
                       <p>From:</p>
                       <DatePicker
                         selected={startDate}
@@ -99,8 +130,8 @@ const Detail = (props) => {
                         isClearable
                       />
                     </div>
-                    <div>
-                      <p>To</p>
+                    <div className="input">
+                      <p>To:</p>
                       <DatePicker
                         selected={endDate}
                         onChange={(date) => comprobacion(date, startDate, id)}
@@ -128,12 +159,12 @@ const Detail = (props) => {
                   ) : (
                     ""
                   )}
-                  <button onClick={() => localCar()}>Book this room!</button>
+                  <button className="btn" onClick={() => localCar()}>Book this room!</button>
                 </div>
               ) : (
-                <div>
-                  <div>
-                    <div>
+                <div className="booking">
+                  <div className="row">
+                    <div className="input">
                       <p>From:</p>
                       <DatePicker
                         selected={startDate}
@@ -151,8 +182,8 @@ const Detail = (props) => {
                         isClearable
                       />
                     </div>
-                    <div>
-                      <p>To</p>
+                    <div className="input">
+                      <p>To:</p>
                       <DatePicker
                         selected={endDate}
                         onChange={(date) => comprobacion(date, startDate, id)}
@@ -180,15 +211,15 @@ const Detail = (props) => {
                   ) : (
                     ""
                   )}
-                  <button onClick={() => enviarCarrito()}>
+                  <button className="btn" onClick={() => enviarCarrito()}>
                     Book this room!
                   </button>
                 </div>
               )}
-
-              <h1>More rooms</h1>
-              <CardRoomContainerDetail />
             </div>
+
+            <h1>More rooms</h1>
+            <CardRoomContainerDetail type={detail.type} />
           </div>
         </>
       ) : (

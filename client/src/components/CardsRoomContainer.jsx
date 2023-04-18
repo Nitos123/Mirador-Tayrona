@@ -33,6 +33,7 @@ const CardRoomContainer = ({
               guests={room.guests}
               name={room.name}
               price={room.price}
+              type={room.type}
             />
           );
         })}
