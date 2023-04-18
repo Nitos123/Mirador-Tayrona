@@ -52,15 +52,36 @@ function App() {
           <Route exact path="/checkout" Component={Checkout} />
 
           <Route
+            exact
             path="/dashboard"
             Component={() =>
               false ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
 
-          <Route exact path="/dashboard/users" Component={DashboardAdmin} />
-          <Route exact path="/dashboard/reviews" Component={DashboardAdmin} />
-          <Route exact path="/dashboard/rooms" Component={DashboardAdmin} />
+          <Route
+            exact
+            path="/dashboard/users"
+            Component={() =>
+              false ? <DashboardAdmin /> : (window.location.href = "/")
+            }
+          />
+
+          <Route
+            exact
+            path="/dashboard/reviews"
+            Component={() =>
+              false ? <DashboardAdmin /> : (window.location.href = "/")
+            }
+          />
+
+          <Route
+            exact
+            path="/dashboard/rooms"
+            Component={() =>
+              false ? <DashboardAdmin /> : (window.location.href = "/")
+            }
+          />
 
           {/* <Route
             path="/checkout"
