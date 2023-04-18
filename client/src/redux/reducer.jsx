@@ -102,7 +102,9 @@ const rootReducer = (state = initialState, action) => {
       );
 
       // ordenar según la variable order
-      const sortedRooms = [...filteredByDate].sort((a, b) => order(a, b, state.order));
+      const sortedRooms = [...filteredByDate].sort((a, b) =>
+        order(a, b, state.order)
+      );
 
       return {
         ...state,
@@ -111,7 +113,9 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case ORDER_BY_PRICE:
-      const orderPopulation = [...state.rooms].sort((a, b) => order(a, b, action.payload));
+      const orderPopulation = [...state.rooms].sort((a, b) =>
+        order(a, b, action.payload)
+      );
       return {
         ...state,
         rooms: orderPopulation,
@@ -129,9 +133,11 @@ const rootReducer = (state = initialState, action) => {
       const roomsFilteredByDate = rooms.filter((room) =>
         isRoomAvailable(action.payload.startDate, action.payload.endDate, room)
       );
-      
+
       // ordenar según la variable order
-      const sortedRoomsbyPrice = [...roomsFilteredByDate].sort((a, b) => order(a, b, state.order));
+      const sortedRoomsbyPrice = [...roomsFilteredByDate].sort((a, b) =>
+        order(a, b, state.order)
+      );
 
       return {
         ...state,

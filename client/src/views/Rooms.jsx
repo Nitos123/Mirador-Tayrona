@@ -39,7 +39,7 @@ const rooms = (props) => {
 
   //Control del paginado
   const [currentPage, setCurentPage] = useState(1);
-  const roomsPerPage = 6;
+  const roomsPerPage = 4;
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
 
@@ -64,7 +64,7 @@ const rooms = (props) => {
         </div>
 
         <section className="roomsFilters">
-          <div>
+          <div className="content-filter">
             <select defaultValue={"Price"} onChange={(e) => handlerMaxPrce(e)}>
               <option disabled value="Price">
                 Price
@@ -82,8 +82,8 @@ const rooms = (props) => {
               <option value="familiar">Familiar</option>
             </select>
             <div className="filterDate">
+              <p>Available Date:</p>
               <div>
-                <p>From:</p>
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
@@ -99,7 +99,6 @@ const rooms = (props) => {
                 />
               </div>
               <div>
-                <p>To</p>
                 <DatePicker
                   selected={endDate}
                   onChange={(date) => comprobacion(startDate, date)}
@@ -129,6 +128,7 @@ const rooms = (props) => {
           indexOfLastRoom={indexOfLastRoom}
           paged={paged}
           roomsPerPage={roomsPerPage}
+          currentPage={currentPage}
         />
         <CardServicesContainer />
       </section>

@@ -57,7 +57,7 @@ const checkOut = (props) => {
       <div className="detail">
         <h1 className="title">Shopping cart</h1>
         {carrito?.map((carrito) => (
-          <div className="item-room">
+          <div className="item-room" key={carrito.id}>
             <img src={carrito.image} alt={carrito.name} width="300em" />
             <div className="description">
               <p>name: {carrito.name}</p>
@@ -65,6 +65,7 @@ const checkOut = (props) => {
               <p>dias: {carrito.dias}</p>
               <p>total: {carrito.total}</p>
             </div>
+
             {!user && (
               <button
                 className="deleted"
@@ -93,3 +94,5 @@ const checkOut = (props) => {
 };
 
 export default checkOut;
+
+//hola
