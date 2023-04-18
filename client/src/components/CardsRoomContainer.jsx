@@ -10,6 +10,7 @@ const CardRoomContainer = ({
   indexOfLastRoom,
   roomsPerPage,
   paged,
+  currentPage,
 }) => {
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ const CardRoomContainer = ({
               guests={room.guests}
               name={room.name}
               price={room.price}
+              type={room.type}
             />
           );
         })}
@@ -41,6 +43,7 @@ const CardRoomContainer = ({
         roomsPerPage={roomsPerPage}
         allRooms={allRooms.length}
         paged={paged}
+        currentPage={currentPage}
       />
     </div>
   );

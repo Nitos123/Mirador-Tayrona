@@ -19,7 +19,7 @@ const RoomSchema = Schema(
     status: Boolean,
     guests: Number,
     name: String,
-    desctiption: String,
+    description: String,
     image: [String],
     price: Number,
     bookedDates: [dataSchema],

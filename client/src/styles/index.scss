@@ -16,6 +16,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
+
 a {
   text-decoration: none;
 }
@@ -27,6 +28,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: $bg-color;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -59,7 +61,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   color: $header-color;
-  background-color: $primary;
+  background-color: $primary !important;
   cursor: pointer;
   transition: $transition;
   box-shadow: $shadow;

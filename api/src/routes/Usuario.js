@@ -21,7 +21,4 @@ api.patch("/usuario/:id/coments/:user",deleteComnts )
 api.patch("/usuarios/:id/types/:type", changeType)
 api.patch("/usuarios/:userId/coments/:comentId",changeTypeComents)
 
-
-
-
 module.exports = api;

@@ -1,7 +1,6 @@
 import CardReview from "./CardReview";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllReviews, getAllRooms } from "../redux/actions";
 import { register } from "swiper/element/bundle"; //import swiper slider - Con esto podemos hacer el carousel
 import "../styles/CardsReviewsContainer.scss";
 import { Link } from "react-router-dom";
@@ -9,7 +8,14 @@ import { useAuth } from "../context/authContext";
 import axios from "axios";
 
 export default function CardsReviewsContainer() {
+  const { user } = useAuth();
   const [reviews, setReview] = useState();
+
+  const users = useSelector((state) => state.users);
+  const notBloquedUsers = users.filter((user) => user.type !== "block");
+  const notBloquedUsersAndCurrent = notBloquedUsers.filter(
+    (us) => us.email === user?.email
+  );
 
   const allReviews = async () => {
     const allUsers = (await axios.get(`/usuarios`)).data;
@@ -33,7 +39,6 @@ export default function CardsReviewsContainer() {
   useEffect(() => {
     allReviews();
   }, []);
-  const { user } = useAuth();
 
   register();
 
@@ -65,12 +70,11 @@ export default function CardsReviewsContainer() {
           </div>
         </div>
       )}
-      {user && (
-        <div>
-          <Link to="/createReview">
-            <button>Write a review</button>
-          </Link>
-        </div>
+
+      {users && notBloquedUsersAndCurrent.length > 0 && (
+        <Link to="/createReview">
+          <button>Write a review</button>
+        </Link>
       )}
     </div>
   );
