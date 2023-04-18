@@ -2,23 +2,50 @@
 
 .main-container-admin {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
- 
   .left-container {
+    display: flex;
+    justify-content: center;
     background-color: $secundary;
     border: solid black 1px;
     width: 20%;
 
     .left-title {
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       display: flex;
       flex-direction: column;
-      gap: 12em;
+      gap: 5rem;
+      position: fixed;
+      min-height: 100vh;
 
       h3 {
         color: $light;
+      }
+    }
+
+    .logo {
+      width: 100%;
+      text-align: left;
+    }
+
+    .dashboard-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+      width: 100%;
+
+      .items-icons {
+        a {
+          color: $light !important;
+        }
+
+        svg {
+          margin-right: 1rem;
+          font-size: 1.3rem;
+        }
       }
     }
   }

@@ -3,11 +3,18 @@ import dashboard from "../assets/dashboard.svg";
 import customer from "../assets/customer.svg";
 import { Link } from "react-router-dom";
 import "../styles/DashboardAdmin.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGauge,
+  faHotel,
+  faUsers,
+  faCommentDots,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MainListItems = () => {
   return (
     <div className="left-title">
-      <div>
+      <div className="logo">
         <Link to="/home">
           <h3>
             Mirador <br /> Tayrona Park
@@ -15,31 +22,31 @@ const MainListItems = () => {
         </Link>
       </div>
 
-      <div>
-        <div>
+      <div className="dashboard-items">
+        <div className="items-icons">
           <Link to="/dashboard">
-            <img src={customer} alt="activity" />
+            <FontAwesomeIcon icon={faGauge} />
             Overview
           </Link>
         </div>
 
-        <div>
+        <div className="items-icons">
           <Link to="/dashboard/rooms">
-            <img src={dashboard} alt="activity" />
+            <FontAwesomeIcon icon={faHotel} />
             Rooms
           </Link>
         </div>
 
-        <div>
+        <div className="items-icons">
           <Link to="/dashboard/users">
-            <img src={customer} alt="activity" />
+            <FontAwesomeIcon icon={faUsers} />
             Users
           </Link>
         </div>
 
-        <div>
+        <div className="items-icons">
           <Link to="/dashboard/reviews">
-            <img src={dashboard} alt="activity" />
+            <FontAwesomeIcon icon={faCommentDots} />
             Reviews
           </Link>
         </div>
