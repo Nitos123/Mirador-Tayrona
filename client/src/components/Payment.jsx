@@ -11,26 +11,19 @@ import { useNavigate } from "react-router-dom";
 export function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-
   const navigate = useNavigate();
-
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!stripe || !elements) {
       return;
     }
-
     setIsProcessing(true);
-
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
-
       redirect: "if_required",
     });
-
     if (error) {
       SweetRejectedPayment(error.message);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
@@ -39,9 +32,6 @@ export function CheckoutForm() {
     } else {
       setMessage("unexpected state");
     }
-
-    //
-
     setIsProcessing(false);
   };
 
@@ -59,11 +49,13 @@ export function CheckoutForm() {
 
 //
 
-function Payment(props) {
-  const carrito = useSelector((state) => state.carrito);
+//
 
+function Payment() {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
+
+  const carrito = useSelector((state) => state.carrito);
 
   let totalPrice = 0;
 
@@ -72,34 +64,52 @@ function Payment(props) {
   }
 
   useEffect(() => {
-    axios.get("/config").then((response) => {
-      const { publishableKey } = response.data;
-      setStripePromise(loadStripe(publishableKey));
-    });
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/config");
+        const { publishableKey } = response.data;
+        setStripePromise(loadStripe(publishableKey));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
-    axios
-      .post("/create-payment-intent", {
-        amount: totalPrice,
-      })
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/create-payment-intent",
+          {
+            amount: totalPrice,
+          }
+        );
         const { clientSecret } = response.data;
         setClientSecret(clientSecret);
-      });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
-    <>
+    <div>
       <div>
         <h3>Total Price: {totalPrice}$</h3>
       </div>
-      {setStripePromise && clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm />
-        </Elements>
-      )}
-    </>
+
+      <div>
+        {setStripePromise && clientSecret && (
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            <CheckoutForm />
+          </Elements>
+        )}
+      </div>
+    </div>
   );
 }
 

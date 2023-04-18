@@ -27,7 +27,7 @@ function App() {
       "/dashboard/users",
       "/dashboard/reviews",
       "/dashboard/rooms",
-      "/nada",
+      
     ].includes(path);
   };
 

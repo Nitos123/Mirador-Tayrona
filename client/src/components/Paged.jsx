@@ -1,4 +1,4 @@
-export default function Paged({ roomsPerPage, allRooms, paged }) {
+export default function Paged({ roomsPerPage, allRooms, paged, currentPage }) {
     const pageNumbers = [];
 
     /**
@@ -10,12 +10,11 @@ export default function Paged({ roomsPerPage, allRooms, paged }) {
     }
     
     return (
-        <div>
+        <div className="paged">
             {
                 pageNumbers &&
                 pageNumbers.map(number => (
-                    
-                    <button key={number} onClick={() => paged(number)}>{number}</button>
+                    <button className={currentPage===number ? "active" : ""} key={number} onClick={() => paged(number)}>{number}</button>
                     
                 ))
             }
