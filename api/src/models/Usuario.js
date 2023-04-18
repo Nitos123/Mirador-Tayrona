@@ -22,6 +22,7 @@ const ComentSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "Usuario",
     },
+    type: { type: String, default: 'pending' }
   },
   { timestamps: true }
 );

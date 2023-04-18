@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Rooms.scss";
+import "../styles/CreateReview.scss";
 import { postReview } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/authContext";
@@ -97,9 +97,9 @@ const CreateReview = (props) => {
         </div>
       </section>
 
-      <div className="">
+      <div className="form-review">
         <form onSubmit={(event) => handleSubmit(event)}>
-          <div>
+          <div className="form-row">
             <label>Stars: </label>
 
             <select name="stars" onBlur={handleBlur} onChange={changeHandler}>
@@ -110,19 +110,25 @@ const CreateReview = (props) => {
               <option value="2">⭐⭐ </option>
               <option value="1">⭐ </option>
             </select>
-            {errors.stars && blur.stars && <p>{errors.stars}</p>}
+            <div className="errors">
+              {errors.stars && blur.stars && <p>{errors.stars}</p>}
+            </div>
           </div>
 
-          <div>
+          <div className="form-row">
             <label>Review: </label>
-            <input
+            <textarea
+              rows="6"
+              cols="50"
               name="review"
               type="text"
               value={review.review}
               onChange={changeHandler}
               onBlur={handleBlur}
             />
-            {errors.review && blur.review && <p>{errors.review}</p>}
+            <div className="errors">
+              {errors.review && blur.review && <p>{errors.review}</p>}
+            </div>
           </div>
 
           <div>
