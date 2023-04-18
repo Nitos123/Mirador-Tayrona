@@ -20,10 +20,12 @@ const NavBar = (props) => {
   const itemsCartLogin = useSelector((state) => state.carItems);
 
   const users = useSelector((state) => state.users);
-
   const adminUsers = users.filter((user) => user.type === "admin");
-
   const adminUsersAndCurrent = adminUsers.filter(
+    (us) => us.email === user?.email
+  );
+  const notBloquedUsers = users.filter((user) => user.type !== "block");
+  const notBloquedUsersAndCurrent = notBloquedUsers.filter(
     (us) => us.email === user?.email
   );
 
@@ -94,11 +96,12 @@ const NavBar = (props) => {
                 />
               )}
 
-              {/* //carrito si el usuario esta logueado */}
-              <Link to="/checkout">
-                <FontAwesomeIcon icon={faShoppingCart} />
-                <span className="cart-count">{itemsCartLogin}</span>
-              </Link>
+              {users && notBloquedUsersAndCurrent.length > 0 && (
+                <Link to="/checkout">
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <span className="cart-count">{itemsCartLogin}</span>
+                </Link>
+              )}
 
               {/* < CartLink user={user}/> */}
               <a href="#!" onClick={handleLogout}>
@@ -125,8 +128,6 @@ const NavBar = (props) => {
               </Link>
             </>
           )}
-
-          {/* <Link to="/contact">Contact</Link> */}
         </div>
       </div>
     </div>
