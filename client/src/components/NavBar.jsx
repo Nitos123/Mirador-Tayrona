@@ -76,7 +76,7 @@ const NavBar = (props) => {
           <Link to="/rooms">Rooms & Services</Link>
 
           {adminUsersAndCurrent.length > 0 && (
-            <Link to="/dashboard/rooms">Dashboard</Link>
+            <Link to="/dashboard">Dashboard</Link>
           )}
 
           {user && (

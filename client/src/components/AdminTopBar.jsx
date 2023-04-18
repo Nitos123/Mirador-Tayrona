@@ -11,7 +11,7 @@ const TopBarAdmin = (props) => {
   return (
     <div className="rgd-container">
       <div className="txt-part">
-        <h3>{props.place}</h3>
+        {/* <h3>{props.place}</h3> */}
       </div>
 
       <div className="notification-part">

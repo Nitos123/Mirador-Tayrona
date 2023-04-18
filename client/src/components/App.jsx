@@ -59,13 +59,13 @@ function App() {
               !blockedUsers() ? <Checkout /> : (window.location.href = "/")
             }
           />
-          {/* <Route
+          <Route
             exact
             path="/dashboard"
             Component={() =>
               isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
-          /> */}
+          />
           <Route
             exact
             path="/dashboard/users"
