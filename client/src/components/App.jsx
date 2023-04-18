@@ -33,10 +33,6 @@ function App() {
     ].includes(path);
   };
 
-  const notAble = () => {
-    return;
-  };
-
   return (
     <div className="App">
       <AuthProvider>
