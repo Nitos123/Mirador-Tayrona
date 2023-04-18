@@ -65,7 +65,7 @@
     height: 3rem;
 
     &:hover, &.active {
-      background-color: $secundary;
+      background-color: $secundary !important;
       color: $light;
     }
   }
