@@ -17,16 +17,19 @@ export default function CardsReviewsContainer() {
     allUsers.forEach((user) => {
       if (user.coments.length > 0) {
         user.coments.forEach((comment) => {
-          newReviews.push({
-            ...comment,
-            name: user.fullName,
-            photoURL: user.image,
-          });
+          if (comment.type === "approve") {
+            newReviews.push({
+              ...comment,
+              name: user.fullName,
+              photoURL: user.image,
+            });
+          }
         });
       }
     });
     setReview(newReviews);
   };
+  
   useEffect(() => {
     allReviews();
   }, []);
