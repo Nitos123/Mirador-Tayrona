@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/DeleteUpdateRoom.scss'
 
-const DeleteUpdateRoom = ({ allRooms, handleShowEditComponent, Sweet }) => {
+const DeleteUpdateRoom = ({ allRooms, handleShowEditComponent, DelRoomSweet }) => {
   return (
 
     <div className='cont-gral'>
@@ -13,7 +13,7 @@ const DeleteUpdateRoom = ({ allRooms, handleShowEditComponent, Sweet }) => {
               <h4> {room.name}</h4>
               <div className='all-btn' >
                 <button className='btn-update' onClick={() => handleShowEditComponent(room)}>Update</button>
-                <button className='btn-delete' onClick={() => Sweet()}>Delete</button>
+                <button className='btn-delete' onClick={() => DelRoomSweet(room._id)}>Delete</button>    {/*le paso el id para poder eliminarlo */}
               </div>
             </div>
           </div>

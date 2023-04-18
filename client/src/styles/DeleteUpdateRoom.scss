@@ -27,14 +27,10 @@
       align-items: center;
 
       .btn-delete {
-        background-color: $light;
-        color: $dark;
+        background-color: rgb(204, 52, 52) !important;
+        color: white;
         border: 1.4px solid $dark;
-        
-        &:hover {
-          border: 1.4px solid red;
-          color: red;
-        }
+       
       }
 
       .btn-update {
@@ -42,10 +38,7 @@
         color: $dark;
         border: 1.4px solid $dark;
 
-        &:hover {
-          border: 1.4px solid $primary;
-          color: $primary;
-        }
+        
       }
     }
   }

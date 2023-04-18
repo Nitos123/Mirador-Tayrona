@@ -2,41 +2,72 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/CreateRoomForm.scss";
 import UploadWidgetCloud from "./UploadWidgetCloud";
+import Swal from "sweetalert2";
+
 
 
 const CreateRoomForm = ({ handleClose }) => {
     const [roomName, setRoomName] = useState("");
     const [roomDescription, setRoomDescription] = useState("");
     const [roomPrice, setRoomPrice] = useState("");
-    const [urlImage, setUrlImage] = useState("");
+    const [urlImages, setUrlImages] = useState([]);
     const [roomType, setRoomType] = useState("");
     const [roomGuests, setRoomGuests] = useState("");
     const [error, setError] = useState("");
     const [formDisabled, setFormDisabled] = useState(true);
-    const[formCompleted,setFormCompleted] = useState(false)
+    const [formCompleted, setFormCompleted] = useState(false)
+   
 
+    const urlImagesArray = []
+    let bookDates = []
 
-    const handleUploadImg = async (url) => {
-
-        setUrlImage(url); // Guardar la información del archivo en el estado del componente contenedor
-    }
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const newRoom = {
+        urlImages.map(url => urlImagesArray.push(url))
+        console.log("Estos son los datos de la habitacion creada", { 
             name: roomName,
-            description: roomDescription,
-            price: roomPrice,
-            image: urlImage,
+            descriptionclear: roomDescription,
+            price: parseInt(roomPrice),
+            image: urlImagesArray,
             type: roomType,
             status: true,
-            guests: roomGuests,
-            bookedDates: [],
-        };
-
-        console.log("Estos son los datos de la habitacion creada",newRoom);
+            guests: parseInt(roomGuests),
+            bookedDates: bookDates,
+        });
 
         //aca hay que pegarle a la rura del back  con los datos de new room
+        try {
+            const response = await axios.post("/room", { 
+                name: roomName,
+                description: roomDescription,
+                price: parseInt(roomPrice),
+                image: urlImagesArray,
+                type: roomType,
+                status: true,
+                guests: parseInt(roomGuests),
+                bookedDates: bookDates,
+            });
+            if (response) {
+             ;
+              // Mostrar modal con mensaje de éxito
+              Swal.fire({
+                icon: "success",
+                title: "¡Success!!",
+                text: " The room has been loaded into the database",
+              });
+              handleClose()
+            }
+          } catch (error) {
+            console.error(error);
+            // Mostrar modal con mensaje de error
+            Swal.fire({
+              icon: "error",
+              title: "¡Ups!",
+              text: "Error: an error occurred when trying to upload the room to the database!",
+            });
+            handleClose()
+          }
+       
     };
 
 
@@ -81,7 +112,7 @@ const CreateRoomForm = ({ handleClose }) => {
             roomName &&
             roomDescription &&
             roomPrice &&
-            urlImage &&
+            urlImages &&
             roomType &&
             roomGuests
         ) {
@@ -173,11 +204,17 @@ const CreateRoomForm = ({ handleClose }) => {
                 </div>
 
                 <div>
-                    <UploadWidgetCloud urlImg={handleUploadImg} />
-                    {urlImage && (
-                        <img src={urlImage} alt="image not found" style={{ width: '200px', height: 'auto' }} />
-                    )}
-                </div>
+        <UploadWidgetCloud handleUploadImg={setUrlImages} />
+        {urlImages.map((urlImage) => (
+          <img
+            key={urlImage}
+            src={urlImage}
+            alt="image not found"
+            style={{ width: "200px", height: "auto" }}
+          />
+        ))}
+      </div>
+
 
                 {/*Manejo de errores */}
 

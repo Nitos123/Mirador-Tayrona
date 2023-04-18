@@ -5,24 +5,24 @@ const Usuario = require("../src/models/Usuario");
 
 const addRoom = async (req, res) => {
   try {
+    console.log('esto e lo que viene por body: ',req.body); // Agregar esta línea para imprimir req.body en la consola
     const {
       type,
       status,
       guests,
       name,
-      desctiption,
+      description, // Corregi el nombre de la propiedad
       image,
       price,
       bookedDates,
     } = req.body;
-    console.log(req.body);
 
     const room = Room({
       type,
       status,
       guests,
       name,
-      desctiption,
+      description, // Corregi el nombre de la propiedad
       image,
       price,
       bookedDates,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRooms } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
-import Sweet from "./Sweet";
+import DelRoomSweet from "./DelRoomSweet";
 import EditRoomForm from "./EditRoomForm";
 import DeleteUpdateRoom from "./DeleteUpdateRoom";
 import CreateRoomForm from "./CreateRoomForm";
@@ -48,7 +48,7 @@ const AdminRooms = (props) => {
       {showRoomCreate && <CreateRoomForm show={showRoomCreate} handleClose={handleClose} />} {/*  muestra componente para crear room */}
       {showEditRoom && <EditRoomForm show={showEditRoom} handleClose={handleClose} room={selectedRoom} />}  {/*  muestra el componente para actualizar una room */}
 
-      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowUpdateRoom} Sweet ={Sweet} />
+      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowUpdateRoom} DelRoomSweet ={DelRoomSweet} />
     </div>
   );
 };
