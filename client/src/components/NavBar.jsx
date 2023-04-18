@@ -13,8 +13,6 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
-// import CartLink from "../components/CartLink";
-
 const NavBar = (props) => {
   const dispatch = useDispatch();
   const { user, logout } = useAuth();
