@@ -9,7 +9,7 @@ const stripePromise = loadStripe(
   "pk_test_51MtdRJAxd88LZv2eI3ZXSTGWh0VL8z8i799gIye6ke36gZzmc7H73kJvKRmgW7msmfdIhz0VwCql9Koq7WdGo3Zg009lR7Uc3t"
 );
 
-const CheckoutForm = (props) => {
+const CheckoutForm = () => {
   return (
     <div>
       <Elements stripe={stripePromise}>

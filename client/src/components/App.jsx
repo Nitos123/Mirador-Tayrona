@@ -14,7 +14,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import DashboardAdmin from "../views/DashboardAdmin";
 import Payment from "./Payment";
 // import AdminUsers from "./AdminUsers";
-
 import "../styles/App.scss";
 
 function App() {
@@ -29,8 +28,11 @@ function App() {
       "/dashboard/users",
       "/dashboard/reviews",
       "/dashboard/rooms",
-      
     ].includes(path);
+  };
+
+  const isAdmin = () => {
+    return true;
   };
 
   return (
@@ -48,7 +50,14 @@ function App() {
           <Route exact path="/loginCreate" Component={LoginCreate} />
           <Route exact path="/createReview" Component={CreateReview} />
           <Route exact path="/checkout" Component={Checkout} />
-          <Route exact path="/dashboard" Component={DashboardAdmin} />
+
+          <Route
+            path="/dashboard"
+            Component={() =>
+              false ? <DashboardAdmin /> : (window.location.href = "/")
+            }
+          />
+
           <Route exact path="/dashboard/users" Component={DashboardAdmin} />
           <Route exact path="/dashboard/reviews" Component={DashboardAdmin} />
           <Route exact path="/dashboard/rooms" Component={DashboardAdmin} />
