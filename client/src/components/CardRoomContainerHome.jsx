@@ -20,15 +20,17 @@ const CardRoomContainerHome = (props) => {
       <div className="container">
         {allRooms?.map((room, index) => {
           return (
-            <CardRoom
-              key={index}
-              id={room._id}
-              image={room.image}
-              guests={room.guests}
-              name={room.name}
-              price={room.price}
-              type={room.type}
-            />
+            index < 6 && (
+              <CardRoom
+                key={index}
+                id={room._id}
+                image={room.image}
+                guests={room.guests}
+                name={room.name}
+                price={room.price}
+                type={room.type}
+              />
+            )
           );
         })}
       </div>

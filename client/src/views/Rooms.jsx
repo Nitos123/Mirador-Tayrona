@@ -39,7 +39,7 @@ const rooms = (props) => {
 
   //Control del paginado
   const [currentPage, setCurentPage] = useState(1);
-  const roomsPerPage = 6;
+  const roomsPerPage = 4;
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
 
