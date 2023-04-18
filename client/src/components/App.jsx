@@ -12,6 +12,7 @@ import CreateReview from "../views/CreateReview";
 import { AuthProvider } from "../context/authContext";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardAdmin from "../views/DashboardAdmin";
+import Payment from "./Payment";
 // import AdminUsers from "./AdminUsers";
 
 import "../styles/App.scss";
@@ -28,6 +29,7 @@ function App() {
       "/dashboard/users",
       "/dashboard/reviews",
       "/dashboard/rooms",
+      "/nada",
     ].includes(path);
   };
 
@@ -50,6 +52,8 @@ function App() {
           <Route exact path="/dashboard/users" Component={DashboardAdmin} />
           <Route exact path="/dashboard/reviews" Component={DashboardAdmin} />
           <Route exact path="/dashboard/rooms" Component={DashboardAdmin} />
+
+          <Route path="/nada" element={<Payment />} />
 
           {/* <Route
             path="/checkout"
