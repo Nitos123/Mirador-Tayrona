@@ -62,7 +62,7 @@ const AdminUsers = (props) => {
   };
 
   return (
-    <div className="view-users">
+    <div className="view-users view-table">
       <div>
         <h2>Users</h2>
       </div>
