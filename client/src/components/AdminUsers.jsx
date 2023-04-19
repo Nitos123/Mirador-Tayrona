@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeValueType, getAllUsers } from "../redux/actions";
 import "../styles/DashboardAdmin.scss";
-import { Sweet } from "./Sweet";
+import { Sweet, SweetRolAdmin, SweetRolUser } from "./Sweet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faUserPlus, faUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,7 +18,7 @@ const AdminUsers = (props) => {
   }, [dispatch]);
 
   const typeAdmin = (id) => {
-    Sweet().then((confirmed) => {
+    SweetRolAdmin().then((confirmed) => {
       if (confirmed) {
         const ids = id;
         const type = "admin";
@@ -33,7 +33,7 @@ const AdminUsers = (props) => {
   };
 
   const typeUser = (id) => {
-    Sweet().then((confirmed) => {
+    SweetRolUser().then((confirmed) => {
       if (confirmed) {
         const ids = id;
         const type = "user";

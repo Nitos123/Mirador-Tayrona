@@ -50,7 +50,7 @@ const Detail = (props) => {
 
   const localCar = (start, end, idRoom) => {
     if (!user && conflict === true) {
-      dispatch(localCarrito(start, end,idRoom));
+      dispatch(localCarrito(start, end, idRoom));
       navigate("/checkout");
       return;
     }
@@ -159,7 +159,13 @@ const Detail = (props) => {
                   ) : (
                     ""
                   )}
-                  <button className="btn" onClick={() => localCar(startDate, endDate,id)}>Book this room!</button>
+
+                  <button
+                    className="btn"
+                    onClick={() => localCar(startDate, endDate, id)}
+                  >
+                    Book this room!
+                  </button>
                 </div>
               ) : (
                 <div className="booking">
