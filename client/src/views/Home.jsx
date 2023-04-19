@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import CardRoomContainerHome from "../components/CardRoomContainerHome";
@@ -14,9 +14,45 @@ import {
   faMartiniGlassCitrus,
   faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { carritoUser } from "../redux/actions";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { user } = useAuth();
+
+  const location = useLocation();
+  const [isActive, setIsActive] = useState(false);
+  console.log(isActive);
+
+  // useEffect(()=>{
+  //   if (location.pathname === '/' && user) {
+  //     window.location.reload();
+  //   }
+  // })
+
+  useEffect(() => {
+    if (location.pathname === "/" && user) {
+      setIsActive(true);
+      dispatch(carritoUser(user.email));
+    } else {
+      if (user) {
+        setIsActive(false);
+        dispatch(carritoUser(user.email));
+      }
+    }
+  }, [location.pathname, user, dispatch]);
+
+  useEffect(() => {
+    if (isActive === true && user) {
+      dispatch(carritoUser(user.email));
+    } else {
+      if (user) {
+        dispatch(carritoUser(user.email));
+      }
+    }
+  }, [location.pathname, user, dispatch, isActive]);
 
   return (
     <div className="home">
