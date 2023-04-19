@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { SweetupdateRoom } from "./Sweet";
 import UploadWidgetCloud from "./UploadWidgetCloud";
 
 const EditRoomForm = ({ room, handleClose }) => {
@@ -25,7 +25,10 @@ const EditRoomForm = ({ room, handleClose }) => {
     e.preventDefault();
     const updatedImages = [...urlImage, ...newUrlImg];
     // Actualizar la información de la habitación
-    const updatedRoom = {
+    ;
+
+    
+    console.log("esta es la room actualizada",  {
       name,
       description,
       image: updatedImages,
@@ -33,13 +36,18 @@ const EditRoomForm = ({ room, handleClose }) => {
       price,
       type,
       status,
-    };
-
-    console.log("lista fotos room actualizada", updatedRoom.image);
-    console.log("esta es la desc",room.description)
+    })
     // Aquí deberías enviar la información actualizada al servidor
     // ...falta crear la ruta patch para actualizar
-
+    SweetupdateRoom(room._id,  {
+      name,
+      description,
+      image: updatedImages,
+      capacity,
+      price,
+      type,
+      status,
+    })
     handleClose();
   };
 
