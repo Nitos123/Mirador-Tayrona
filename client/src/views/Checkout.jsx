@@ -15,9 +15,9 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 function LoadingSpinner() {
   return (
-    <div className="loading-spinner">
-      <div className="spinner"></div>
-      <p>Cargando...</p>
+    <div>
+      <div></div>
+      {/* <p>Cargando...</p> */}
     </div>
   );
 }
@@ -50,6 +50,7 @@ const RedirecToLogin = () => {
 
 const checkOut = (props) => {
   const { user } = useAuth();
+
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -58,6 +59,12 @@ const checkOut = (props) => {
   function fetchUser() {
     // Hacer una llamada a la API para obtener el usuario
     user && setIsLoading(false);
+  }
+
+  function setIsLoadingFalse() {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -83,6 +90,7 @@ const checkOut = (props) => {
   };
 
   useEffect(() => {
+    setIsLoadingFalse();
     dispatch(restoreCartFromLocalStorage("carrito"));
     if (user && user.email) {
       const userMail = user.email;
