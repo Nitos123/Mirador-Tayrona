@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import "../styles/Rooms.scss";
 import "../styles/CreateReview.scss";
 import { postReview } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
+import { SweetCreatedReview } from "../components/Sweet";
+import { useNavigate } from "react-router-dom";
 
 const validate = (state) => {
   const error = {};
@@ -29,7 +32,7 @@ const CreateReview = (props) => {
   const [blur, setBlur] = useState({});
   const dispatch = useDispatch();
   const errors = validate(review);
-
+  const navigate = useNavigate();
   const { user } = useAuth(); // Se obtienen los datos del usuario
 
   const email = user && user.email; // Se obtiene el email del usuario para buscarlo en la base de datos
@@ -54,10 +57,10 @@ const CreateReview = (props) => {
           text: review.review,
           rating: review.stars,
         });
-        alert("Review created successfully!");
       } catch (error) {
         alert(error);
       }
+
       setReview(initialState);
     }
   };
@@ -132,7 +135,11 @@ const CreateReview = (props) => {
           </div>
 
           <div>
-            <button type="submit" disabled={!formValid}>
+            <button
+              type="submit"
+              disabled={!formValid}
+              onClick={() => SweetCreatedReview()}
+            >
               Send
             </button>
           </div>

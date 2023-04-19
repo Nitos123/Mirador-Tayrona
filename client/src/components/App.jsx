@@ -45,11 +45,12 @@ function App() {
           <Route exact path="/contact" Component={Contact} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/loginCreate" Component={LoginCreate} />
+
           <Route
             exact
             path="/createReview"
             Component={() =>
-              blockedUsers() ? <CreateReview /> : (window.location.href = "/")
+              !blockedUsers() ? <CreateReview /> : (window.location.href = "/")
             }
           />
           <Route

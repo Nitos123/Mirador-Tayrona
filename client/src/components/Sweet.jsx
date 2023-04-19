@@ -1,4 +1,9 @@
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
+const functionNavigate = () => {
+  navigate("/");
+};
 
 export const Sweet = () => {
   return new Promise((resolve, reject) => {
@@ -30,6 +35,13 @@ export const SweetAprovedPayment = (props) => {
       title: "Payment Success",
       text: props,
       icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/";
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
   });
 };
@@ -40,6 +52,23 @@ export const SweetRejectedPayment = (props) => {
       title: "Payment failed",
       text: props,
       icon: "error",
+    });
+  });
+};
+
+export const SweetCreatedReview = (props) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Review created!",
+      text: "Success",
+      icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/";
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
   });
 };
