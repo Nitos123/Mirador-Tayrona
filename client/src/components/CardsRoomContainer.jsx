@@ -27,10 +27,10 @@ const CardRoomContainer = ({
   return (
     <div>
       <div className="container">
-        {currentRooms?.map((room, index) => {
+        {currentRooms?.map((room) => {
           return (
             <CardRoom
-              key={index}
+              key={room._id}
               id={room._id}
               image={room.image}
               guests={room.guests}
@@ -43,7 +43,7 @@ const CardRoomContainer = ({
       </div>
       <Paged
         roomsPerPage={roomsPerPage}
-        allRooms={allRooms.length}
+        allRooms={approvedRooms.length}
         paged={paged}
         currentPage={currentPage}
       />

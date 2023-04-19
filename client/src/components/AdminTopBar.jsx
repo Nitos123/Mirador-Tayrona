@@ -16,13 +16,11 @@ const TopBarAdmin = ({ totPendRev }) => {
       <div className="txt-part">{/* <h3>{props.place}</h3> */}</div>
 
       <div className="notification-icon">
-        <Link to="/dashboard/reviews">
-          <FontAwesomeIcon
-            icon={faBell}
-            style={{ fontSize: "1.5rem", marginTop: "1rem " }}
-          />
-          <span className="notification-count">{count}</span>
-        </Link>
+        <FontAwesomeIcon
+          icon={faBell}
+          style={{ fontSize: "1.5rem", marginTop: "1rem " }}
+        />
+        {count > 0 ? <span className="notification-count">{count}</span> : ""}
       </div>
 
       <div className="user-part">
