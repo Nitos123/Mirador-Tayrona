@@ -56,7 +56,7 @@ const checkOut = (props) => {
       </div>
       <div className="detail">
         <h1 className="title">Shopping cart</h1>
-        {carrito?.map((carrito) => (
+        {carrito?.map((carrito, index) => (
           <div className="item-room" key={carrito.id}>
             <img src={carrito.image} alt={carrito.name} width="300em" />
             <div className="description">
@@ -69,7 +69,7 @@ const checkOut = (props) => {
             {!user && (
               <button
                 className="deleted"
-                onClick={() => borrarLocal(carrito._id)}
+                onClick={() => borrarLocal(index)}
               >
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>

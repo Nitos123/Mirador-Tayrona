@@ -4,6 +4,28 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
 import "../styles/Login.scss";
+import { SweetFailedCreate } from "../components/Sweet";
+
+const validate = (state) => {
+  const error = {};
+
+  // const validEmail =
+  //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  if (!state.email.length) {
+    error.email = "You must enter a email addres";
+  }
+
+  if (!state.name.length) {
+    error.name = "You must write a name";
+  }
+
+  if (!state.password.length) {
+    error.password = "You must write a password";
+  }
+
+  return error;
+};
 
 const initialState = {
   name: "",
@@ -13,6 +35,12 @@ const initialState = {
 
 const LoginCreate = () => {
   const [user, setUser] = useState(initialState);
+
+  const errors = validate(user);
+
+  const [blur, setBlur] = useState({});
+
+  const formValid = Object.keys(errors).length === 0;
 
   const { signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate(); // Es un Hook que se puede usar para controlar el redirect a otra página
@@ -40,13 +68,23 @@ const LoginCreate = () => {
   // Registro de usuarios por correo y contraseña
   const submitHandle = async (event) => {
     event.preventDefault();
-    setError(""); // Reseteando los errores.
-    try {
-      await signup(user.email, user.password, user.name);
-      await signupLocal(user.name, user.email);
-      navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
-    } catch (error) {
-      setError(error.message);
+
+    if (formValid) {
+      try {
+        await signup(user.email, user.password, user.name);
+        await signupLocal(user.name, user.email);
+        navigate("/login"); // Al registrarse un usuario, se redirecciona al Login para que pueda iniciar sesión
+      } catch (error) {
+        setError(error.message);
+      }
+    } else {
+      setBlur({
+        ...blur,
+        name: true,
+        email: true,
+        password: true,
+      });
+      SweetFailedCreate();
     }
   };
 
@@ -58,6 +96,13 @@ const LoginCreate = () => {
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleBlur = (event) => {
+    setBlur({
+      ...blur,
+      [event.target.name]: true,
+    });
   };
 
   return (
@@ -113,13 +158,29 @@ const LoginCreate = () => {
                 <div>
                   <div className="input-content">
                     <label>Name: </label>
-                    <input name="name" type="text" onChange={changeHandler} />
+                    <input
+                      name="name"
+                      type="text"
+                      onChange={changeHandler}
+                      onBlur={handleBlur}
+                    />
                   </div>
+                  {errors.name && blur.name && (
+                    <p className="error">{errors.name}</p>
+                  )}
 
                   <div className="input-content">
                     <label>Email: </label>
-                    <input name="email" type="email" onChange={changeHandler} />
+                    <input
+                      name="email"
+                      type="email"
+                      onChange={changeHandler}
+                      onBlur={handleBlur}
+                    />
                   </div>
+                  {errors.email && blur.email && (
+                    <p className="error">{errors.email}</p>
+                  )}
 
                   <div className="input-content">
                     <label>Password: </label>
@@ -127,8 +188,12 @@ const LoginCreate = () => {
                       name="password"
                       type="password"
                       onChange={changeHandler}
+                      onBlur={handleBlur}
                     />
                   </div>
+                  {errors.password && blur.password && (
+                    <p className="error">{errors.password}</p>
+                  )}
 
                   <div>
                     <button>Create account</button>

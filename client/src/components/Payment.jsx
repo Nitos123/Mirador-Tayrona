@@ -28,7 +28,6 @@ export function CheckoutForm() {
       SweetRejectedPayment(error.message);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       SweetAprovedPayment(paymentIntent.status);
-      navigate("/");
     } else {
       setMessage("unexpected state");
     }

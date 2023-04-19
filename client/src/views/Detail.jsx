@@ -48,9 +48,9 @@ const Detail = (props) => {
     dispatch(getRoomDetail(id));
   }, [dispatch, id, startDate, endDate]);
 
-  const localCar = () => {
+  const localCar = (start, end, idRoom) => {
     if (!user && conflict === true) {
-      dispatch(localCarrito(id));
+      dispatch(localCarrito(start, end,idRoom));
       navigate("/checkout");
       return;
     }
@@ -65,7 +65,7 @@ const Detail = (props) => {
       dispatch(carritoUser(userMail));
       navigate("/checkout");
     } else {
-      localCar();
+      localCar(startDate, endDate, id);
     }
   };
 
@@ -159,7 +159,7 @@ const Detail = (props) => {
                   ) : (
                     ""
                   )}
-                  <button className="btn" onClick={() => localCar()}>Book this room!</button>
+                  <button className="btn" onClick={() => localCar(startDate, endDate,id)}>Book this room!</button>
                 </div>
               ) : (
                 <div className="booking">

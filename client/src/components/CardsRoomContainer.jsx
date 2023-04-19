@@ -16,7 +16,9 @@ const CardRoomContainer = ({
 
   const allRooms = useSelector((state) => state.rooms); // Lista de todas las habitaciones
 
-  const currentRooms = allRooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const approvedRooms = allRooms.filter((room) => room.status === true);
+
+  const currentRooms = approvedRooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
   useEffect(() => {
     dispatch(getAllRooms());
