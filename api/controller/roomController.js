@@ -124,7 +124,7 @@ const sendTicketToMail = async (req, res) => {
     // const habitacion = await Room.findOne({ "bookedDates._id": id }).populate('bookedDates.idRoom');
     const usuario = await Usuario.findOne({ _id: id });
 
-    const rooms = usuario.carrito[0].rooms;
+    const rooms = usuario.carrito
     let dias = 0;
     const cuartos = [];
     rooms.forEach((room) => {
@@ -173,7 +173,7 @@ const sendTicketToMail = async (req, res) => {
       total += producto.price;
     });
 
-    ticket += `Dias: ${dias}\nTotal: $${total * dias}`;
+    ticket += `Dias: ${dias}\nTotal: $${total*dias}`;
     console.log(dias);
 
     // Configurar el transporte de nodemailer

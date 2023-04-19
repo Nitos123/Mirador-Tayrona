@@ -1,18 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { SweetAprovedPayment, SweetRejectedPayment } from "./Sweet";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useAuth } from "../context/authContext";
+import { destroyCar, getUserCar, sendMail } from "../redux/actions";
+
 
 export function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
+
+
+  const dispatch= useDispatch()
+  const {user} = useAuth()
+
+const updateUserCar = ()=> {
+    if (user) {
+        console.log(user)
+        dispatch(getUserCar(user.email));
+    }
+  };
+
+  const send=async()=>{
+if (user) {
+  console.log(user.email)
+  dispatch(sendMail(user.email))
+}
+const destroy=async()=>{
+  if (user) {
+    await dispatch(destroyCar(user.email))
+     window.location.href = "/";
+  }
+}
+destroy()
+  }
+
+  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +59,13 @@ export function CheckoutForm() {
     if (error) {
       SweetRejectedPayment(error.message);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      SweetAprovedPayment(paymentIntent.status);
+      SweetAprovedPayment(paymentIntent.status).then((result) => {
+        console.log(result)
+        if (result) {
+          updateUserCar()
+          send()
+        }
+      });
     } else {
       setMessage("unexpected state");
     }
