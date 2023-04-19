@@ -20,7 +20,28 @@ import {
   faSackDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
+const validate = (state) => {
+  const error = {};
+  if (!state.dateOfAdmission.length || state.dateOfAdmission.length < 10) {
+    error.dateOfAdmission = "You must choose a date of admission";
+  }
+  if (!state.returnDate.length) {
+    error.returnDate = "You must choose a date to return";
+  }
+
+  return error;
+};
+
+const initialState = {
+  dateOfAdmission: 0,
+  returnDate: 0,
+};
+
 const Detail = (props) => {
+  const [review, setReview] = useState(initialState);
+  const [blur, setBlur] = useState({});
+  const errors = validate(review);
+
   const detail = useSelector((state) => state.detail);
   const dispatch = useDispatch();
   const id = useParams().id;
@@ -28,11 +49,8 @@ const Detail = (props) => {
   const featuredImage = images && detail.image[0];
   const lengthImages = detail.image ? images.length : 0;
   const { user } = useAuth();
-  // const verified = user && user.emailVerified; // Comprobando que sea un usuario verificado
-  // Emitiendo un alert para usuarios que no estén verificados o si no a iniciado sesión
   const carrito = useSelector((state) => state.carrito);
   const navigate = useNavigate();
-
   const [startDate, setStartDate] = useState(null);
 
   const conflict = useSelector((state) => state.dataConflict);
@@ -169,6 +187,7 @@ const Detail = (props) => {
                 </div>
               ) : (
                 <div className="booking">
+                  <form></form>
                   <div className="row">
                     <div className="input">
                       <p>From:</p>
