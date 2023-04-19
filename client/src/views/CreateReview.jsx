@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/Rooms.scss";
 import "../styles/CreateReview.scss";
-import { postReview } from "../redux/actions";
-import { useDispatch } from "react-redux";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
 import { SweetCreatedReview, SweetFailedReview } from "../components/Sweet";
-import { useNavigate } from "react-router-dom";
 
 const validate = (state) => {
   const error = {};

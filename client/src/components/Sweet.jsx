@@ -1,9 +1,4 @@
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-
-const functionNavigate = () => {
-  navigate("/");
-};
 
 export const Sweet = () => {
   return new Promise((resolve, reject) => {
@@ -50,6 +45,26 @@ export const SweetFailedReview = (props1, props2) => {
   return new Promise((resolve, reject) => {
     Swal.fire({
       title: "Review failed",
+      text: `Incomplete information`,
+      icon: "error",
+    });
+  });
+};
+
+export const SweetFailedLogin = (props1, props2) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Login failed",
+      text: `Incomplete information`,
+      icon: "error",
+    });
+  });
+};
+
+export const SweetFailedCreate = (props1, props2) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Account creation failed",
       text: `Incomplete information`,
       icon: "error",
     });
