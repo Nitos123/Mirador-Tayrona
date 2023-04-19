@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
 export const Sweet = () => {
@@ -32,7 +33,7 @@ export const SweetAprovedPayment = (props) => {
       icon: "success",
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "/";
+        // window.location.href = "/";
         resolve(true);
       } else {
         resolve(false);
@@ -89,7 +90,7 @@ export const SweetCreatedReview = (props) => {
       icon: "success",
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "/";
+         window.location.href = "/";
         resolve(true);
       } else {
         resolve(false);

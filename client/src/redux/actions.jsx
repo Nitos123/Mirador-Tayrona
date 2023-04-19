@@ -22,6 +22,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_LOCAL_STORAGE = " DELETE_LOCAL_STORAGE";
 export const FILTER_BY_AVAILABLE_DATE = " FILTER_BY_AVAILABLE_DATE";
+export const  DESTROY_CAR = " DESTROY_CAR"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -397,3 +398,85 @@ export const changeValueType = (id, type) => {
   };
 };
 
+export const getUserCar = (userMail) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("/usuarios");
+
+      if (response && response.data) {
+        const usuarios = response.data;
+        const user = usuarios.find((usuario) => usuario.email === userMail);
+        const carrito = user.carrito;
+
+        const reservas = carrito.map((item) => {
+          return {
+            idRoom: item.idRoom,
+            start: item.start,
+            end: item.end,
+            userId: user._id,
+          };
+        });
+
+        const requests = [];
+        for (let reserva of reservas) {
+          const habitacion = {
+            start: reserva.start,
+            end: reserva.end,
+            userId: reserva.userId
+          };
+          const request = axios.patch(`/rooms/${reserva.idRoom}/bookings`, habitacion);
+          requests.push(request);
+          console.log(request)
+        }
+
+        await Promise.all(requests);
+        console.log("Reservas guardadas en las habitaciones.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const  destroyCar = (userMail)=>{
+return async function (dispatch) {
+  // /usuario/delete/:userId/carrito
+  const response = await axios.get("/usuarios");
+
+  if (response && response.data) {
+    const usuarios = response.data;
+    const user = usuarios.find((usuario) => usuario.email === userMail);
+    const userId = user._id;
+    console.log(userId)
+   await axios.patch(`/usuario/delete/${userId}/carrito`)
+
+   const newCar = []
+   dispatch({type: DESTROY_CAR, payload: newCar })
+
+  }
+}
+}
+
+
+// /rooms/:id/enviarTicket
+
+
+  
+export const  sendMail= (userMail)=>{
+  return async function (dispatch) {
+   
+     const response = await axios.get("/usuarios");
+  
+     if (response && response.data) {
+       const usuarios = response.data;
+       const user = usuarios.find((usuario) => usuario.email === userMail);
+       const userId = user._id;
+       console.log(userId)
+      await axios.post(`/rooms/${userId}/enviarTicket`)
+      const newCar = []
+      dispatch({type: DESTROY_CAR, payload: newCar })
+     }
+  }
+  }
+  

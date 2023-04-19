@@ -16,7 +16,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { carritoUser } from "../redux/actions";
+import { carritoUser} from "../redux/actions";
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const Home = () => {
   useEffect(() => {
     if (isActive === true && user) {
       dispatch(carritoUser(user.email));
+  
     } else {
       if (user) {
         dispatch(carritoUser(user.email));
