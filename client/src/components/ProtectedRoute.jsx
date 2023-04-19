@@ -12,15 +12,15 @@ export function ProtectedRoute({ children }) {
   return <>{children}</>;
 }
 
-export const isAdmin = () => {
+export const isAdmin = async () => {
   const { user } = useAuth();
 
   const users = useSelector((state) => state.users);
 
-  const adminUsers = users.filter((user) => user.type === "admin");
+  const adminUsers = await users?.filter((user) => user.type === "admin");
 
   const adminUsersAndCurrent = adminUsers.filter(
-    (admuser) => admuser.email === user?.email
+    (admuser) => admuser?.email === user?.email
   );
 
   return adminUsersAndCurrent.length > 0;
@@ -30,10 +30,10 @@ export const blockedUsers = () => {
   const { user } = useAuth();
 
   const users = useSelector((state) => state.users);
-  const blocked = users.filter((user) => user.type === "block");
+  const blocked = users?.filter((user) => user.type === "block");
 
   const blockedAndCurrent = blocked.filter(
-    (admuser) => admuser.email === user?.email
+    (admuser) => admuser?.email === user?.email
   );
 
   return blockedAndCurrent.length > 0;
