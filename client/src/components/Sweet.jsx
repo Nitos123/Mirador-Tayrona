@@ -82,7 +82,6 @@ export const SweetRejectedPayment = (props) => {
   });
 };
 
-<<<<<<< HEAD
 
 
 export const SweetupdateRoom = async (roomId,updatedData) => {
@@ -125,7 +124,6 @@ export const SweetupdateRoom = async (roomId,updatedData) => {
   }
 }
 
-=======
 export const SweetCreatedReview = (props) => {
   return new Promise((resolve, reject) => {
     Swal.fire({
@@ -142,4 +140,3 @@ export const SweetCreatedReview = (props) => {
     });
   });
 };
->>>>>>> dev
