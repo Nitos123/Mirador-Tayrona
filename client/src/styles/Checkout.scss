@@ -57,7 +57,7 @@
 
     .deleted {
       width: 6%;
-      background-color: transparent;
+      background-color: transparent !important;
       box-shadow: none;
       color: $font-color;
     }

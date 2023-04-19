@@ -36,7 +36,7 @@ const DashboardAdmin = () => {
           <TopBarAdmin place={name(location.pathname)} />
         </div>
 
-        <div>{locationFunction(location.pathname)}</div>
+        <div className="dashboard">{locationFunction(location.pathname)}</div>
       </div>
     </div>
   );
