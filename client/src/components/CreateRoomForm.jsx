@@ -128,7 +128,7 @@ const CreateRoomForm = ({ handleClose }) => {
     return (
         <div className="modal-body">
             <h2 className="title">Create a new room </h2>
-            <form onSubmit={handleSubmit}>
+            <form className="form-room" onSubmit={handleSubmit}>
                 <div className="cont-forms">
                     <label className="label"> Name: </label>
                     <div className="control">
@@ -157,9 +157,8 @@ const CreateRoomForm = ({ handleClose }) => {
 
                 <div className="price-type">
                     <div className="cont-forms children">
-                        <label className="label" htmlFor="roomPrice">Price per night&nbsp;&nbsp;&nbsp; &nbsp;</label>
+                        <label className="label" htmlFor="roomPrice">Price per night  $</label>
                         <div>
-                            <label className="label price" htmlFor="roomPrice">$  </label>
                             <input
                                 type="text"
                                 id="roomPrice"
@@ -173,7 +172,7 @@ const CreateRoomForm = ({ handleClose }) => {
 
 
                     <div className="cont-forms children">
-                        <label className="label">Type&nbsp;&nbsp;&nbsp; &nbsp;   </label>
+                        <label className="label">Type of Room</label>
                         <div className="control">
                             <div className="select">
                                 <select required value={roomType} onChange={(e) => setRoomType(e.target.value)}   >
