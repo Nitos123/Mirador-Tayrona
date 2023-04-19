@@ -1,63 +1,73 @@
 import CardReview from "./CardReview";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import setTotalNot from "../redux/actions"
+
 import "../styles/CardsReviewsContainer.scss";
 import axios from "axios";
 import CardReviewTable from "./AdminReviewsTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 
-export default function CardsReviewsContainer() {
-  const [reviews, setReview] = useState([]);
-  const [desaprobados, setDesaprobados] = useState([]);
+export default function CardsReviewsContainer({totRevPending}) {
+    const [reviews, setReview] = useState([]);
+    const [desaprobados, setDesaprobados] = useState([])
+  //aca se pasa a redux el valor
+  const[totComents, setTotCommens] = useState(reviews.length)
+  totRevPending(reviews.length);  // actulizo el valor de las que estan pendientes por aprobar
+  const dispatch = useDispatch();
+  
+  dispatch(setTotalNot(reviews.length))
 
-  const allReviews = async () => {
-    const allUsers = (await axios.get(`/usuarios`)).data;
-    const newReviews = [];
-    allUsers.forEach((user) => {
-      if (user.coments.length > 0) {
-        user.coments.forEach((comment) => {
-          if (comment.type && comment.type === "pending") {
-            newReviews.push({
-              ...comment,
-              name: user.fullName,
-              photoURL: user.image,
-            });
-          }
-        });
-      }
-    });
-    setReview(newReviews);
-  };
-
-  const desaprobadosReviews = async () => {
-    const allUsers = (await axios.get(`/usuarios`)).data;
-    const newReviews = [];
-    allUsers.forEach((user) => {
-      if (user.coments.length > 0) {
-        user.coments.forEach((comment) => {
-          if (comment.type && comment.type === "deprecated") {
-            newReviews.push({
-              ...comment,
-              name: user.fullName,
-              photoURL: user.image,
-            });
-          }
-        });
-      }
-    });
-    setDesaprobados(newReviews);
-  };
-
-  useEffect(() => {
-    desaprobadosReviews();
-    allReviews();
-  }, []);
-
-  const approveReview = async (comentId, userId) => {
-    try {
-      const response = await axios.patch(
-        `/usuarios/${userId}/coments/${comentId}`,
-        {
+    const allReviews = async () => {
+      const allUsers = (await axios.get(`/usuarios`)).data;
+      const newReviews = [];
+      allUsers.forEach((user) => {
+        if (user.coments.length > 0) {
+          user.coments.forEach((comment) => {
+            if (comment.type && comment.type === "pending") {
+              newReviews.push({
+                ...comment,
+                name: user.fullName,
+                photoURL: user.image,
+              });
+            }
+          });
+        }
+      });
+      setReview(newReviews);
+      
+   
+    };
+  
+    const desaprobadosReviews = async () => {
+      const allUsers = (await axios.get(`/usuarios`)).data;
+      const newReviews = [];
+      allUsers.forEach((user) => {
+        if (user.coments.length > 0) {
+          user.coments.forEach((comment) => {
+            if (comment.type && comment.type === "deprecated") {
+              newReviews.push({
+                ...comment,
+                name: user.fullName,
+                photoURL: user.image,
+              });
+            }
+          });
+        }
+      });
+      setDesaprobados(newReviews);
+    };
+  
+  
+    useEffect(() => {
+      desaprobadosReviews()
+      allReviews();
+    }, []);
+  
+    const approveReview = async (comentId, userId) => {
+      try {
+        const response = await axios.patch(`/usuarios/${userId}/coments/${comentId}`, {
           type: "approve",
         }
       );
@@ -153,46 +163,6 @@ export default function CardsReviewsContainer() {
           </tbody>
         </table>
       </div>
-      {/* <div>
-        {desaprobados.length === 0 ? (
-          "no hay reviews desaprobadas aun"
-        ) : (
-          <div>
-            <div>
-              <h2>
-                aqui se muestran las reviews que fueron desaprobadas, puedes
-                borrarlas definitivamente si asi lo deseas
-              </h2>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Imagen</th>
-                  <th>Estrellas</th>
-                  <th>Nombre</th>
-                  <th>Reseña</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {desaprobados.map((review) => {
-                  return (
-                    <>
-                      <CardReview review={review} />
-
-                      <button
-                        onClick={() => deleteReview(review._id, review.userId)}
-                      >
-                        Delete Forever
-                      </button>
-                    </>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div> */}
     </div>
   );
 }
