@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -101,6 +102,21 @@ export const SweetAprovedPayment = (props) => {
             console.log(error);
             reject(error);
           });
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Payment Success",
+      text: props,
+      icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // window.location.href = "/";
+        resolve(true);
       } else {
         resolve(false);
       }
