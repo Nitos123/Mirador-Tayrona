@@ -8,7 +8,8 @@ const {
   getAvailableRooms,
   updateRooms,
   sendTicketToMail,
-  updateRoomStatus
+  updateRoomStatus,
+  modifyRoomData
 } = require("../../controller/roomController");
 
 const api = Router();
@@ -21,5 +22,6 @@ api.patch("/rooms/:id/bookings", updateRooms);
 api.get("/room/:id", getRoomId);
 api.post("/rooms/:id/enviarTicket", sendTicketToMail);
 api.put('/update/room/:roomId/status', updateRoomStatus);
+api.put('/update/roomData/:roomId',modifyRoomData)
 
 module.exports = api;
