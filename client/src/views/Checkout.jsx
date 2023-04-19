@@ -98,16 +98,14 @@ const checkOut = (props) => {
     }
   }, [dispatch]);
 
-
-
-   const PaymentSuccess = () => {
+  const PaymentSuccess = () => {
     const dispatch = useDispatch();
     const { user } = useAuth();
-  
+
     if (user) {
-      dispatch(getUserCar(user.email))
+      dispatch(getUserCar(user.email));
     }
-  
+
     window.location.href = "/";
   };
 
