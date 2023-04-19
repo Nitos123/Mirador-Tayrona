@@ -108,21 +108,6 @@ export const SweetAprovedPayment = (props) => {
     });
   });
 };
-  return new Promise((resolve, reject) => {
-    Swal.fire({
-      title: "Payment Success",
-      text: props,
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // window.location.href = "/";
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    });
-  });
-};
 
 export const SweetFailedReview = (props1, props2) => {
   return new Promise((resolve, reject) => {
