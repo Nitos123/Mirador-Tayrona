@@ -20,6 +20,7 @@ import {
   DELETE_LOCAL_STORAGE,
   FILTER_BY_AVAILABLE_DATE,
   ORDER_BY_PRICE,
+  DESTROY_CAR,
   SET_TOTAL_NOTIF
 } from "./actions";
 
@@ -199,6 +200,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         carrito: action.payload,
       };
+      case  DESTROY_CAR:
+        return{
+          ...state,
+          carrito: action.payload
+        }
 
     case SET_TOTAL_NOTIF:
       return {

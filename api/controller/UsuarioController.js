@@ -176,6 +176,27 @@ const changeTypeComents = async (req, res) => {
 };
 
 
+const deleteCartUser = async(req, res)=>{
+  try {
+    const userId = req.params.userId 
+
+    const buscarUser = await Usuario.findById(userId)
+    if (!buscarUser) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    buscarUser.carrito = [];
+    const response = await Usuario.updateOne({ _id: userId }, { carrito: buscarUser.carrito });
+
+    res.status(200).json({ message: 'El carrito del usuario ha sido limpiado exitosamente' });
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Ha ocurrido un error al intentar limpiar el carrito del usuario' });
+  }
+}
+
+
 
 module.exports = {
   addUsuario,
@@ -185,5 +206,6 @@ module.exports = {
   crearComentario,
   deleteComnts,
   changeType,
-  changeTypeComents
+  changeTypeComents,
+  deleteCartUser
 };

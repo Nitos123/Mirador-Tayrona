@@ -47,6 +47,19 @@ const checkOut = (props) => {
     }
   }, [dispatch]);
 
+
+
+   const PaymentSuccess = () => {
+    const dispatch = useDispatch();
+    const { user } = useAuth();
+  
+    if (user) {
+      dispatch(getUserCar(user.email))
+    }
+  
+    window.location.href = "/";
+  };
+
   return (
     <section className="section checkout">
       <div className="header">
