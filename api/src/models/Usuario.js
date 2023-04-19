@@ -7,11 +7,11 @@ const roomSchema = new mongoose.Schema({
   end: Date,
   userId: mongoose.Schema.Types.ObjectId,
   idRoom: mongoose.Schema.Types.ObjectId,
-  image:String,
+  image: String,
   price: Number,
-  name:  String,
+  name: String,
   dias: Number,
-  total: Number
+  total: Number,
 });
 
 const ComentSchema = Schema(
@@ -23,6 +23,7 @@ const ComentSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "Usuario",
     },
+    type: { type: String, default: 'pending' }
   },
   { timestamps: true }
 );

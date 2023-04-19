@@ -6,9 +6,7 @@ const {
   deleteRoomCard,
   crearComentario,
   deleteComnts,
-  changeType,
-  deleteComnts,
-  getComentByType
+  changeType
 } = require("../../controller/UsuarioController");
 
 const api = express.Router();
@@ -20,9 +18,6 @@ api.patch("/usuario/deleteCart",deleteRoomCard )
 api.patch("/usuarios/:id/comentarios",crearComentario)
 api.patch("/usuario/:id/coments/:user",deleteComnts )
 api.patch("/usuarios/:id/types/:type", changeType)
-api.get("/coments/type", getComentByType)
-
-
-
+api.patch("/usuarios/:userId/coments/:comentId",changeTypeComents)
 
 module.exports = api;

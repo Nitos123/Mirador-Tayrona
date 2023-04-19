@@ -9,7 +9,7 @@ const CardRoomContainerHome = (props) => {
   const dispatch = useDispatch();
   const allRooms = useSelector((state) => state.rooms);
 
-  // const filteredRooms = allRooms.filter((room) => room.price > 5);
+  const approvedRooms = allRooms.filter((room) => room.status === true);
 
   useEffect(() => {
     dispatch(getAllRooms());
@@ -18,17 +18,19 @@ const CardRoomContainerHome = (props) => {
   return (
     <div>
       <div className="container">
-        {allRooms?.map((room, index) => {
+        {approvedRooms?.map((room, index) => {
           return (
-            <CardRoom
-              key={index}
-              id={room._id}
-              image={room.image}
-              guests={room.guests}
-              name={room.name}
-              price={room.price}
-              type={room.type}
-            />
+            index < 6 && (
+              <CardRoom
+                key={index}
+                id={room._id}
+                image={room.image}
+                guests={room.guests}
+                name={room.name}
+                price={room.price}
+                type={room.type}
+              />
+            )
           );
         })}
       </div>

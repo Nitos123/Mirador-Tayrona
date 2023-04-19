@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/Rooms.scss";
-import { postReview } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import "../styles/CreateReview.scss";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
+import { SweetCreatedReview, SweetFailedReview } from "../components/Sweet";
 
 const validate = (state) => {
   const error = {};
-
   if (!state.review.length || state.review.length < 10) {
     error.review = "Review must be more than 10 characters!";
   }
-
   if (state.stars < 1 || state.stars > 5) {
     error.stars = "You must choose stars";
   }
@@ -27,7 +25,6 @@ const initialState = {
 const CreateReview = (props) => {
   const [review, setReview] = useState(initialState);
   const [blur, setBlur] = useState({});
-  const dispatch = useDispatch();
   const errors = validate(review);
 
   const { user } = useAuth(); // Se obtienen los datos del usuario
@@ -54,11 +51,19 @@ const CreateReview = (props) => {
           text: review.review,
           rating: review.stars,
         });
-        alert("Review created successfully!");
+        SweetCreatedReview();
       } catch (error) {
         alert(error);
       }
+
       setReview(initialState);
+    } else {
+      setBlur({
+        ...blur,
+        review: true,
+        stars: true,
+      });
+      SweetFailedReview();
     }
   };
 
@@ -97,9 +102,9 @@ const CreateReview = (props) => {
         </div>
       </section>
 
-      <div className="">
+      <div className="form-review">
         <form onSubmit={(event) => handleSubmit(event)}>
-          <div>
+          <div className="form-row">
             <label>Stars: </label>
 
             <select name="stars" onBlur={handleBlur} onChange={changeHandler}>
@@ -110,25 +115,31 @@ const CreateReview = (props) => {
               <option value="2">⭐⭐ </option>
               <option value="1">⭐ </option>
             </select>
-            {errors.stars && blur.stars && <p>{errors.stars}</p>}
+
+            <div className="errors">
+              {errors.stars && blur.stars && <p>{errors.stars}</p>}
+            </div>
           </div>
 
-          <div>
+          <div className="form-row">
             <label>Review: </label>
-            <input
+            <textarea
+              rows="6"
+              cols="50"
               name="review"
               type="text"
               value={review.review}
               onChange={changeHandler}
               onBlur={handleBlur}
             />
-            {errors.review && blur.review && <p>{errors.review}</p>}
+
+            <div className="errors">
+              {errors.review && blur.review && <p>{errors.review}</p>}
+            </div>
           </div>
 
           <div>
-            <button type="submit" disabled={!formValid}>
-              Send
-            </button>
+            <button type="submit">Send</button>
           </div>
         </form>
       </div>

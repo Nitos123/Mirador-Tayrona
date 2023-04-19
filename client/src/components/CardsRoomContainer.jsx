@@ -10,12 +10,15 @@ const CardRoomContainer = ({
   indexOfLastRoom,
   roomsPerPage,
   paged,
+  currentPage,
 }) => {
   const dispatch = useDispatch();
 
   const allRooms = useSelector((state) => state.rooms); // Lista de todas las habitaciones
 
-  const currentRooms = allRooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const approvedRooms = allRooms.filter((room) => room.status === true);
+
+  const currentRooms = approvedRooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
   useEffect(() => {
     dispatch(getAllRooms());
@@ -42,6 +45,7 @@ const CardRoomContainer = ({
         roomsPerPage={roomsPerPage}
         allRooms={allRooms.length}
         paged={paged}
+        currentPage={currentPage}
       />
     </div>
   );
