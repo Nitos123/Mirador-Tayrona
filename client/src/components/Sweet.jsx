@@ -26,21 +26,38 @@ export const Sweet = () => {
 };
 
 export const SweetAprovedPayment = (props) => {
-  return new Promise((resolve, reject) => {
-    Swal.fire({
-      title: "Payment Success",
-      text: props,
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "/";
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    });
-  });
-};
+return new Promise((resolve, reject) => {
+Swal.fire({
+title: "Payment Success",
+text: props,
+icon: "success",
+}).then((result) => {
+if (result.isConfirmed) {
+axios.delete('/ruta/para/borrar/items')
+.then(() => {
+Swal.fire({
+title: "Items removed from cart",
+text: "Your cart has been emptied.",
+icon: "success",
+});
+window.location.href = "/";
+resolve(true);
+})
+.catch((error) => {
+Swal.fire({
+title: "Error removing items from cart",
+text: "There was an error while removing items from your cart. Please try again later.",
+icon: "error",
+});
+console.log(error);
+reject(error);
+});
+} else {
+resolve(false);
+}
+});
+});
+};;
 
 export const SweetFailedReview = (props1, props2) => {
   return new Promise((resolve, reject) => {
