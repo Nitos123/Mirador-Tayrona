@@ -111,12 +111,28 @@ export const postReview = (payload, id) => {
 export const carritoUser = (userMail) => {
   return async function (dispatch) {
     const response = await axios.get("/usuarios");
-    // console.log(response);
     if (response && response.data) {
       const usuarios = response.data;
       const user = usuarios.filter((usuario) => usuario.email === userMail);
+      
+      
+      // Aquí se añaden los nuevos items al localStorage
+      const localStorageItems = JSON.parse(localStorage.getItem("carrito")) || [];
+      const userItems = localStorageItems.filter(item => item.userId === "");
+      userItems.forEach(item => {
+        item.userId = user[0]._id;
+        const guardar = []
+        guardar.push(item)
+        axios.patch("/usuarios/dateRoom", item);
+      });
+      const loco =[]
+      localStorage.setItem("carrito", JSON.stringify(loco));
 
-      const carritoItems = user[0].carrito.map((item) => {
+      const respons = await axios.get("/usuarios");
+      const usuario = respons.data;
+      const users = usuario.filter((usuario) => usuario.email === userMail);
+      
+      const carritoItems = users[0].carrito.map((item) => {
         return {
           image: item.image,
           name: item.name,
@@ -126,12 +142,12 @@ export const carritoUser = (userMail) => {
           id: item._id,
         };
       });
-
+      
       dispatch({ type: CARRITO_USER, payload: carritoItems });
-      // Aquí puedes hacer lo que necesites con el array de habitaciones
     }
   };
 };
+
 
 export const carritoAddUser = (userMail, start, end, id) => {
   return async function (dispatch) {
@@ -178,6 +194,14 @@ export const carritoAddUser = (userMail, start, end, id) => {
         // Obtener los datos de la habitación que acaba de agregarse al carrito
         const roomData = responseRoom.data;
 
+        // Añadir los items del localStorage al carrito del usuario
+        const localStorageItems = JSON.parse(localStorage.getItem("carrito")) || [];
+        const userItems = localStorageItems.filter(item => item.userId === "");
+        userItems.forEach(item => {
+          item.userId = user[0]._id;
+          axios.patch("/usuarios/dateRoom", item);
+        });
+
         // Devolver los datos de la habitación junto con el mensaje "hola"
         dispatch({
           type: CARRITO_ADD_USER,
@@ -190,22 +214,43 @@ export const carritoAddUser = (userMail, start, end, id) => {
   };
 };
 
-export const localCarrito = (id) => {
+
+export const localCarrito = (start, end, id) => {
   return async function (dispatch) {
     try {
       const rooms = (await axios.get("/room")).data;
       const room = rooms.filter((room) => room._id === id)[0];
       const cartData = JSON.parse(localStorage.getItem("carrito")) || [];
-      const ruta = [...cartData]; // Paso 1
-      ruta.push(room); // Paso 2
-      localStorage.setItem("carrito", JSON.stringify(ruta)); // Paso 3
-      console.log(ruta);
-      dispatch({ type: LOCAL_CARRITO, payload: ruta });
+      const arr = [...cartData]
+      const oneDayMs = 24 * 60 * 60 * 1000; // Milisegundos en un día
+      const startMs = new Date(start).getTime();
+      const endMs = new Date(end).getTime();
+      const diffMs = endMs - startMs;
+      const dias = Math.round(diffMs / oneDayMs);
+      const data = {
+        name: room.name,
+        start: start,
+        end: end,
+        userId: "",
+        idRoom: id,
+        image: room.image[0],
+        dias: dias,
+        price: room.price,
+        total: room.price*dias
+      }
+      arr.push(data)
+      localStorage.setItem("carrito", JSON.stringify(arr));
+      const response=JSON.parse(localStorage.getItem("carrito"));
+      dispatch({ type: LOCAL_CARRITO, payload: response });
+      return Promise.resolve();
     } catch (error) {
       console.error(error);
+      return Promise.reject(error);
     }
   };
 };
+
+
 
 export const restoreCartFromLocalStorage = () => {
   const cartData = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -313,20 +358,12 @@ export const deleteCar = (userMail, id) => {
   };
 };
 
-export const deleteLocalStorage = (id, carrito) => {
+export const deleteLocalStorage = (index, carrito) => {
   return async function (dispatch) {
     const car2 = [...carrito];
-    let idFound = false;
-    const limpieza = car2.filter((car) => {
-      if (car._id === id && !idFound) {
-        idFound = true;
-        return false;
-      }
-      return true;
-    });
-    localStorage.setItem("carrito", JSON.stringify(limpieza));
-    console.log(limpieza);
-    dispatch({ type: DELETE_LOCAL_STORAGE, payload: limpieza });
+    car2.splice(index, 1);
+    localStorage.setItem("carrito", JSON.stringify(car2));
+    dispatch({ type: DELETE_LOCAL_STORAGE, payload: car2 });
   };
 };
 
