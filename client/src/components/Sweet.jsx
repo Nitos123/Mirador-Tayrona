@@ -46,6 +46,16 @@ export const SweetAprovedPayment = (props) => {
   });
 };
 
+export const SweetFailedReview = (props1, props2) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Review failed",
+      text: `Incomplete information`,
+      icon: "error",
+    });
+  });
+};
+
 export const SweetRejectedPayment = (props) => {
   return new Promise((resolve, reject) => {
     Swal.fire({

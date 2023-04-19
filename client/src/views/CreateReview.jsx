@@ -5,16 +5,14 @@ import { postReview } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/authContext";
 import axios from "axios";
-import { SweetCreatedReview } from "../components/Sweet";
+import { SweetCreatedReview, SweetFailedReview } from "../components/Sweet";
 import { useNavigate } from "react-router-dom";
 
 const validate = (state) => {
   const error = {};
-
   if (!state.review.length || state.review.length < 10) {
     error.review = "Review must be more than 10 characters!";
   }
-
   if (state.stars < 1 || state.stars > 5) {
     error.stars = "You must choose stars";
   }
@@ -30,9 +28,8 @@ const initialState = {
 const CreateReview = (props) => {
   const [review, setReview] = useState(initialState);
   const [blur, setBlur] = useState({});
-  const dispatch = useDispatch();
   const errors = validate(review);
-  const navigate = useNavigate();
+
   const { user } = useAuth(); // Se obtienen los datos del usuario
 
   const email = user && user.email; // Se obtiene el email del usuario para buscarlo en la base de datos
@@ -57,11 +54,19 @@ const CreateReview = (props) => {
           text: review.review,
           rating: review.stars,
         });
+        SweetCreatedReview();
       } catch (error) {
         alert(error);
       }
 
       setReview(initialState);
+    } else {
+      setBlur({
+        ...blur,
+        review: true,
+        stars: true,
+      });
+      SweetFailedReview();
     }
   };
 
@@ -113,6 +118,7 @@ const CreateReview = (props) => {
               <option value="2">⭐⭐ </option>
               <option value="1">⭐ </option>
             </select>
+
             <div className="errors">
               {errors.stars && blur.stars && <p>{errors.stars}</p>}
             </div>
@@ -129,19 +135,14 @@ const CreateReview = (props) => {
               onChange={changeHandler}
               onBlur={handleBlur}
             />
+
             <div className="errors">
               {errors.review && blur.review && <p>{errors.review}</p>}
             </div>
           </div>
 
           <div>
-            <button
-              type="submit"
-              disabled={!formValid}
-              onClick={() => SweetCreatedReview()}
-            >
-              Send
-            </button>
+            <button type="submit">Send</button>
           </div>
         </form>
       </div>

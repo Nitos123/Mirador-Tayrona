@@ -11,9 +11,6 @@ const CardRoomContainerHome = (props) => {
 
   const approvedRooms = allRooms.filter((room) => room.status === true);
 
-  console.log(approvedRooms);
-  // const filteredRooms = allRooms.filter((room) => room.price > 5);
-
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
