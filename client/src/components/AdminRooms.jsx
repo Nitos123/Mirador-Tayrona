@@ -49,10 +49,13 @@ const AdminRooms = (props) => {
       {showRoomCreate && <CreateRoomForm show={showRoomCreate} handleClose={handleClose} />} {/*  muestra componente para crear room */}
       {showEditRoom && <EditRoomForm show={showEditRoom} handleClose={handleClose} room={selectedRoom} />}  {/*  muestra el componente para actualizar una room */}
 
-      <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowUpdateRoom} DelRoomSweet ={DelRoomSweet} />
+      {allRooms.length > 0 ? (
+        <DeleteUpdateRoom   allRooms = {allRooms} handleShowEditComponent = {handleShowUpdateRoom} DelRoomSweet ={DelRoomSweet} />
+      ) : (
+        <p>No rooms found.</p>
+      )}
     </div>
   );
 };
 
 export default AdminRooms;
-

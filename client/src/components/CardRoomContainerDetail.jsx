@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getAllRooms } from "../redux/actions";
 
-const CardRoomContainerDetail = ({type}) => {
+const CardRoomContainerDetail = ({ type }) => {
   const dispatch = useDispatch();
   const allRooms = useSelector((state) => state.rooms);
   const filteredRooms = allRooms.filter((room) => room.type === type);
+  const approvedRooms = filteredRooms.filter((room) => room.status === true);
+
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
@@ -16,18 +18,19 @@ const CardRoomContainerDetail = ({type}) => {
   return (
     <div>
       <div className="container">
-        {filteredRooms?.map((room, index) => {
+        {approvedRooms?.map((room, index) => {
           return (
-            index < 2 && 
-            <CardRoom
-              key={index}
-              id={room._id}
-              image={room.image}
-              guests={room.guests}
-              name={room.name}
-              price={room.price}
-              type={room.type}
-            />
+            index < 2 && (
+              <CardRoom
+                key={index}
+                id={room._id}
+                image={room.image}
+                guests={room.guests}
+                name={room.name}
+                price={room.price}
+                type={room.type}
+              />
+            )
           );
         })}
       </div>

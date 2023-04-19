@@ -205,6 +205,31 @@ const sendTicketToMail = async (req, res) => {
   }
 };
 
+
+const updateRoomStatus = async (req, res) => {
+  const roomId = req.params.roomId;
+  if (roomId) {
+    try {
+      const room = await Room.findById(roomId);
+      if (!room) {
+        return res.status(404).send({ error: 'No se encontró la habitación' });
+      }
+      room.status = !room.status; // Cambia el estado de la habitación
+      console.log(room)
+      await room.save(); // Guarda los cambios en la base de datos
+      res.status(200).send({ message: 'Estado de la habitación actualizado correctamente' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Error al actualizar el estado de la habitación' });
+    }
+  } else {
+    res.status(400).send({ error: 'Es necesario el id para poder realizar la petición' });
+  }
+};
+
+
+
+
 module.exports = {
   addRoom,
   getAllRooms,
@@ -213,4 +238,5 @@ module.exports = {
   getAvailableRooms,
   updateRooms,
   sendTicketToMail,
+  updateRoomStatus
 };

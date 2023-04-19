@@ -10,11 +10,20 @@ const EditRoomForm = ({ room, handleClose }) => {
   const [type, setType] = useState(room.type);
   const [status, setStatus] = useState(room.status);
   const [urlImage, setUrlImage] = useState(room.image);
-  const[newUrlImg, setNewUrlImage] = useState([])
+  const [newUrlImg, setNewUrlImage] = useState([]);
+
+  const handleDeleteImage = (imageUrl) => {
+    // Eliminar la imagen de la lista de imágenes
+    const updatedImages = [...urlImage, ...newUrlImg].filter(
+      (img) => img !== imageUrl
+    );
+    setUrlImage(updatedImages.slice(0, urlImage.length));
+    setNewUrlImage(updatedImages.slice(urlImage.length));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedImages = [...urlImage, ...newUrlImg]
+    const updatedImages = [...urlImage, ...newUrlImg];
     // Actualizar la información de la habitación
     const updatedRoom = {
       name,
@@ -26,34 +35,32 @@ const EditRoomForm = ({ room, handleClose }) => {
       status,
     };
 
-
-    
-      console.log("lista fotos room actualizada", updatedRoom.image)
+    console.log("lista fotos room actualizada", updatedRoom.image);
+    console.log("esta es la desc",room.description)
     // Aquí deberías enviar la información actualizada al servidor
-    // ...falta crear la ruta patch para actualizar 
+    // ...falta crear la ruta patch para actualizar
 
     handleClose();
-  }
+  };
 
- 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Editar habitación</h2>
-      <label htmlFor="name">Nombre</label>
+      <h2>Edit room</h2>
+      <label htmlFor="name">Name:</label>
       <input
         type="text"
         id="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <label htmlFor="description">Descripción</label>
+      <label htmlFor="description">Description</label>
       <textarea
         id="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <label htmlFor="capacity">Capacidad</label>
+      <label htmlFor="capacity">Capacity : </label>
       <input
         type="number"
         id="capacity"
@@ -61,7 +68,7 @@ const EditRoomForm = ({ room, handleClose }) => {
         onChange={(e) => setCapacity(parseInt(e.target.value))}
       />
 
-      <label htmlFor="price">Precio</label>
+      <label htmlFor="price">Price</label>
       <input
         type="number"
         id="price"
@@ -69,45 +76,39 @@ const EditRoomForm = ({ room, handleClose }) => {
         onChange={(e) => setPrice(parseInt(e.target.value))}
       />
 
-      <label htmlFor="type">Tipo</label>
+      <label htmlFor="type">Type</label>
       <select
         id="type"
         value={type}
         onChange={(e) => setType(e.target.value)}
       >
-        <option value="familiar">familiar</option>
-        <option value="individual">individual</option>
-        <option value="matrimonial">matrimonial</option>
+        <option value="familiar">Familiar</option>
+        <option value="individual">Individual</option>
+        <option value="matrimonial">Matrimonial</option>
       </select>
 
-      <label htmlFor="status">Estado</label>
-      <select
-        id="status"
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-      >
-        <option value="available">Disponible</option>
-        <option value="unavailable">No disponible</option>
-      </select>
-
-      <label htmlFor="image">Imagen</label>
+      <label htmlFor="image">Image: </label>
 
       <div>
         <UploadWidgetCloud handleUploadImg={setNewUrlImage} />
         {/* Mostrar las imágenes existentes y las nuevas imágenes */}
         {[...urlImage, ...newUrlImg].map((imageUrl) => (
-          <img
-            key={imageUrl}
-            src={imageUrl}
-            alt="image not found"
-            style={{ width: "200px", height: "auto" }}
-          />
+          <div key={imageUrl}>
+            <img
+              src={imageUrl}
+              alt="image not found"
+              style={{ width: "200px", height: "auto" }}
+            />
+            <button onClick={() => handleDeleteImage(imageUrl)}>
+             X
+            </button>
+          </div>
         ))}
       </div>
 
-      <button type="submit">Guardar cambios</button>
+      <button type="submit">Save Changes</button>
       <button type="button" onClick={handleClose}>
-        Cancelar
+        Cancel
       </button>
     </form>
   );
