@@ -30,6 +30,43 @@ export const SweetAprovedPayment = (props) => {
       title: "Payment Success",
       text: props,
       icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/";
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+export const SweetFailedReview = (props1, props2) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Review failed",
+      text: `Incomplete information`,
+      icon: "error",
+    });
+  });
+};
+
+export const SweetFailedLogin = (props1, props2) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Login failed",
+      text: `Incomplete information`,
+      icon: "error",
+    });
+  });
+};
+
+export const SweetFailedCreate = (props1, props2) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Account creation failed",
+      text: `Incomplete information`,
+      icon: "error",
     });
   });
 };
@@ -40,6 +77,23 @@ export const SweetRejectedPayment = (props) => {
       title: "Payment failed",
       text: props,
       icon: "error",
+    });
+  });
+};
+
+export const SweetCreatedReview = (props) => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Review created!",
+      text: "Success",
+      icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/";
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
   });
 };

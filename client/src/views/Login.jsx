@@ -3,15 +3,42 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import "../styles/Login.scss";
+import { SweetFailedLogin } from "../components/Sweet";
+
+const validate = (state) => {
+  const error = {};
+
+  // const validEmail =
+  //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  if (!state.email.length) {
+    error.email = "You must enter a email addres";
+  }
+
+  // if (validEmail.test(state.email)) {
+  //   error.email = "You must enter a valid email addres";
+  // }
+
+  if (!state.password.length) {
+    error.password = "You must write a password";
+  }
+
+  return error;
+};
 
 const initialState = {
-  name: "",
   email: "",
   password: "",
 };
 
 const Login = () => {
   const [user, setUser] = useState(initialState);
+
+  const errors = validate(user);
+
+  const [blur, setBlur] = useState({});
+
+  const formValid = Object.keys(errors).length === 0;
 
   const { login, loginWithGoogle, resetPassword } = useAuth();
   const navigate = useNavigate(); // Es un Hook que se puede usar para controlar el redirect a otra página
@@ -32,12 +59,21 @@ const Login = () => {
   // Login con usuario y contraseña
   const submitHandle = async (event) => {
     event.preventDefault();
-    setError(""); // Reseteando los errores.
-    try {
-      await login(user.email, user.password);
-      navigate("/"); // Al registrarse un usuario, se redirecciona al Home
-    } catch (error) {
-      setError(error.message);
+
+    if (formValid) {
+      try {
+        await login(user.email, user.password);
+        navigate("/"); // Al registrarse un usuario, se redirecciona al Home
+      } catch (error) {
+        setError(error.message);
+      }
+    } else {
+      setBlur({
+        ...blur,
+        email: true,
+        password: true,
+      });
+      SweetFailedLogin();
     }
   };
 
@@ -64,6 +100,13 @@ const Login = () => {
     }
   };
 
+  const handleBlur = (event) => {
+    setBlur({
+      ...blur,
+      [event.target.name]: true,
+    });
+  };
+
   return (
     <div>
       <section className="">
@@ -80,7 +123,10 @@ const Login = () => {
             </div>
 
             <div>
-              <button className="button-sign-google" onClick={handleGoogleSignIn}>
+              <button
+                className="button-sign-google"
+                onClick={handleGoogleSignIn}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="xMidYMid"
@@ -111,14 +157,24 @@ const Login = () => {
             <div className="form">
               <div className="message-alert">
                 {error && <p className="error">{error}</p>}
+
                 {info && <p className="info">{info}</p>}
               </div>
+
               <form className="login-form" onSubmit={submitHandle}>
                 <div>
                   <div className="input-content">
                     <label>Email: </label>
-                    <input name="email" type="email" onChange={changeHandler} />
+                    <input
+                      name="email"
+                      type="email"
+                      onChange={changeHandler}
+                      onBlur={handleBlur}
+                    />
                   </div>
+                  {errors.email && blur.email && (
+                    <p className="error">{errors.email}</p>
+                  )}
 
                   <div className="input-content">
                     <label>Password: </label>
@@ -126,7 +182,11 @@ const Login = () => {
                       name="password"
                       type="password"
                       onChange={changeHandler}
+                      onBlur={handleBlur}
                     />
+                    {errors.password && blur.password && (
+                      <p className="error">{errors.password}</p>
+                    )}
                     <a
                       className="pass-reset"
                       href="#!"
