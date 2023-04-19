@@ -99,7 +99,7 @@ const NavBar = (props) => {
               {users && notBloquedUsersAndCurrent.length > 0 && (
                 <Link to="/checkout">
                   <FontAwesomeIcon icon={faShoppingCart} />
-                  <span className="cart-count">{itemsCartLogin}</span>
+                  <span className="cart-count">{itemsCartLogin <= 0 ? "" : itemsCartLogin}</span>
                 </Link>
               )}
 
