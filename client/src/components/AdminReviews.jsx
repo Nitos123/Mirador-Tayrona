@@ -1,12 +1,21 @@
 import CardReview from "./CardReview";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import setTotalNot from "../redux/actions"
+
 import "../styles/CardsReviewsContainer.scss";
 import axios from "axios";
 
-export default function CardsReviewsContainer() {
+export default function CardsReviewsContainer({totRevPending}) {
     const [reviews, setReview] = useState([]);
     const [desaprobados, setDesaprobados] = useState([])
+  //aca se pasa a redux el valor
+  const[totComents, setTotCommens] = useState(reviews.length)
+  totRevPending(reviews.length);  // actulizo el valor de las que estan pendientes por aprobar
+  const dispatch = useDispatch();
   
+  dispatch(setTotalNot(reviews.length))
+
     const allReviews = async () => {
       const allUsers = (await axios.get(`/usuarios`)).data;
       const newReviews = [];
@@ -24,6 +33,8 @@ export default function CardsReviewsContainer() {
         }
       });
       setReview(newReviews);
+      
+   
     };
   
     const desaprobadosReviews = async () => {

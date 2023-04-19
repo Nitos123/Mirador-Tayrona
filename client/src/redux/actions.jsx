@@ -22,6 +22,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_LOCAL_STORAGE = " DELETE_LOCAL_STORAGE";
 export const FILTER_BY_AVAILABLE_DATE = " FILTER_BY_AVAILABLE_DATE";
+export const SET_TOTAL_NOTIF = "SET_TOTAL_NOTIF"
 
 export const getAllRooms = () => {
   return async function (dispatch) {
@@ -396,4 +397,8 @@ export const changeValueType = (id, type) => {
     return message; // devolvemos el mensaje apropiado
   };
 };
+
+export default function setTotalNot(totalItems) {
+  return { type: SET_TOTAL_NOTIF, payload: totalItems };
+}
 

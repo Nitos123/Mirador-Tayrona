@@ -229,6 +229,25 @@ const updateRoomStatus = async (req, res) => {
 
 
 
+const modifyRoomData = async (req, res) => {
+  try {
+    const { roomId } = req.params;
+    const room = await Room.findByIdAndUpdate(roomId, req.body, { new: true });
+
+    if (!room) {
+      return res.status(404).send({ message: "Room not found" });
+    }
+    
+    res.status(200).send({ room });
+  } catch (error) {
+    console.error(error); // Agrega console.error para mostrar el error en la consola
+    res.status(500).send({ message: "Error updating room" });
+  }
+};
+
+
+
+
 
 module.exports = {
   addRoom,
@@ -238,5 +257,6 @@ module.exports = {
   getAvailableRooms,
   updateRooms,
   sendTicketToMail,
-  updateRoomStatus
+  updateRoomStatus,
+  modifyRoomData
 };

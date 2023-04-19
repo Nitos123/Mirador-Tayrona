@@ -20,6 +20,7 @@ import {
   DELETE_LOCAL_STORAGE,
   FILTER_BY_AVAILABLE_DATE,
   ORDER_BY_PRICE,
+  SET_TOTAL_NOTIF
 } from "./actions";
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   dataConflict: null,
   date: {},
   type: "",
+  totalComments : 0
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -198,9 +200,22 @@ const rootReducer = (state = initialState, action) => {
         carrito: action.payload,
       };
 
+    case SET_TOTAL_NOTIF:
+      return {
+      ...state, 
+      totalComments: action.payload,
+
+    }
+      
+    
+
     default:
       return { ...state };
   }
+  
+
+
+ 
 };
 
 const roomType = (room, type) => room.type === type; // Comprobando que el tipo de habitación coincida con el tipo elegido para filtrar
