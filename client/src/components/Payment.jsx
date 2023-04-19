@@ -75,24 +75,22 @@ function Payment() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          "http://localhost:8080/create-payment-intent",
-          {
-            amount: 1000,
-          }
-        );
-        const { clientSecret } = response.data;
-        setClientSecret(clientSecret);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/create-payment-intent",
+        {
+          amount: totalPrice,
+        }
+      );
+      const { clientSecret } = response.data;
+      setClientSecret(clientSecret);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  totalPrice && fetchData();
 
   return (
     <div>

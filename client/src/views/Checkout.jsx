@@ -13,13 +13,55 @@ import { useAuth } from "../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
+function LoadingSpinner() {
+  return (
+    <div className="loading-spinner">
+      <div className="spinner"></div>
+      <p>Cargando...</p>
+    </div>
+  );
+}
+
+const RedirecToLogin = () => {
+  return (
+    <div>
+      <div>
+        <h4>You need an account before bookin</h4>
+      </div>
+
+      <div>
+        <Link to="/loginCreate">
+          <button>Create Account</button>
+        </Link>
+      </div>
+
+      <div>
+        <h4>Already have account</h4>
+      </div>
+
+      <div>
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 const checkOut = (props) => {
   const { user } = useAuth();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
   const carrito = useSelector((state) => state.carrito);
 
+  function fetchUser() {
+    // Hacer una llamada a la API para obtener el usuario
+    user && setIsLoading(false);
+  }
+
   useEffect(() => {
+    fetchUser();
     dispatch(restoreCartFromLocalStorage("carrito"));
     if (user && user.email) {
       const userMail = user.email;
@@ -39,6 +81,7 @@ const checkOut = (props) => {
       await dispatch(carritoUser(userMail));
     }
   };
+
   useEffect(() => {
     dispatch(restoreCartFromLocalStorage("carrito"));
     if (user && user.email) {
@@ -67,10 +110,7 @@ const checkOut = (props) => {
             </div>
 
             {!user && (
-              <button
-                className="deleted"
-                onClick={() => borrarLocal(index)}
-              >
+              <button className="deleted" onClick={() => borrarLocal(index)}>
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
             )}
@@ -85,9 +125,18 @@ const checkOut = (props) => {
           </div>
         ))}
       </div>
+      {/* <div className="txt-container">
+        {user ? <CheckoutForm /> : <RedirecToLogin />}
+      </div> */}
 
       <div className="txt-container">
-        <CheckoutForm />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : user ? (
+          <CheckoutForm />
+        ) : (
+          <RedirecToLogin />
+        )}
       </div>
     </section>
   );
