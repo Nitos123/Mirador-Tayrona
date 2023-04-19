@@ -1,15 +1,26 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const DelRoomSweet = async (roomId) => {
+const DelRoomSweet = async (roomId, status) => {
   try {
+    let message;
+    let confirmButtonText;
+
+    if (status) { // Si status es true
+      message = "Are you sure you want to disable the room? Guests won't be able to see it published on the page.";
+      confirmButtonText = "Yes, disable it!";
+    } else { // Si status es false
+      message = "Are you sure you want to enable the room? It will be available for users on the page.";
+      confirmButtonText = "Yes, enable it!";
+    }
+
     const result = await Swal.fire({
       title: "Are you sure?",
-      text: "If you delete the room you will lose the data permanently!",
+      text: message,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#fd3131",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: confirmButtonText,
     });
     if (result.isConfirmed) {
       console.log(roomId)
@@ -20,7 +31,7 @@ const DelRoomSweet = async (roomId) => {
         await Swal.fire({
           icon: "success",
           title: "Success!",
-          text: "Room deleted",
+          text: "Room updated",
         });
         return true;
       } else {
@@ -34,7 +45,7 @@ const DelRoomSweet = async (roomId) => {
     await Swal.fire({
       icon: "error",
       title: "Error!",
-      text: "Room not deleted",
+      text: "Room not updated",
     });
     return false;
   }
