@@ -6,12 +6,11 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { SweetAprovedPayment, SweetRejectedPayment } from "./Sweet";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  const navigate = useNavigate();
+
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubmit = async (e) => {

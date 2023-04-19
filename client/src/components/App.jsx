@@ -13,9 +13,8 @@ import { AuthProvider } from "../context/authContext";
 import { ProtectedRoute } from "./ProtectedRoute";
 import DashboardAdmin from "../views/DashboardAdmin";
 import Payment from "./Payment";
-// import AdminUsers from "./AdminUsers";
 import "../styles/App.scss";
-import { isAdmin, blockedUsers } from "./ProtectedRoute";
+import { isAdmin } from "./ProtectedRoute";
 
 function App() {
   const location = useLocation();
@@ -49,17 +48,11 @@ function App() {
           <Route
             exact
             path="/createReview"
-            Component={() =>
-              !blockedUsers() ? <CreateReview /> : (window.location.href = "/")
-            }
+            Component={() => <CreateReview />}
           />
-          <Route
-            exact
-            path="/checkout"
-            Component={() =>
-              !blockedUsers() ? <Checkout /> : (window.location.href = "/")
-            }
-          />
+
+          <Route exact path="/checkout" Component={() => <Checkout />} />
+
           <Route
             exact
             path="/dashboard"
@@ -88,11 +81,12 @@ function App() {
               isAdmin() ? <DashboardAdmin /> : (window.location.href = "/")
             }
           />
+
           {/* <Route
-            path="/checkout"
+            path="/dashboard"
             element={
               <ProtectedRoute>
-                <CheckoutStripe />
+                <DashboardAdmin />
               </ProtectedRoute>
             }
           /> */}
