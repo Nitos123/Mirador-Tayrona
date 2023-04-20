@@ -5,6 +5,7 @@ import "../styles/DashboardAdmin.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const TopBarAdmin = ({ totPendRev }) => {
   const count = useSelector((state) => state.totalComments);

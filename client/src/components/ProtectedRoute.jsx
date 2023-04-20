@@ -5,6 +5,13 @@ import { useSelector } from "react-redux";
 export function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
+  const users = useSelector((state) => state.users);
+  const adminUsers = users.filter((user) => user.type === "admin");
+
+  const adminUsersAndCurrent = adminUsers.filter(
+    (admuser) => admuser?.email === user?.email
+  );
+
   if (loading) return <h1>Loading...</h1>;
 
   if (!user) return <Navigate to="/login" />;
@@ -12,18 +19,24 @@ export function ProtectedRoute({ children }) {
   return <>{children}</>;
 }
 
-export const isAdmin = async () => {
+export const isAdmin = () => {
   const { user } = useAuth();
-
   const users = useSelector((state) => state.users);
 
-  const adminUsers = await users?.filter((user) => user.type === "admin");
-
+  const adminUsers = users.filter((user) => user.type === "admin");
   const adminUsersAndCurrent = adminUsers.filter(
     (admuser) => admuser?.email === user?.email
   );
 
-  return adminUsersAndCurrent.length > 0;
+  let admin = false;
+
+  if (!user) {
+    admin = false;
+  } else if (adminUsersAndCurrent.length > 0) {
+    admin = true;
+  }
+
+  return admin;
 };
 
 export const blockedUsers = () => {
@@ -32,9 +45,15 @@ export const blockedUsers = () => {
   const users = useSelector((state) => state.users);
   const blocked = users?.filter((user) => user.type === "block");
 
+  console.log(users);
+
+  console.log(blocked);
+
   const blockedAndCurrent = blocked.filter(
     (admuser) => admuser?.email === user?.email
   );
+
+  console.log(blockedAndCurrent.length > 0);
 
   return blockedAndCurrent.length > 0;
 };

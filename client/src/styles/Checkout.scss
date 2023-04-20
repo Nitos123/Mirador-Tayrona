@@ -83,7 +83,8 @@
         width: 100%;
       }
 
-      h3, h4 {
+      h3,
+      h4 {
         color: $light;
       }
 
@@ -123,5 +124,29 @@
   .product-img {
     width: 70%;
     height: 100%;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+}
+
+.spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #09f;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
