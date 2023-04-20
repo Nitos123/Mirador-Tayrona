@@ -6,7 +6,7 @@ export const Sweet = () => {
   return new Promise((resolve, reject) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You are going to block the user!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#fd3131",
@@ -17,6 +17,54 @@ export const Sweet = () => {
           icon: "success",
           title: "Success!",
           text: "User blocked",
+        });
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+export const SweetRolAdmin = () => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are going change the user rol to Admin!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Yes, make it admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "User's rol is now admin",
+        });
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+export const SweetRolUser = () => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are going change the user rol to regular user!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Yes, make it regular user",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "User's rol is now regular",
         });
         resolve(true);
       } else {
@@ -83,9 +131,7 @@ export const SweetRejectedPayment = (props) => {
   });
 };
 
-
-
-export const SweetupdateRoom = async (roomId,updatedData) => {
+export const SweetupdateRoom = async (roomId, updatedData) => {
   try {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -95,11 +141,14 @@ export const SweetupdateRoom = async (roomId,updatedData) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes",
-      cancelButtonText: "Cancel"
+      cancelButtonText: "Cancel",
     });
 
     if (result.isConfirmed) {
-      const response = await axios.put(`/update/roomData/${roomId}`, updatedData);
+      const response = await axios.put(
+        `/update/roomData/${roomId}`,
+        updatedData
+      );
 
       if (response.status === 200) {
         await Swal.fire({
@@ -123,7 +172,7 @@ export const SweetupdateRoom = async (roomId,updatedData) => {
     });
     return false;
   }
-}
+};
 
 export const SweetCreatedReview = (props) => {
   return new Promise((resolve, reject) => {
@@ -133,7 +182,55 @@ export const SweetCreatedReview = (props) => {
       icon: "success",
     }).then((result) => {
       if (result.isConfirmed) {
-         window.location.href = "/";
+        window.location.href = "/";
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+export const SweetApprovedReview = () => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are going to approved this user review",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Yes, approved",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Review Aproved, is now visible at home",
+        });
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+export const SweetRejectedReview = () => {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are going to rejected this user review",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Yes, rejected",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Review rejected",
+        });
         resolve(true);
       } else {
         resolve(false);
