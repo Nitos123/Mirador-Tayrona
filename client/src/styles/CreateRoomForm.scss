@@ -1,11 +1,13 @@
 @import "../styles/settings";
 
 .modal-body {
-
-  padding: 0;
-  border: 2px solid $primary;
+  box-shadow: $shadow;
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
+  max-width: 767px;
+  margin: 2rem auto;
+  transition: $transition;
 
   &:hover {
     box-shadow: $shadowHover;
@@ -17,13 +19,11 @@
     width: 100%;
     color: $light;
     margin: 0;
-
   }
 
   .label {
     font-weight: bold;
     margin-bottom: 0.5rem;
-
   }
 
   .cont-forms {
@@ -31,8 +31,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-
-
 
     .input {
       width: 20rem;
@@ -45,36 +43,29 @@
     margin-bottom: 1rem;
   }
 
-  .price-type{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  .price-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
 
- 
-}
-
-  .children{
+  .children {
     flex-basis: 50%;
     display: flex;
     justify-content: center;
-  
-    input{
-      width: 5rem;
 
+    input {
+      width: 5rem;
     }
   }
 
-  
-.messageError{
-  color: red;
-  font-size: 0.7rem;
-}
-
-
+  .messageError {
+    color: red;
+    font-size: 0.7rem;
+  }
 
   .field {
     margin-bottom: 1.5rem;
-   
 
     .select {
       width: 100%;
@@ -87,7 +78,6 @@
         border-color: $secundary;
       }
     }
-
 
     .checkbox {
       display: flex;
@@ -109,13 +99,40 @@
     }
   }
 
-  
-
   .button.is-link.is-light {
     background-color: rgb(204, 52, 52) !important;
     color: white;
     border: 1.4px solid $dark;
+  }
 
-    
+  .form-room {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+
+    .cont-forms {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+
+      .control {
+        width: 100%;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        background-color: transparent;
+        color: $color-text;
+        padding: 1rem;
+        border: solid 1px $color-text;
+        border-radius: 1rem;
+      }
+
+      textarea { 
+        height: 7rem;
+      }
+    }
   }
 }
